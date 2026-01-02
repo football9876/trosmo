@@ -14,8 +14,8 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <FeaturedBanner
-        title="Kjøp sesongkort - Din faste plass"
-        subtitle="I 2026 kan du velge mellom sesongkort, kombikort, eller TIL+ sesongkortabonnement. Tidlig ute - bedre pris!"
+        title="Buy Season Ticket - Your Regular Seat"
+        subtitle="In 2026 you can choose between season tickets, combo passes, or TIL+ season ticket subscriptions. Early bird - better price!"
       />
       <NewsSection />
       <QuickLinks />

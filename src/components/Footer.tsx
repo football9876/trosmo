@@ -3,22 +3,22 @@ import TILLogo from "./TILLogo";
 
 const footerLinks = {
   club: [
-    { label: "Om Tromsø IL", href: "#" },
-    { label: "Kontakt oss", href: "#" },
-    { label: "Jobb hos oss", href: "#" },
-    { label: "Personvern", href: "#" },
+    { label: "About Tromsø IL", href: "#" },
+    { label: "Contact Us", href: "#" },
+    { label: "Careers", href: "#" },
+    { label: "Privacy Policy", href: "#" },
   ],
   tickets: [
-    { label: "Kjøp billett", href: "#" },
-    { label: "Sesongkort", href: "#" },
-    { label: "Gruppebillett", href: "#" },
-    { label: "VIP-pakker", href: "#" },
+    { label: "Buy Tickets", href: "#" },
+    { label: "Season Tickets", href: "#" },
+    { label: "Group Tickets", href: "#" },
+    { label: "VIP Packages", href: "#" },
   ],
   arena: [
     { label: "Romssa Arena", href: "#" },
-    { label: "Stadionguide", href: "#" },
-    { label: "Transport", href: "#" },
-    { label: "Book møterom", href: "#" },
+    { label: "Stadium Guide", href: "#" },
+    { label: "Transportation", href: "#" },
+    { label: "Book Meeting Room", href: "#" },
   ],
 };
 
@@ -38,7 +38,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <TILLogo className="h-10 mb-6" />
             <p className="text-background/70 text-sm mb-6 max-w-xs">
-              Tromsø Idrettslag - Verdens nordligste toppklubb. Stiftet 1920.
+              Tromsø Idrettslag - The world's northernmost top club. Founded 1920.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
@@ -57,7 +57,7 @@ const Footer = () => {
           {/* Club links */}
           <div>
             <h4 className="font-heading font-bold uppercase tracking-wide text-sm mb-4">
-              Klubben
+              The Club
             </h4>
             <ul className="space-y-3">
               {footerLinks.club.map((link) => (
@@ -76,7 +76,7 @@ const Footer = () => {
           {/* Tickets links */}
           <div>
             <h4 className="font-heading font-bold uppercase tracking-wide text-sm mb-4">
-              Billetter
+              Tickets
             </h4>
             <ul className="space-y-3">
               {footerLinks.tickets.map((link) => (
@@ -115,14 +115,14 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="border-t border-background/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-background/50">
-            © 2026 Tromsø Idrettslag. Alle rettigheter reservert.
+            © 2026 Tromsø Idrettslag. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-background/50 hover:text-background transition-colors">
-              Personvernerklæring
+              Privacy Policy
             </a>
             <a href="#" className="text-sm text-background/50 hover:text-background transition-colors">
-              Vilkår
+              Terms
             </a>
           </div>
         </div>

@@ -10,14 +10,14 @@ import {
 } from "lucide-react";
 
 const links = [
-  { icon: Newspaper, label: "Nyheter", href: "#" },
+  { icon: Newspaper, label: "News", href: "#" },
   { icon: Video, label: "Video", href: "#" },
-  { icon: Users, label: "Lag", href: "#" },
-  { icon: Calendar, label: "Terminliste", href: "#" },
-  { icon: Trophy, label: "Resultater", href: "#" },
-  { icon: Ticket, label: "Kjøp billett", href: "#" },
+  { icon: Users, label: "Teams", href: "#" },
+  { icon: Calendar, label: "Fixtures", href: "#" },
+  { icon: Trophy, label: "Results", href: "#" },
+  { icon: Ticket, label: "Buy Tickets", href: "#" },
   { icon: MapPin, label: "Romssa Arena", href: "#" },
-  { icon: Info, label: "Om Tromsø IL", href: "#" },
+  { icon: Info, label: "About TIL", href: "#" },
 ];
 
 const QuickLinks = () => {

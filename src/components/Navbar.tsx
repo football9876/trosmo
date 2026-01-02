@@ -3,14 +3,14 @@ import { Menu, X, User } from "lucide-react";
 import TILLogo from "./TILLogo";
 
 const navLinks = [
-  { label: "Yngres Avdeling", href: "#" },
-  { label: "Bærekraft", href: "#" },
-  { label: "Fotballskoler", href: "#" },
-  { label: "Shop.til.no", href: "#" },
-  { label: "Partner", href: "#" },
-  { label: "Book Møterom", href: "#" },
-  { label: "Supporter", href: "#" },
-  { label: "English", href: "#" },
+  { label: "Youth Academy", href: "#" },
+  { label: "Sustainability", href: "#" },
+  { label: "Football Schools", href: "#" },
+  { label: "Shop", href: "#" },
+  { label: "Partners", href: "#" },
+  { label: "Book Meeting Room", href: "#" },
+  { label: "Supporters", href: "#" },
+  { label: "Norsk", href: "#" },
 ];
 
 const Navbar = () => {
