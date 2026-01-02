@@ -17,8 +17,8 @@ const upcomingMatches: Match[] = [
     competition: "Eliteserien",
     homeTeam: "Tromsø IL",
     awayTeam: "Rosenborg",
-    date: "15. mars 2026",
-    time: "18:00",
+    date: "Mar 15, 2026",
+    time: "6:00 PM",
     venue: "Romssa Arena",
     isHome: true,
   },
@@ -27,18 +27,18 @@ const upcomingMatches: Match[] = [
     competition: "Eliteserien",
     homeTeam: "Bodø/Glimt",
     awayTeam: "Tromsø IL",
-    date: "22. mars 2026",
-    time: "17:00",
-    venue: "Aspmyra Stadion",
+    date: "Mar 22, 2026",
+    time: "5:00 PM",
+    venue: "Aspmyra Stadium",
     isHome: false,
   },
   {
     id: 3,
-    competition: "NM",
+    competition: "Norwegian Cup",
     homeTeam: "Tromsø IL",
     awayTeam: "Molde",
-    date: "29. mars 2026",
-    time: "15:00",
+    date: "Mar 29, 2026",
+    time: "3:00 PM",
     venue: "Romssa Arena",
     isHome: true,
   },
@@ -49,7 +49,7 @@ const MatchWidget = () => {
     <section className="py-12 md:py-16 bg-primary">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary-foreground mb-8 text-center">
-          Kommende kamper
+          Upcoming Matches
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -96,7 +96,7 @@ const MatchWidget = () => {
                   href="#"
                   className="btn-primary w-full mt-4 text-sm"
                 >
-                  Kjøp billett
+                  Buy Tickets
                 </a>
               )}
             </div>

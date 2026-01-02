@@ -12,15 +12,15 @@ const partnerData: PartnerProps[] = [
     name: "SpareBank 1 Nord-Norge",
     logo: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=100&q=80&fit=crop",
     description:
-      "Vår hovedsamarbeidspartner SpareBank 1 Nord-Norge har vokst i takt med utviklingen av lokalsamfunnene og landsdelen, og har et tydelig samfunnsansvar.",
-    label: "Hovedsamarbeidspartner",
+      "Our main partner SpareBank 1 Nord-Norge has grown alongside the development of local communities and the region, with a clear social responsibility.",
+    label: "Main Partner",
   },
   {
     name: "Troms Kraft",
     logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=200&h=100&q=80&fit=crop",
     description:
-      "Tromsø IL og Troms Kraft har hatt et langvarig samarbeid. Sammen gir vi TILs hjemmebane navnet Romssa Arena.",
-    label: "Arena",
+      "Tromsø IL and Troms Kraft have a long-standing partnership. Together we give TIL's home ground the name Romssa Arena.",
+    label: "Arena Partner",
   },
 ];
 
@@ -58,11 +58,11 @@ const PartnerSection = () => {
         {/* Partner CTAs */}
         <div className="flex flex-wrap gap-4 justify-center mt-12">
           <a href="#" className="btn-primary flex items-center gap-2">
-            <span>Bli partner</span>
+            <span>Become a Partner</span>
             <ArrowRight className="w-4 h-4" />
           </a>
           <a href="#" className="btn-outline flex items-center gap-2">
-            <span>Se alle våre partnere</span>
+            <span>See all our partners</span>
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>

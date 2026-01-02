@@ -4,45 +4,45 @@ import { ArrowRight } from "lucide-react";
 const newsItems = [
   {
     id: 1,
-    date: "02. jan. 2026",
-    title: "Gleder meg til å spille foran Forza Tromsø",
+    date: "Jan 02, 2026",
+    title: "Excited to play in front of Forza Tromsø",
     image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80",
   },
   {
     id: 2,
-    date: "29. des. 2025",
-    title: "Vi takker for nå",
+    date: "Dec 29, 2025",
+    title: "We say goodbye for now",
   },
   {
     id: 3,
-    date: "29. des. 2025",
-    title: "Nyhammer klar for TIL",
+    date: "Dec 29, 2025",
+    title: "Nyhammer signs for TIL",
   },
   {
     id: 4,
-    date: "28. des. 2025",
-    title: "Klar for Eliteserien",
+    date: "Dec 28, 2025",
+    title: "Ready for Eliteserien",
     image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&q=80",
   },
   {
     id: 5,
-    date: "26. des. 2025",
-    title: "Signerer ny avtale",
+    date: "Dec 26, 2025",
+    title: "Signs new contract",
   },
   {
     id: 6,
-    date: "26. des. 2025",
-    title: "Klar for 2026",
+    date: "Dec 26, 2025",
+    title: "Ready for 2026",
   },
   {
     id: 7,
-    date: "25. des. 2025",
-    title: "TIL-skolen søker medansvarlig leder i deltidsstilling",
+    date: "Dec 25, 2025",
+    title: "TIL Academy seeking part-time co-leader",
   },
   {
     id: 8,
-    date: "25. des. 2025",
-    title: "Ny assistenttrener for TIL Kvinner er klar",
+    date: "Dec 25, 2025",
+    title: "New assistant coach for TIL Women confirmed",
   },
 ];
 
@@ -74,7 +74,7 @@ const NewsSection = () => {
             href="#"
             className="btn-outline flex items-center gap-2"
           >
-            <span>Se flere nyheter</span>
+            <span>See more news</span>
             <ArrowRight className="w-5 h-5" />
           </a>
         </div>

@@ -30,7 +30,7 @@ const CTACard = ({ image, title, description, href = "#" }: CTACardProps) => {
             {description}
           </p>
           <div className="flex items-center gap-2 text-primary-foreground font-heading font-semibold uppercase tracking-wide">
-            <span>Les mer</span>
+            <span>Read more</span>
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
           </div>
         </div>
@@ -46,13 +46,13 @@ const CTASection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           <CTACard
             image={seasonTicketImg}
-            title="Kjøp sesongkort - Din faste plass"
-            description="I 2026 kan du velge mellom sesongkort, kombikort, eller TIL+ sesongkortabonnement. Tidlig ute - bedre pris!"
+            title="Buy Season Ticket - Your Regular Seat"
+            description="In 2026 you can choose between season tickets, combo passes, or TIL+ season ticket subscriptions. Early bird - better price!"
           />
           <CTACard
             image={volunteersImg}
-            title="Bli frivillig hos oss!"
-            description="Tromsø IL er tuftet på frivilligheten og vi søker kontinuerlig påfyll av nye familiemedlemmer."
+            title="Become a Volunteer!"
+            description="Tromsø IL is built on volunteering and we are continuously looking for new family members."
           />
         </div>
       </div>

@@ -35,7 +35,7 @@ const FeaturedBanner = ({
           </p>
         )}
         <div className="flex items-center gap-2 mt-4 text-primary-foreground font-heading font-semibold uppercase tracking-wide">
-          <span>Les mer</span>
+          <span>Read more</span>
           <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
         </div>
       </div>
