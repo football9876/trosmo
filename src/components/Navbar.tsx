@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X, User, Bell, Search } from "lucide-react";
+import { Link } from "react-router-dom";
 import TILLogo from "./TILLogo";
 
 const topBarLinks = [
@@ -19,7 +20,7 @@ const mainNavLinks = [
   { label: "Team", href: "#" },
   { label: "Schedule", href: "#" },
   { label: "Results", href: "#" },
-  { label: "Buy Tickets", href: "#" },
+  { label: "Buy Tickets", href: "/tickets" },
   { label: "Romssa Arena", href: "#" },
   { label: "About TIL", href: "#" },
 ];
@@ -57,7 +58,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo and Club Name */}
-            <a href="#" className="flex items-center gap-4">
+            <Link to="/" className="flex items-center gap-4">
               <TILLogo className="h-14 lg:h-16 w-auto" />
               <div className="hidden sm:block">
                 <h1 className="text-xl lg:text-2xl font-heading font-bold text-primary-foreground tracking-wide">
@@ -67,7 +68,7 @@ const Navbar = () => {
                   The World's Northernmost Professional Football Club
                 </p>
               </div>
-            </a>
+            </Link>
 
             {/* TIL+ Branding - Desktop */}
             <div className="hidden lg:flex flex-col items-end">
@@ -96,12 +97,15 @@ const Navbar = () => {
             <div className="flex items-center">
               {mainNavLinks.map((link, index) => (
                 <div key={link.label} className="flex items-center">
-                  <a
-                    href={link.href}
-                    className="nav-link px-4 py-3"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith('/') ? (
+                    <Link to={link.href} className="nav-link px-4 py-3">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className="nav-link px-4 py-3">
+                      {link.label}
+                    </a>
+                  )}
                   {index < mainNavLinks.length - 1 && (
                     <div className="h-4 w-px bg-primary-foreground/30" />
                   )}
@@ -125,14 +129,25 @@ const Navbar = () => {
             {/* Main Links */}
             <div className="mb-4 pb-4 border-b border-primary-foreground/20">
               {mainNavLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="block py-3 nav-link"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </a>
+                link.href.startsWith('/') ? (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    className="block py-3 nav-link"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="block py-3 nav-link"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
             </div>
             {/* Secondary Links */}
