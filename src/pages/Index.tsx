@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
 import FeaturedBanner from "@/components/FeaturedBanner";
 import NewsSection from "@/components/NewsSection";
 import CTASection from "@/components/CTASection";
@@ -12,7 +11,6 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <HeroSection />
       <FeaturedBanner
         title="Buy Season Ticket - Your Regular Seat"
         subtitle="In 2026 you can choose between season tickets, combo passes, or TIL+ season ticket subscriptions. Early bird - better price!"
