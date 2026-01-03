@@ -1,0 +1,24 @@
+use our existing nav hero section and footer any page created should be as placed in the body
+
+when user tab fooball schools 
+clone this page https://www.til.no/om-klubben/Fotballskoler%20og%20trenerutvikling and redict the user there
+
+inside these schools list page 
+create these pages as sub pages of the schools list each page explain each schools
+
+Coach Development Program 2025
+https://www.til.no/om-klubben/Fotballskoler%20og%20trenerutvikling/trenerutviklingsprogram2025
+
+TIL School 2026 – Football After-School Program
+https://www.til.no/om-klubben/Fotballskoler%20og%20trenerutvikling/tilskolen
+
+TIL’s Summer Football School
+https://www.til.no/om-klubben/Fotballskoler%20og%20trenerutvikling/tils-sommerfotballskole
+
+Tine Football School 2025
+https://www.til.no/om-klubben/Fotballskoler%20og%20trenerutvikling/tine-fotballskole-2025
+
+
+list them responsively and design each of the link and redirect to them 
+any link on the sub page should be "#"
+

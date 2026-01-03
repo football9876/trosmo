@@ -1,0 +1,11 @@
+use our existing nav hero section and footer any page created should be as placed in the body
+
+
+clone
+
+https://www.til.no/om-klubben/bli-en-til-partner exlude the hero headers and footers use ours instead, clone all the writeups and text cconvert them to english,
+let layout and everything be exactly as is in the website page i provided ok!
+
+
+
+
