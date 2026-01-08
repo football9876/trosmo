@@ -64,7 +64,7 @@ const InfokapslerPage = () => {
         </ul>
       </section>
       <br/>
-      <div className="d-flex justify-content-center">
+      <div className="flex justify-center">
       <MDBBtn onClick={()=>{
       navigate("/Dashboard")}}>Apply now</MDBBtn>
       </div>

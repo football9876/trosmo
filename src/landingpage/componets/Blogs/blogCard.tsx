@@ -35,7 +35,7 @@ setDeleting(false);
 </span>
 <br/>
 <br/>
-<div style={{gap:10,width:"100%",flexFlow:"row wrap"}} className={onEdit ? `d-flex align-items-center justify-content-between`:``}>
+<div style={{gap:10,width:"100%",flexFlow:"row wrap"}} className={onEdit ? `flex items-center justify-content-between`:``}>
 <span style={{fontWeight:"bold"}}>{item.date}</span>
 
 {onEdit && <MDBBtn onClick={()=>onEdit(item)} size={'sm'} color={`secondary`}>Edit</MDBBtn>}

@@ -60,7 +60,9 @@ if (user?.isAdmin) {
        <div onClick={()=>{
         navigate("/")
        }} style={{background:"var(--blue)",borderRadius:10,padding:5}}>
-      <img src={`/assets/NFB_logo_136.png`} style={{width:50,height:50}} />
+      <img src={`/icon.png`}
+           className="app-icon"
+       style={{width:50,height:50}} />
       </div>
 
     {menuItems.map((e:any)=>{

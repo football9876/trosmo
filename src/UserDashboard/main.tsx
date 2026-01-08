@@ -23,7 +23,7 @@ if(!user)navigate("/Login");
 const width=useInnerWidth()
   return (<><DetailsModal/>
   <NotificationModal/>
-<div className="dashboard d-flex ">
+<div className="dashboard flex ">
 <div className="sideMenu">
 <SideComponent close={()=>1}/>
 </div>

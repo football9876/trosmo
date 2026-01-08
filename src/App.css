@@ -43,3 +43,15 @@
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
+
+
+.app-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  border-radius: 5px;
+  background: #ff0000ff;
+  background-color: #ff0000ff;
+  object-fit: cover;
+}
+

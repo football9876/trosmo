@@ -134,7 +134,7 @@ console.log(lastMatch)
               <h5 style={{textAlign:"center"}}>
                 {lastMatch?.homeScore} - {lastMatch?.awayScore}
               </h5>
-              <div className="d-flex align-items-center justify-content-center" style={{gap:10}}>
+              <div className="flex items-center justify-center" style={{gap:10}}>
               <img  src={lastMatch?.homeLogo as string} style={{width:30,height:30,borderRadius:3}}/>
               <span>VS</span>
               <img src={lastMatch?.awayLogo as string}  style={{width:30,height:30,borderRadius:3}}/>
@@ -145,7 +145,7 @@ console.log(lastMatch)
               {/* <p style={{ fontSize: "14px", fontWeight: "bold" }}>
                 {match.homeScore ?? "-"} - {match.awayScore ?? "-"}
               </p> */}
-              <div className="d-flex justify-content-center">
+              <div className="flex justify-center">
               <MDBBtn
                 size="sm"
                 color="secondary"
@@ -184,7 +184,7 @@ console.log(lastMatch)
               <h5>
                 {match.homeTeam} vs {match.awayTeam}
               </h5>
-              <div className="d-flex align-items-center" style={{gap:10}}>
+              <div className="flex items-center" style={{gap:10}}>
               <img  src={match?.homeLogo as string} style={{width:30,height:30,borderRadius:3}}/>
               <span>VS</span>
               <img src={match?.awayLogo as string}  style={{width:30,height:30,borderRadius:3}}/>

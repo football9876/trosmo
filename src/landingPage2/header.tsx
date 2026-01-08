@@ -13,8 +13,8 @@ const Header:React.FC= () => {
 {width < 700  && <div className="mobileMenu"><MobileMenu/></div>}
 
     <div className='header'>
-      {width  >  900 ? <div className='input-container d-flex align-items-center justify-content-end'>
-<div className='searchInput d-flex align-items-center ' style={{gap:20}}>
+      {width  >  900 ? <div className='input-container flex items-center justify-content-end'>
+<div className='searchInput flex items-center ' style={{gap:20}}>
 <BsFacebook onClick={()=>{
     window.open("https://www.facebook.com/noerresundbyforenedeboldklubber?fref=ts#","_blank")
 }} color="white"  size={30}/>
@@ -32,7 +32,7 @@ const Header:React.FC= () => {
    }} style={{background:"#f9f8fb"}} className="" color="link"> <Link to={'/Login'} style={{color:"#3e3434"}} className="Login Button" >Login</Link>
    </MDBBtn>}
 
-      <div style={{marginTop:width  > 900 ? -30:0}} className="d-flex align-items-center justify-content-center ">
+      <div style={{marginTop:width  > 900 ? -30:0}} className="flex items-center justify-center ">
 <img src="/logo.png"/>
       </div>
     </div>

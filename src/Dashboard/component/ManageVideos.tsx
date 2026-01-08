@@ -110,7 +110,7 @@ const UploadVideos: React.FC = () => {
 
       {loading && <div style={{ textAlign: "center", marginBottom: 20 }}>Please wait...</div>}
 
-      <div className="d-flex align-items-center justify-content-center flex-wrap gap-2">
+      <div className="flex items-center justify-center flex-wrap gap-2">
         {loading
           ? Array.from({ length: 3 }).map((_, i) => (
               <Skeleton

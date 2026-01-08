@@ -96,7 +96,7 @@ console.log("operation successful")
                             {popUpData ? (
                                 <>
 
-{popUpData.icon && <div className={`d-flex justify-content-center`}><img src={popUpData.icon}  alt="Notification Icon" style={{width:100,height:100, objectFit: "contain" }} /></div>}
+{popUpData.icon && <div className={`flex justify-center`}><img src={popUpData.icon}  alt="Notification Icon" style={{width:100,height:100, objectFit: "contain" }} /></div>}
                                     <h5 style={{textAlign:"center"}}>{popUpData.title}</h5>
                                     <p style={{textAlign:"center"}}>{popUpData.text}</p>
                                   

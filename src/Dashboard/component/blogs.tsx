@@ -10,7 +10,7 @@ const Blogs = () => {
     const {blogs,loading}=useBlogs();
     const dispatch=useDispatch()
   return (
-    <div className={`responsive-container d-flex`} style={{padding:10,background:'white',borderRadius:30,maxHeight:"95vh",overflow:"auto"}}>
+    <div className={`responsive-container flex`} style={{padding:10,background:'white',borderRadius:30,maxHeight:"95vh",overflow:"auto"}}>
          <div className={`blogs`}>
                 {loading && <ClipLoader size={20} />}
     {blogs.map((blog:any,i:number)=>{

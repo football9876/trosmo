@@ -1,201 +1,213 @@
-import React, { useState } from 'react';
-import { MDBBtn, MDBInput } from "mdb-react-ui-kit";
+import React, { useState } from "react";
+import { TextField, Button, IconButton, InputAdornment } from "@mui/material";
 import PHeader from "../utils/pHeader";
 import "./style.css";
 import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
 import { docQr } from "../Logics/docQr";
-import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../store/Slice';
-import Header from '../landingPage2/header';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/Slice";
+import Header from "../landingPage2/header";
 
 const LoginMain: React.FC = () => {
-    const [isCreatingPassword, setIsCreatingPassword] = useState<boolean>(false);
-    const [data, setData] = useState({
-        username: "",
-        password: "",
-    });
+  const [isCreatingPassword, setIsCreatingPassword] = useState<boolean>(false);
+  const [data, setData] = useState({ username: "", password: "" });
+  const [password1, setPassword1] = useState<string>("");
+  const [password2, setPassword2] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword1, setShowPassword1] = useState<boolean>(false);
+  const [showPassword2, setShowPassword2] = useState<boolean>(false);
+  const [error, setError]=useState<string>("");
 
-    const [password1, setPassword1] = useState<string>("");
-    const [password2, setPassword2] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [showPassword1, setShowPassword1] = useState<boolean>(false);
-    const dispatch=useDispatch();
-    const [showPassword2, setShowPassword2] = useState<boolean>(false);
-    // const validatePassword = (password: string) => {
-    //     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    //     return passwordRegex.test(password);
-    // };
-const navigate=useNavigate();
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
-// const [user,setUser]=useState<any>({});
-    const submit = async () => {
-    if(isLoading)return
-setIsLoading(true);
-    
-        try{
-        const fetchData=await docQr("Users",{
-            max:1,
-            whereClauses:[
-                {
-                    field:"username",
-                    operator:"==",
-                    value:data?.username || ""
-                },
-                {
-                    field:"password",
-                    operator:"==",
-                    value:data?.password || ""
-                }
-            ]
-        })
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-        if(fetchData.length <= 0){
-            console.log(data);
-toast.error("User not found")
-return setIsLoading(false);
+  const submit = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const fetchData = await docQr("Users", {
+        max: 1,
+        whereClauses: [
+          { field: "username", operator: "==", value: data?.username || "" },
+          { field: "password", operator: "==", value: data?.password || "" },
+        ],
+      });
+
+      if (fetchData.length <= 0) {
+        toast.error("User not found");
+        setError("User not found")
+        return setIsLoading(false);
+      }
+
+      const user = fetchData[0];
+
+      if (user.password.trim() === "") {
+        setIsCreatingPassword(true);
+      } else {
+        if (user.isBanned !== "no") {
+          localStorage.clear();
+          sessionStorage.clear();
+          toast.error("This account have been banned by admin");
+          setError("This account have been banned by admin")
+          return;
         }
-        const user=fetchData[0];
-        if(user.password.trim()===''){
-setIsCreatingPassword(true);
-// setUser(user);
+
+        if (user.isBlocked) {
+          localStorage.clear();
+          sessionStorage.clear();
+          toast.error("This account have been blocked from using this site");
+          setError("This account have been blocked from using this site");
+          return;
         }
-        else{
-// console.log(user);
-            if(user.isBanned!=='no'){
-                localStorage.clear();
-                sessionStorage.clear();
-                toast.error("This account have been banned by admin")
-                return
-            }
-            
-            if(user.isBlocked){
-                localStorage.clear();
-                sessionStorage.clear();
-                toast.error("This account have been blocked from using this site")
-                return
-            }
-            toast.success("Login successful");
-            window.localStorage.setItem("User",JSON.stringify(user));
-navigate("/UserDashboard")   ;
-dispatch(setUser(user));     }
+
+        toast.success("Login successful");
+        window.localStorage.setItem("User", JSON.stringify(user));
+        dispatch(setUser(user));
+        navigate("/UserDashboard");
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Something went wrong");
+      setError(err?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
-    catch(err:any){
-toast.error(err?.message || "Something went wrong")        
-    }
-    finally{
-        setIsLoading(false);
-    }
+  };
 
-    }
+  return (
+    <div className="main-body-container">
+      <div className="home-content">
+        <Header />
+        <Toaster />
 
-    
+        <div className="loginContainer">
+          <div className="Wrapper flex items-center justify-center">
+            <div className="form">
+              <br />
 
-    return (
-       <div className="main-body-container">
-    <div className="home-content">
-     <Header/>
-            <Toaster />
-            <div className='loginContainer '>
-                <div className='Wrapper d-flex align-items-center justify-content-center'>
-
-                <div className='form'>
-
-<div className={`d-flex align-items-center justify-content-between`}>
-
-    <span style={{padding:5}}>
-        <FaArrowLeft onClick={()=>window.history.back()} style={{fontWeight:"bolder",cursor:"pointer"}} size={20} color={'var(--blue)'}/>
-        </span>
-
-    <span style={{fontWeight:"bold",color:"darkgray"}}> tromsoil </span>
-
-
+<div className="mx-auto flex items-center justify-center">
+    <img src={'/icon.png'}
+        className="app-icon"
+    style={{width:80,height:80,borderRadius:5,backgroundColor:"#ff0000ff"}}/>
 </div>
 
-                    <br /><br /><br/>
-                 
-                    <PHeader style={{ textAlign: "center",fontSize:30 }}>{isCreatingPassword ? "Create your password" : "Login"}</PHeader>
-                    <span style={{padding:10,textAlign:"center",display:"block"}}>
-                    Login with your username and password
-                        </span>
 
-                        <br/>
-                    {isCreatingPassword ? (
-                        <>
-                            <div className="password-input d-flex" style={{position:"relative"}}>
+              <PHeader style={{ textAlign: "center", fontSize: 30 }}>
+                {isCreatingPassword ? "Create your password" : "Login"}
+              </PHeader>
 
-                                <MDBInput
-                                    size='lg'
-                                    label='Create password'
-                                    value={password1}
-                                    type={showPassword1 ? 'text' : 'password'}
-                                    onChange={(e) => setPassword1(e.target.value)}
-                                />
-                              
-                                <div style={{borderRadius:5,position:"absolute",right:0,top:2}} className="password-toggle" 
-                                onClick={()=>setShowPassword1(!showPassword1)}>
-                                       {showPassword1 ? <FaEyeSlash /> : <FaEye />}
-                                </div>
-                            </div>
-                            
-                            <br />
-                            <div className="password-input d-flex" style={{position:"relative"}}>
-                            <MDBInput
-                                onChange={(e) => setPassword2(e.target.value)}
-                                type={showPassword2 ? 'text' : 'password'}
-                                size="lg"
-                                value={password2}
-                                label='Confirm password'
-                            />
-                                <div onClick={()=>setShowPassword2(!showPassword2)} style={{borderRadius:5,position:"absolute",right:0,top:2}} className="password-toggle">
-                                   {showPassword2 ? <FaEyeSlash /> : <FaEye />}
-                                </div>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <MDBInput
-                                value={data?.username || ""}
-                                size='lg'
-                                label='Username'
-                                onChange={(e) => setData({ ...data, username: e.target.value })}
-                            />
-                            <br />
-                            <div className="password-input d-flex" style={{position:"relative"}}>
-                                <MDBInput
-                                    value={data?.password || ""}
-                                    onChange={(e) => setData({ ...data, password: e.target.value })}
-                                    size="lg"
-                                    label='Enter password'
-                                    type={showPassword ? 'text' : 'password'}
-                                />
-                                <div style={{borderRadius:5,position:"absolute",right:0,top:2,padding:5,marginLeft:-5,cursor:"pointer"}} className="password-toggle" onClick={togglePasswordVisibility}>
-                                    {showPassword ? <FaEyeSlash size={20}/> : <FaEye size={20}/>}
-                                </div>
-                            </div>
-                        </>
-                    )}
-                    <br />
-                    <div className="d-flex align-items-center justify-content-center">
-                        <MDBBtn 
-                        
-                        
-                        color="dark"
-                        rounded style={{ width: "100%" }} onClick={submit} size="lg">
-                            {isLoading ? <ClipLoader size={18} color="white" /> : "Submit"}
-                        </MDBBtn>
-                    </div>
-                </div>
-                </div>
+              <span style={{ padding: 10, textAlign: "center", display: "block" }}>
+                Login with your username and password
+              </span>
+
+              <br />
+
+              {isCreatingPassword ? (
+                <>
+                  {/* CREATE PASSWORD */}
+                  <TextField
+                    fullWidth
+                    size="medium"
+                    label="Create password"
+                    type={showPassword1 ? "text" : "password"}
+                    value={password1}
+                    onChange={(e) => setPassword1(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => setShowPassword1(!showPassword1)}>
+                            {showPassword1 ? <FaEyeSlash /> : <FaEye />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <br /><br />
+
+                  <TextField
+                    fullWidth
+                    size="medium"
+                    label="Confirm password"
+                    type={showPassword2 ? "text" : "password"}
+                    value={password2}
+                    onChange={(e) => setPassword2(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => setShowPassword2(!showPassword2)}>
+                            {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  {/* LOGIN */}
+                  <TextField
+                    fullWidth
+                    size="medium"
+                    label="Username"
+                    value={data?.username || ""}
+                    onChange={(e) =>
+                      setData({ ...data, username: e.target.value })
+                    }
+                  />
+
+                  <br /><br />
+
+                  <TextField
+                    fullWidth
+                    size="medium"
+                    label="Enter password"
+                    type={showPassword ? "text" : "password"}
+                    value={data?.password || ""}
+                    onChange={(e) =>
+                      setData({ ...data, password: e.target.value })
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </>
+              )}
+
+              <br />
+              {error && <span style={{ color: "red", textAlign: "center", display: "block" }}>{error}</span>}
+              <br />
+
+              <div className="flex items-center justify-center">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="inherit"
+                  style={{background:"#100b6cff",color:"#ffff"}}
+                  size="large"
+
+                  onClick={submit}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <ClipLoader size={18} color="white" /> : "Submit"}
+                </Button>
+              </div>
             </div>
-            </div>
-            </div>
-    );
-}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default LoginMain;

@@ -68,7 +68,7 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 const PerformanceAnalysis: React.FC = () => {
     const width=useInnerWidth()
   return (
-    <div className={`d-flex justify-content-around`} style={{gap:10,flexFlow:"row wrap"}}>
+    <div className={`flex justify-content-around`} style={{gap:10,flexFlow:"row wrap"}}>
      
       {/* Match Ratings - Line Chart */}
       <div>

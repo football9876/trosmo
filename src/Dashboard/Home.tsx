@@ -46,7 +46,7 @@ const Home = () => {
   return (<>
 
     <div style={{padding:10}}>
-      <div className="actionBtns d-flex align-items-center" style={{gap:1}}>
+      <div className="actionBtns flex items-center" style={{gap:1}}>
 
      {loading && <div>
     <ClipLoader size={30} />

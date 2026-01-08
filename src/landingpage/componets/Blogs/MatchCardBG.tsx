@@ -32,7 +32,7 @@ const MatchCardBG: React.FC<MatchCardProps> = ({
         <img src={awayLogo} alt="Away logo" className="team-logo" />
       </div>
 <br/>
-<div className="d-flex align-items-center justify-content-center">
+<div className="flex items-center justify-center">
   <MDBBtn rounded color="secondary" style={{background:'white',color:'black'}}>Last Match</MDBBtn>
 </div>
 </div>

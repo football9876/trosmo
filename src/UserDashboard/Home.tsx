@@ -51,7 +51,7 @@ const Home = () => {
   return (<>
 
     <div style={{padding:10}}>
-      {/* <div className="actionBtns d-flex align-items-center" style={{gap:1}}>
+      {/* <div className="actionBtns flex items-center" style={{gap:1}}>
 
 {actionBtns.map((item:any,i:number)=>(<div key={i}>
    <button className="iconContainer"> {item.icon}</button>
@@ -79,7 +79,7 @@ const Home = () => {
 
 }}>
 
-    {/* <div className="responsive-container d-flex"> */}
+    {/* <div className="responsive-container flex"> */}
 {/* <PerformanceAnalysis/> */}
 <MatchSchedule/>
 {/* <div></div> */}

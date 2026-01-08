@@ -72,7 +72,7 @@ getUser(uid)
       <MDBCardBody style={{maxWidth:500}}>
         {/* Profile Picture */}
         <div className="profile-pic-container">
-          <div className="d-flex justify-content-center">
+          <div className="flex justify-center">
             <Avatar
               src={profilePic}
               alt="Profile"

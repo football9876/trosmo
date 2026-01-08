@@ -80,7 +80,11 @@ const AboutNFB = () => {
           fontStyle: "italic",
         }}
       >
-      <img style={{width:200,height:"auto" }} src="/assets/NFB_logo_136.png"/>
+      <img style={{width:200,height:"auto" }}
+      
+          className="app-icon"
+      
+      src="/icon.png"/>
       </div>
     </div>
 }/>

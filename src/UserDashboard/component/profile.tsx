@@ -87,7 +87,7 @@ if(user)getForm(user)
     <MDBCard className="text-center" style={{ maxWidth: "400px", margin: "auto", padding: 20 }}>
       <MDBCardBody>
         <div className="profile-pic-container">
-            <div className={'d-flex justify-content-center'}>
+            <div className={'flex justify-center'}>
             <Avatar
 
               src={profilePic }

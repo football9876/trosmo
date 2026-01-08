@@ -17,7 +17,7 @@ const Responsive:React.FC<{left?:any}> = ({left}) => {
    const [listType, setListType] = useState<"next" | "prev">("next");
   // const {blogs,loading}=useBlogs();
   return (
-    <div className="responsive-container d-flex">
+    <div className="responsive-container flex">
 
      <div style={{flexGrow:"1"}}> 
   

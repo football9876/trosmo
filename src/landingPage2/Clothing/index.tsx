@@ -50,7 +50,7 @@ Use the link below to access the Unisport webshop where the clothing and other i
 <br/>
 
 
-<div className='d-flex align-items-center ' style={{gap:10,flexFlow:"row wrap",margin:"0 auto"}}>
+<div className='flex items-center ' style={{gap:10,flexFlow:"row wrap",margin:"0 auto"}}>
  {loading
         ? // Show 3 skeleton placeholders (or however many you want)
           Array.from({ length: 6 }).map((_, i) => (

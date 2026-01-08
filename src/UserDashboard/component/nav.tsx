@@ -10,9 +10,11 @@ const Nav:React.FC = () => {
         const user=useSelector((root:{app:AppState})=>root.app.user);
     
   return (<>
-    <div className={`dashboardNav d-flex align-items-center justify-content-end`}>
+    <div className={`dashboardNav flex items-center justify-content-end`}>
      {width < 700 && !user &&  <div style={{background:"var(--blue)",borderRadius:10}}>
-      <img src={`/assets/NFB_logo_136.png`} style={{}}/>
+      <img src={`/icon.png`} style={{}} 
+          className="app-icon"
+      />
       </div>}
     {user && <ProfileNav size={50}/>}
 

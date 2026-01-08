@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { MDBTable, MDBTableHead, MDBTableBody, MDBBtn, MDBBadge,MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import { User } from "../../interface";
 import { docQr } from "../../Logics/docQr";
 import { doc, updateDoc } from "firebase/firestore";
@@ -8,6 +7,19 @@ import toast from "react-hot-toast";
 import { deleteData } from "../../Logics/deleteData";
 import { setCurrentPage } from "../../store/Slice";
 import { useDispatch } from "react-redux";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Paper,
+  Button,
+  Chip,
+  Skeleton,
+  Stack,
+} from "@mui/material";
 
 
 
@@ -101,90 +113,117 @@ toast.dismiss(toastId)
   useEffect(() => {
     getUsers();
   }, []);
+return (
+  <div className="users-container">
+    <TableContainer component={Paper}>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell><b>Username</b></TableCell>
+            <TableCell><b>Gender</b></TableCell>
+            <TableCell><b>Created At</b></TableCell>
+            <TableCell><b>Status</b></TableCell>
+            <TableCell><b>Actions</b></TableCell>
+          </TableRow>
+        </TableHead>
 
-  return (
-    <div className="users-container">
-      <MDBTable align="middle" responsive>
-        <MDBTableHead>
-          <tr>
-            <th>Username</th>
-            <th>Gender</th>
-            <th>Created At</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </MDBTableHead>
-        <MDBTableBody>
+        <TableBody>
           {loading
-            ? // Show Skeleton Loader when loading
-              [...Array(6)].map((_, index) => (
-                <tr key={index}>
-                  <td>
-                    <MDBCard>
-                      <MDBCardBody>
-                        <div className="skeleton-box" style={{ width: "100px", height: "20px" }} />
-                      </MDBCardBody>
-                    </MDBCard>
-                  </td>
-                  <td>
-                    <div className="skeleton-box" style={{ width: "70px", height: "20px" }} />
-                  </td>
-                  <td>
-                    <div className="skeleton-box" style={{ width: "90px", height: "20px" }} />
-                  </td>
-                  <td>
-                    <div className="skeleton-box" style={{ width: "120px", height: "20px" }} />
-                  </td>
-                  <td>
-                    <div className="skeleton-box" style={{ width: "150px", height: "30px" }} />
-                  </td>
-                </tr>
+            ? [...Array(6)].map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Skeleton variant="rectangular" width={100} height={20} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="rectangular" width={70} height={20} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="rectangular" width={90} height={20} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="rectangular" width={120} height={20} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="rectangular" width={150} height={30} />
+                  </TableCell>
+                </TableRow>
               ))
-            : // Show Actual Data when loaded
-              users.map((user) => (
-                <tr key={user.userid}>
-                  <td>{user.username}</td>
-                  <td>{user.gender}</td>
-                  <td>{user.createdAt}</td>
-                  <td>
-                    <MDBBadge color={user.isBlocked ? "danger" : "success"}>{user.isBlocked ? "Blocked" : "Active"}</MDBBadge>
-                    <MDBBadge color={user.isBanned === "yes" ? "warning" : "info"} className="ms-2">
-                      {user.isBanned === "yes" ? "Banned" : "Not Banned"}
-                    </MDBBadge>
-                    {user.isAdmin && <MDBBadge color="primary" className="ms-2">Admin</MDBBadge>}
-                  </td>
-                  <td>
-                    <MDBBtn color="danger" size="sm" onClick={() => toggleProperty(user.userid, "isBlocked")}>
-                      {user.isBlocked ? "Unblock" : "Block"}
-                    </MDBBtn>
-                    <MDBBtn color="warning" size="sm" className="ms-2" onClick={() => toggleProperty(user.userid, "isBanned")}>
-                      {user.isBanned === "yes" ? "Unban" : "Ban"}
-                    </MDBBtn>
+            : users.map((user) => (
+                <TableRow key={user.userid}>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.gender}</TableCell>
+                  <TableCell>{user.createdAt}</TableCell>
+
+                  <TableCell>
+                    <Stack direction="row" spacing={1}>
+                      <Chip
+                        label={user.isBlocked ? "Blocked" : "Active"}
+                        color={user.isBlocked ? "error" : "success"}
+                        size="small"
+                      />
+                      <Chip
+                        label={user.isBanned === "yes" ? "Banned" : "Not Banned"}
+                        color={user.isBanned === "yes" ? "warning" : "info"}
+                        size="small"
+                      />
+                      {user.isAdmin && (
+                        <Chip label="Admin" color="primary" size="small" />
+                      )}
+                    </Stack>
+                  </TableCell>
+
+                  <TableCell>
+                    <Stack direction="row" spacing={1} flexWrap="wrap">
+                      <Button
+                        size="small"
+                        color="error"
+                        variant="contained"
+                        onClick={() =>
+                          toggleProperty(user.userid, "isBlocked")
+                        }
+                      >
+                        {user.isBlocked ? "Unblock" : "Block"}
+                      </Button>
+
+                      <Button
+                        size="small"
+                        color="warning"
+                        variant="contained"
+                        onClick={() =>
+                          toggleProperty(user.userid, "isBanned")
+                        }
+                      >
+                        {user.isBanned === "yes" ? "Unban" : "Ban"}
+                      </Button>
 
 
-                    <MDBBtn color="dark" size="sm" className="ms-2" onClick={() => {
-                      console.log("open notification settings")
+                      <Button
+                        size="small"
+                        color="primary"
+                        variant="contained"
+                        onClick={() =>
+                          toggleProperty(user.userid, "isAdmin")
+                        }
+                      >
+                        {user.isAdmin ? "Remove Admin" : "Make Admin"}
+                      </Button>
 
-                      sessionStorage.setItem("PopUpUser",JSON.stringify(user))
-                      dispatch(setCurrentPage("/popup"))
-                    }}>
-                      {"Notification"}
-                    </MDBBtn>
-
-
-
-                    <MDBBtn color="primary" size="sm" className="ms-2" onClick={() => toggleProperty(user.userid, "isAdmin")}>
-                      {user.isAdmin ? "Remove Admin" : "Make Admin"}
-                    </MDBBtn>
-                    <MDBBtn color="danger" size="sm" className="ms-2" onClick={() => deleteUser(user.userid)}>
-                      delete
-                    </MDBBtn>
-                  </td>
-                </tr>
+                      <Button
+                        size="small"
+                        color="error"
+                        variant="contained"
+                        onClick={() => deleteUser(user.userid)}
+                      >
+                        Delete
+                      </Button>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
               ))}
-        </MDBTableBody>
-      </MDBTable>
-    </div>
+        </TableBody>
+      </Table>
+    </TableContainer>
+  </div>
   );
 };
 

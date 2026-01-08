@@ -4,6 +4,7 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import {useDispatch} from 'react-redux'
 import { setCurrentPage } from '../../store/Slice';
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const SideComponent:React.FC<{close:()=>void}> = ({close}) => {
     // const [mobileOpen,setMobileOpen]=useState<boolean>(false);
@@ -42,12 +43,12 @@ const SideComponent:React.FC<{close:()=>void}> = ({close}) => {
           dispatch(setCurrentPage("/Matches"))
           close()
         } },
-            { text: "Manage Cloths", icon: <Image size={20} />, click:()=>{
-          dispatch(setCurrentPage("/Cloths"))
+            { text: "Manage Productss", icon: <Image size={20} />, click:()=>{
+          dispatch(setCurrentPage("/Products"))
           close()
         } },
-             { text: "Videos", icon: <Image size={20} />, click:()=>{
-          dispatch(setCurrentPage("/Videos"))
+             { text: "Products", icon: <Image size={20} />, click:()=>{
+          dispatch(setCurrentPage("/ListProducts"));
           close()
         } },
         { text: "Settings", icon: <Settings size={20} />, click:()=>{
@@ -62,16 +63,14 @@ const SideComponent:React.FC<{close:()=>void}> = ({close}) => {
        const navigate=useNavigate();
   return (
     <div>
-       
        <div style={{background:"var(--blue)",borderRadius:10,padding:5}} onClick={()=>{
 navigate("/")
        }}>
-      <img src={`/assets/NFB_logo_136.png`} style={{width:50,height:50}} />
+      <img className="app-icon"  src={`/icon.png`} style={{width:50,height:50}} />
       </div>
-
     {menuItems.map((e:any)=>{
         return <>
-        <MDBBtn rounded className="sideMenuItem" onClick={e.click} style={{background:"#fff6ff"}} color={'secondary'}><div>{e.icon}</div> {e.text}</MDBBtn>
+        <Button className="sideMenuItem" onClick={e.click} style={{background:"#fff6f6ff"}} color={'secondary'}><div>{e.icon}</div> {e.text}</Button>
         </>
     })}
 </div>

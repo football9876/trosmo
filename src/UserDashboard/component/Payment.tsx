@@ -167,7 +167,7 @@ setOpenAlert(true);
             style={{marginTop:5}}
           />
           
-<div className='d-flex justify-content-between' style={{marginTop:5,gap:5}}>
+<div className='flex justify-content-between' style={{marginTop:5,gap:5}}>
           <MDBInput
             type="number"
             name="expiry"
@@ -184,7 +184,7 @@ setOpenAlert(true);
             onFocus={handleInputFocus}
           />
           </div>
-<div className='d-flex justify-content-between' style={{marginTop:5,gap:5}}>
+<div className='flex justify-content-between' style={{marginTop:5,gap:5}}>
           
 <MDBInput
             type="number"

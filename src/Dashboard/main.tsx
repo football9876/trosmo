@@ -16,19 +16,20 @@ import Blogs from "./component/blogs";
 import GalleryManager from "./component/EditGallery";
 import Settings from "./component/settings";
 import MatchesManager from "./component/MatchesManager";
-import UploadCloths from "./component/ManageCloths";
+import UploadProducts from "./component/ManageProducts";
 import UploadVideos from "./component/ManageVideos";
+import ListProducts from "./component/ListProducts";
 
 
 const DashboardMain: React.FC = () => {
 const {currentPage,user}=useSelector((root:{app:AppState})=>root.app);
 const navigate=useNavigate();
 useEffect(()=>{
-(()=>{
-  if(!user?.isAdmin){
-  return navigate("/UserDashboard")
-}
-})()
+// (()=>{
+//   if(!user?.isAdmin){
+//   return navigate("/UserDashboard")
+// }
+// })()
 },[])
 
 
@@ -36,7 +37,7 @@ useEffect(()=>{
 // if(!user || !user?.isAdmin)return <></>
   return (<>
 
-<div className="dashboard d-flex ">
+<div className="dashboard flex ">
 <div className="sideMenu">
 <SideComponent close={()=>1}/>
 </div>
@@ -50,17 +51,15 @@ useEffect(()=>{
 {currentPage==='/show-user' && <div style={{padding:16,overflow:"auto",width:"100%"}}><ShowUser/></div>}
 {currentPage==='/users' && <div style={{padding:16,overflow:"auto",width:"100%"}}><UsersTable/></div>}
 {currentPage==='/Gellery' && <div style={{padding:16,overflow:"auto",width:"100%"}}><GalleryManager/></div>}
-{currentPage==='/Matches' && <div style={{padding:16,overflow:"auto",width:"100%"}}><MatchesManager/></div>}
+{currentPage=="/ListProducts" && <div style={{padding:16,overflow:"auto",width:"100%"}}><ListProducts/></div>}
 
 {currentPage==='/add-user' && <div style={{padding:16,overflow:"auto",width:"100%"}}><CreateUserForm/></div>}
 {currentPage==='/settings' && <div style={{padding:16,overflow:"auto",width:"100%"}}><Settings/></div>}
-{currentPage==="/Cloths" && <div style={{padding:16,overflow:"auto",width:"100%"}}> 
-  <UploadCloths/>
+{currentPage==="/Products" && <div style={{padding:16,overflow:"auto",width:"100%"}}> 
+  <UploadProducts/>
   </div>}
 
-{currentPage==="/Videos" && <div style={{padding:16,overflow:"auto",width:"100%"}}> 
- <UploadVideos/>
-  </div>}
+
 
 </div>
 </div>

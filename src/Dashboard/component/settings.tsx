@@ -82,7 +82,7 @@ finally{
 
 
 
-<div className="d-flex align-items-center" style={{gap:10,height:50}}>
+<div className="flex items-center" style={{gap:10,height:50}}>
       <MDBInput
         label="Add new country"
         value={newCountry}

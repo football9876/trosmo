@@ -4,14 +4,14 @@
 .actionBtns div{
     width:200px;
     border-radius: 10px;
-    background:linear-gradient(30deg,rgb(102, 32, 32),rgb(30, 18, 18));
+    background:linear-gradient(30deg,rgb(41, 47, 59),rgb(30, 18, 18));
     min-height:100px !important;
     text-align: start !important;
     color:white;
     min-width:200px;
 }
 
-.actionBtns div .iconContainer{
+.actionBtns div .iconContainer{ 
     background:white;
     width:50px;
     height:50px;
@@ -41,7 +41,10 @@ color:rgb(43, 43, 45) !important;
 }
 .sideMenuItem{
  color:rgb(147, 147, 157) ;
-
+ width:100% !important;
+display: flex;
+align-items: center;
+justify-content: flex-start !important;
 }
 
 .sideMenuItem:hover{

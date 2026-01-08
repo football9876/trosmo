@@ -8,13 +8,16 @@ const TopNavigation = () => {
   const width=useInnerWidth()
   const navigate=useNavigate()
   return (
-    <div className='topNav d-flex align-items-center justify-content-between'>
+    <div className='topNav flex items-center justify-content-between'>
       
-      <div style={{background:"var(--blue)"}} className={`${width < 700  ? "d-flex":""} align-items-center justify-content-between`}>
+      <div style={{background:"var(--blue)"}} className={`${width < 700  ? "flex":""} items-center justify-content-between`}>
       <div onClick={()=>{
         navigate("/")
-      }} style={{background:'var(--blue)',padding:10,gap:6}} className='blue-area d-flex align-items-center '>
-      <img src={`/assets/NFB_logo_136.png`} style={{}} height={50}/>
+      }} style={{background:'var(--blue)',padding:10,gap:6}} className='blue-area flex items-center '>
+      <img src={`/icon.png`} 
+      
+          className="tips-logo"
+      style={{}} height={50}/>
       <b style={{color:"white",fontWeight:"bold"}}>{` NørresundbyfbSports Team`}</b>
 </div>
 
@@ -22,7 +25,7 @@ const TopNavigation = () => {
 
 </div>
 
-<div className="searchContainer d-flex align-items-center " style={{gap:10,padding:10}}>
+<div className="searchContainer flex items-center " style={{gap:10,padding:10}}>
   <input placeholder='Search' />
   <Search/>
   <MDBBtn onClick={()=>{

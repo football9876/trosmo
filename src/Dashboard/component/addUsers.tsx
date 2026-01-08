@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { MDBInput,  MDBBtn,  MDBCard, MDBCardBody } from "mdb-react-ui-kit";
+import {
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { User } from "../../interface";
 import toast from "react-hot-toast";
 import { AddData } from "../../Logics/addData";
@@ -9,15 +18,16 @@ import { db } from "../../firebase.config";
 const CreateUserForm: React.FC = () => {
   const [formData, setFormData] = useState<Omit<User, "userid">>({
     username: "",
-    password:"",
+    password: "",
     gender: "male",
     profilePic: "",
-    createdAt: new Date().toISOString().split("T")[0], // Current Date
+    createdAt: new Date().toISOString().split("T")[0],
     isBanned: "no",
     isBlocked: false,
     isAdmin: false,
   });
-const [loading,setLoading]=useState<boolean>(false);
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleInputChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,65 +35,107 @@ const [loading,setLoading]=useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const newUser: User = {
       ...formData,
-      userid: Date.now().toString(), // Generate unique ID
+      userid: Date.now().toString(),
     };
-    console.log(newUser);
-setLoading(true)
 
-   try{
-const res=await AddData(collection(db,"Users"),newUser);
-console.log(res);
-toast.success("User created successfully")
-setFormData({
-  username: "",
-  password:"",
-  gender: "male",
-  profilePic: "",
-  createdAt: new Date().toISOString().split("T")[0], // Current Date
-  isBanned: "no",
-  isBlocked: false,
-  isAdmin: false,
-});
+    setLoading(true);
 
-   }
-   catch(err:any){
-    console.log(err);
-toast.error("Something went wrong")
-   }
-   finally{
-setLoading(false)
-console.log("operation completed")
-   }
+    try {
+      const res = await AddData(collection(db, "Users"), newUser);
+      console.log(res);
+      toast.success("User created successfully");
 
+      setFormData({
+        username: "",
+        password: "",
+        gender: "male",
+        profilePic: "",
+        createdAt: new Date().toISOString().split("T")[0],
+        isBanned: "no",
+        isBlocked: false,
+        isAdmin: false,
+      });
+    } catch (err: any) {
+      console.log(err);
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <MDBCard className="mb-4" style={{maxWidth:600}}>
-      <MDBCardBody>
+    <Card className="mb-4" sx={{ maxWidth: 600 }}>
+      <CardContent>
         <h4 className="mb-3">Create New User</h4>
+
         <form onSubmit={handleSubmit}>
-          <MDBInput label="Username" name="username" value={formData.username} onChange={handleInputChange} required className="mb-3" />
-          
-          <MDBInput label="Password" name="password" value={formData.password} onChange={handleInputChange} required className="mb-3" />
-          
-          <select className="form-select mb-3" name="gender" value={formData.gender} onChange={handleInputChange} required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          <TextField
+            fullWidth
+            label="Username"
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+            margin="normal"
+          />
+
+          <TextField
+            fullWidth
+            label="Password"
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+            margin="normal"
+          />
+
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="gender-label">Gender</InputLabel>
+            <Select
+              labelId="gender-label"
+              label="Gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleInputChange}
+              required
+            >
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="female">Female</MenuItem>
+            </Select>
+          </FormControl>
 
           {formData.profilePic && (
-            <div className="mb-3">
-              <img src={formData.profilePic} alt="Profile Preview" className="rounded-circle" style={{ width: 50, height: 50 }} />
+            <div style={{ marginBottom: 16 }}>
+              <img
+                src={formData.profilePic}
+                alt="Profile Preview"
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
             </div>
           )}
 
-       
-          <MDBBtn style={{width:"100%"}} disabled={loading} rounded type="submit" color="primary">{loading ? "Please wait":"Create User"}</MDBBtn>
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            sx={{ mt: 2 }}
+          >
+            {loading ? "Please wait" : "Create User"}
+          </Button>
         </form>
-      </MDBCardBody>
-    </MDBCard>
+      </CardContent>
+    </Card>
   );
 };
 

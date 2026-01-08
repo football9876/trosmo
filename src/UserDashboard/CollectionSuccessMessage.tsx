@@ -6,7 +6,7 @@ import {MDBBtn} from "mdb-react-ui-kit";
 const SuccessConfirmation: React.FC = () => {
   return (
    <div style={{width:"100%",padding:16}}>
-    <div className="d-flex align-items-center justify-content-center">
+    <div className="flex items-center justify-center">
           <img src={`/checked.png`} style={{width:100,height:100,borderRadius:50}}/>
           </div>
         <p style={{textAlign:"center",fontSize:16}}><strong style={{textTransform:"uppercase"}}>

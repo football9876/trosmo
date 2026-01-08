@@ -280,7 +280,7 @@ console.log(forms)
                 <p><strong>Declaration:</strong> {form.declaration ? "Yes" : "No"}</p>
                 <p><strong>Signature:</strong> {form.signature}</p>
                 <p><strong>Submission Date:</strong> {form.submissionDate}</p>
-                <div className="mt-3 d-flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap gap-2">
                   {form.passportDataPageUrl && (
                     <MDBBtn size="sm" color="primary" onClick={() => downloadFile(form?.passportDataPageUrl as string)}>
                       Passport
