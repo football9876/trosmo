@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Menu, X, User, Bell, Search } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TILLogo from "./TILLogo";
+import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalFooter, MDBModalHeader, MDBModalTitle } from "mdb-react-ui-kit";
 
 const topBarLinks = [
   { label: "Youth Academy", href: "/youth-department" },
@@ -10,8 +11,7 @@ const topBarLinks = [
   { label: "Shop", href: "/shop" },
   { label: "Partners", href: "/partners" },
   { label: "Book Meeting Room", href: "#" },
-  { label: "Supporters", href: "#" },
-  { label: "English", href: "#" },
+  { label: "Supporters", href: "#" }
 ];
 
 const mainNavLinks = [
@@ -27,8 +27,9 @@ const mainNavLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  return (
+  const navigate=useNavigate();
+  const [showModal,setShowModal]=useState<boolean>(false);
+  return (<>
     <header className="sticky top-0 z-50">
       {/* Top Bar - Dark */}
       <div className="bg-foreground hidden lg:block">
@@ -53,10 +54,14 @@ const Navbar = () => {
                 </a>
               )
             ))}
-            <button className="text-background hover:opacity-80 transition-opacity">
+            <button onClick={()=>{
+              navigate("/Login");
+            }} className="text-background hover:opacity-80 transition-opacity">
               <User className="w-5 h-5" />
             </button>
-            <button className="text-background hover:opacity-80 transition-opacity">
+            <button onClick={()=>{
+              setShowModal(true);
+            }} className="text-background hover:opacity-80 transition-opacity">
               <Bell className="w-5 h-5" />
             </button>
           </div>
@@ -186,6 +191,26 @@ const Navbar = () => {
         </div>
       )}
     </header>
+
+
+    <MDBModal show={showModal} onHide={() => setShowModal(false)}>
+      <MDBModalDialog centered>
+        <MDBModalContent>
+          <MDBModalHeader className="bg-primary text-primary-foreground">
+            <MDBModalTitle>Notification not found</MDBModalTitle>
+          </MDBModalHeader>
+          <MDBModalBody className="bg-primary text-primary-foreground">
+            <p>Sorry, we couldn't find the notification you're looking for.</p>
+          </MDBModalBody>
+          <MDBModalFooter className="bg-primary">
+            <MDBBtn color="primary" onClick={() => setShowModal(false)}>
+              Close
+            </MDBBtn>
+          </MDBModalFooter>
+        </MDBModalContent>
+      </MDBModalDialog>
+    </MDBModal>
+    </>
   );
 };
 

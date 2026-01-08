@@ -1,0 +1,30 @@
+use our existing nav hero section and footer any page created should be as placed in the body
+
+clone
+https://www.til.no/nyheter exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
+let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
+link on every nav the page to the "news"  
+
+clone https://www.til.no/video exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
+let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
+link on every nav the page to the "videos"
+
+clone https://www.til.no/lag exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
+let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
+link on every nav the page to the "Layer"
+
+clone https://www.til.no/terminliste  exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
+let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
+link on every nav the page to the "Appointment List"
+
+clone https://www.til.no/terminliste exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
+let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
+link on every nav the page to the "Results"
+
+clone https://www.til.no/om-stadion exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
+let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
+link on every nav the page to the "Romssa Arena"
+
+clone https://www.til.no/om-klubben  exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
+let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
+link on every nav the page to the "About Til" or "About button"

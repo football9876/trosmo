@@ -18,6 +18,8 @@ import Partners from "./pages/Partners";
 import Shop from "./pages/Shop";
 import Sustainability from "./pages/Sustainability";
 import YouthDepartment from "./pages/YouthDepartment";
+import UserDashboardMain from "./UserDashboard/main";
+import DashboardMain from "./Dashboard/main";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +57,12 @@ const App = () => (
             <Route path="/youth-department/:slug" element={<YouthDepartment />} />
             
             <Route path="*" element={<NotFound />} />
+            <Route path="/UserDashboard" element={<UserDashboardMain/>}/>
+            <Route path="/AdminDashboard" element={<DashboardMain/>}/>
+            {/* <Route path="/AdminDashboard" element={<Admin/>}/> */}
+
+
+
           </Routes>
         </BrowserRouter>
       </Provider>
