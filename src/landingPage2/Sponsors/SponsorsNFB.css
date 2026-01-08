@@ -1,0 +1,48 @@
+.about-nfb-wrapper {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.membership-section h2 {
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.membership-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px;
+}
+
+.membership-table th,
+.membership-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.membership-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.membership-section h3 {
+  margin-top: 24px;
+  font-size: 1.25rem;
+}
+
+.membership-section p {
+  margin: 8px 0 16px;
+  line-height: 1.6;
+}
+
+.membership-section a {
+  color: #0066cc;
+  text-decoration: underline;
+}

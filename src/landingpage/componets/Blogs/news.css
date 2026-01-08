@@ -1,0 +1,74 @@
+.card {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  background: #fff;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.card-image {
+  position: relative;
+}
+
+.card-image img {
+  width: 100%;
+  max-height: 300px;
+  object-fit:cover;
+  display: block;
+}
+
+.card-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.card-label span {
+  font-size: 11px;
+  font-weight: normal;
+  display: block;
+}
+
+.card-text {
+  background: #f57d51b0; /* Light orange like in your example */
+  color: #000;
+  padding: 12px 16px;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+}
+.card-text:hover{
+    transition: all;
+    transition-duration: 900ms;
+    
+  background: white; /* Light orange like in your example */
+}
+
+.card-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.card-button:hover {
+  background: #333;
+}

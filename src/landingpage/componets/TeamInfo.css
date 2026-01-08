@@ -1,0 +1,38 @@
+/* TeamInfo.css */
+
+.team-info-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .section {
+    margin-bottom: 30px;
+  }
+  
+  .section h2 {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+  }
+  
+  .coach-card, .parent-card, .equipment-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .coach-card h3, .parent-card h3 {
+    margin: 0;
+    color: #555;
+  }
+  
+  .contact-info p {
+    margin: 5px 0;
+  }
+  
+  .equipment-item p {
+    margin: 5px 0;
+  }
+  

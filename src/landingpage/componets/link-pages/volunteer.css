@@ -1,0 +1,70 @@
+.volunteer-registration-page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .volunteer-registration-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .volunteer-registration-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .volunteer-registration-header p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .volunteer-registration-section {
+    margin-bottom: 30px;
+  }
+  
+  .volunteer-registration-section h2 {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .volunteer-registration-section h3 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .volunteer-registration-section p,
+  .volunteer-registration-section ul,
+  .volunteer-registration-section ol {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .volunteer-registration-section ul,
+  .volunteer-registration-section ol {
+    padding-left: 20px;
+  }
+  
+  .volunteer-registration-section li {
+    margin-bottom: 10px;
+  }
+  
+  .volunteer-registration-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  .volunteer-registration-footer a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .volunteer-registration-footer a:hover {
+    text-decoration: underline;
+  }

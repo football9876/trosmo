@@ -1,0 +1,64 @@
+.meeting-rooms-page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .meeting-rooms-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .meeting-rooms-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .meeting-rooms-header p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .meeting-rooms-section {
+    margin-bottom: 30px;
+  }
+  
+  .meeting-rooms-section h2 {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .meeting-rooms-section p,
+  .meeting-rooms-section ul,
+  .meeting-rooms-section ol {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .meeting-rooms-section ul,
+  .meeting-rooms-section ol {
+    padding-left: 20px;
+  }
+  
+  .meeting-rooms-section li {
+    margin-bottom: 10px;
+  }
+  
+  .meeting-rooms-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  .meeting-rooms-footer a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .meeting-rooms-footer a:hover {
+    text-decoration: underline;
+  }

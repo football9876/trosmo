@@ -1,0 +1,51 @@
+.actionBtns{
+    overflow:auto;
+}
+.actionBtns div{
+    width:200px;
+    border-radius: 10px;
+    background:linear-gradient(30deg,rgb(102, 32, 32),rgb(30, 18, 18));
+    min-height:100px !important;
+    text-align: start !important;
+    color:white;
+    min-width:200px;
+}
+
+.actionBtns div .iconContainer{
+    background:white;
+    width:50px;
+    height:50px;
+    max-height:50px !important;
+display:block;
+border-radius:25px !important;
+box-shadow:none !important;
+border:none !important;
+outline:none !important;
+}
+
+
+@media (max-width:600px) {
+.actionBtns{
+    display:block !important;
+}
+.actionBtns div{
+width:100% !important;    
+min-width:100% !important;    
+margin-top:10px !important;
+}
+
+}
+
+.sideMenuItem *{
+color:rgb(43, 43, 45) !important;
+}
+.sideMenuItem{
+ color:rgb(147, 147, 157) ;
+
+}
+
+.sideMenuItem:hover{
+
+    color:rgb(46, 46, 191);
+    text-decoration: underline !important;
+}

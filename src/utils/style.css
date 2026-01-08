@@ -1,0 +1,77 @@
+.appLogo img{
+    
+border-radius: 5;
+}
+.appLogo b{
+    font-weight: bolder;
+    background: linear-gradient(90deg,var(--green),var(--colorBlue),var(--colorTextDark));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+}
+
+
+.boldBlackP{
+    font-weight: bold;
+    color:var(--colorTextDark);
+    padding:2px initial;
+display: block;
+}
+.smallP{
+    padding:2px initial;
+display: block;
+
+}
+
+.boldWhiteP{
+    font-weight: bold;
+    color:var(--colorTextLight);
+    padding:2px initial;
+display: block;
+
+}
+.smallLightP{
+    padding:2px initial;
+display: block;
+color:var(--colorTextLight);
+opacity: 0.8;
+
+}
+.LinkDark{
+color:var(--colorBlue);
+
+}
+.LinkDark:hover{
+    color:var(--yellowDark);
+    text-decoration: underline;
+cursor: pointer;
+
+    
+}
+.LinkDark:active{
+    color:var(--colorBlueDark)
+}
+
+.PHeader{
+    padding:16px;
+    color:var(--colorTextDark);
+    opacity: 0.9;
+}
+
+.Search{
+border-radius: 30px;
+padding:10px;
+margin-left:-20px;
+max-width: 50%;
+min-width:100px;
+max-height: max-content;
+box-shadow: 1px 1px 10px 0px rgb(240, 238, 238);
+background: white;
+}
+.Search input{
+    background: rgb(240, 241, 247);
+    border:none !important;
+    border-radius: 10px;
+    padding:5px !important;
+    max-width: 80%;
+}

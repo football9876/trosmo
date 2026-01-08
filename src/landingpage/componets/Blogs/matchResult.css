@@ -1,0 +1,75 @@
+.table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.month-title {
+  font-size: 20px;
+  margin: 20px 0 10px;
+}
+
+.match-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* force horizontal scroll on smaller screens */
+}
+
+.match-table td {
+  padding: 12px;
+  vertical-align: top;
+  border-bottom: 1px solid #ddd;
+}
+
+.date-cell {
+  width: 120px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.date-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-day {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.date-weekday {
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 2px 0;
+}
+
+.match-time {
+  margin-top: 5px;
+}
+
+.teams-cell {
+  font-size: 12px;
+}
+
+.teams {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.team-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.team-names strong {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .match-table {
+    min-width: 600px;
+  }
+}

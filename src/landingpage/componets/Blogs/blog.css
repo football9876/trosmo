@@ -1,0 +1,123 @@
+.responsive-container{
+    min-height:100px;
+    width:100%;
+    padding:10px;
+    gap:10px;
+    /* background:red; */
+    overflow: hidden;
+}
+
+.responsive-container  .blogs{
+    width:100%;
+    background:rgba(238, 236, 236, 0.226);
+    border-radius:10px;
+    gap:10px;
+    display:flex;
+    /* align-items:c; */
+    justify-content:flex-start !important;
+    flex-flow: row wrap;
+    flex-grow: 1;
+}
+
+.responsive-container  .others{
+    width:30%;
+    background:white;
+    box-shadow:1px 1px 10px 0px lightgray;
+    border-radius:10px;
+}
+.responsive-container .blogs .blogCard{
+    width:31.5%;
+    min-height:200px;
+    box-shadow:1px  1px 10px 0px lightgray;
+    border-radius: 10px;
+    background-color: white;
+    max-height: max-content;
+
+}
+@media (max-width:1000px){
+    .responsive-container{
+       flex-flow: row wrap !important;
+    }
+
+    .responsive-container > div{
+        width:100% !important;
+        margin-top:10px;
+    }    
+
+
+}
+
+@media (max-width:600px){
+    .responsive-container .blogs .blogCard{
+        width:48%;
+    }
+.pcNavigation{
+    display:none;
+}
+}
+
+@media (max-width:420px){
+    .responsive-container .blogs .blogCard{
+        width:96%;
+    }
+}
+
+
+.tips-banner {
+  display: block;
+  background: red;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  width:100%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+
+.tips-banner:hover {
+  transform: translateY(-3px);
+}
+
+.tips-content {
+  position: relative;
+}
+
+.corner-text {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.corner-text:first-of-type {
+  top: 10px;
+  left: 10px;
+}
+
+.corner-text:last-of-type {
+  top: 10px;
+  right: 10px;
+}
+
+.tips-logo {
+  width: 120px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 60px;
+}
+
+.tips-title {
+  margin: 10px 0 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tips-subtitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}

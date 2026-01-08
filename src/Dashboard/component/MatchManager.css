@@ -1,0 +1,11 @@
+.has-bg *{
+color: whitesmoke !important;
+}
+
+.has-bg .isMatch, .has-bg .isMatch *{
+    color:rgb(28, 21, 21) !important;
+}
+
+.has-bg > div{
+    background: rgba(41, 33, 33, 0.73);
+}

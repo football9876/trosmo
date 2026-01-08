@@ -1,0 +1,31 @@
+- upload picture to files :ok
+- update details by user :checked
+- move data to the new firebase :checked
+- user profile remove these boxs  and  show application progress bar :checked
+- popup notification when to a target user :checked
+- add edit blogs and rendering :checked
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

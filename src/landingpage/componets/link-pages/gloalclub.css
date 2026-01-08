@@ -1,0 +1,68 @@
+.goal-club-page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .goal-club-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .goal-club-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .goal-club-header p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .goal-club-section {
+    margin-bottom: 30px;
+  }
+  
+  .goal-club-section h2 {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .goal-club-section h3 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .goal-club-section p,
+  .goal-club-section ul {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .goal-club-section ul {
+    padding-left: 20px;
+  }
+  
+  .goal-club-section li {
+    margin-bottom: 10px;
+  }
+  
+  .goal-club-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  .goal-club-footer a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .goal-club-footer a:hover {
+    text-decoration: underline;
+  }
