@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { MDBInput, MDBBtn, MDBCard, MDBCardBody, MDBTextArea } from "mdb-react-ui-kit";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+} from "@mui/material";
 import toast from "react-hot-toast";
-import { collection, doc,  setDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase.config";
 import moment from "moment";
 import { uploadFile } from "../../Logics/upload";
@@ -16,27 +23,28 @@ export interface BlogItem {
 }
 
 interface Props {
-  editData?: BlogItem; // Optional edit mode
+  editData?: BlogItem;
 }
 
-const CreateBlog: React.FC<Props> = ({ editData:editing }) => {
-  const [editData,setEditData]=useState<BlogItem>();
-  useEffect(()=>{
-if(editing){
-  setEditData(editing)
-}
-  },[editing]);
+const CreateBlog: React.FC<Props> = ({ editData: editing }) => {
+  const [editData, setEditData] = useState<BlogItem>();
+  const [loading, setLoading] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+
   const [formData, setFormData] = useState<BlogItem>({
     title: "",
     text: "",
     image: null,
-    date: new Date().toISOString(), // Default to today’s date
+    date: new Date().toISOString(),
   });
 
-  const [loading, setLoading] = useState<boolean>(false);
-  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  useEffect(() => {
+    if (editing) {
+      setEditData(editing);
+    }
+  }, [editing]);
 
-  // Populate form when editing
+  // populate when editing
   useEffect(() => {
     if (editData) {
       setFormData(editData);
@@ -44,52 +52,61 @@ if(editing){
     }
   }, [editData]);
 
-  // Handle Input Change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // input handler
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle File Upload
+  // file handler
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setFormData({ ...formData, image: file });
     }
-  }
+  };
 
-  // Handle Form Submission
+  // submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    let imageUri:any = typeof formData.image === "string" ? formData.image : "";
-    if (formData.image instanceof File) {
-      imageUri = await uploadFile(formData.image);
-    }
-
-    const updatedData: BlogItem = {
-      ...formData,
-      image: imageUri,
-      date: moment(new Date().toISOString()).format("MMM DD, YYYY"),
-    };
-
     try {
-      if(editData){
-      const blogRef = doc(db, "Blogs", formData.docId || "newBlog");
-      await setDoc(blogRef, updatedData, { merge: true });
+      let imageUri: any =
+        typeof formData.image === "string" ? formData.image : "";
+
+      if (formData.image instanceof File) {
+        imageUri = await uploadFile(formData.image);
       }
-      else{
-        await AddData(collection(db,"Blogs"),{...updatedData})
+
+      const updatedData: BlogItem = {
+        ...formData,
+        image: imageUri,
+        date: moment(new Date().toISOString()).format("MMM DD, YYYY"),
+      };
+
+      if (editData) {
+        const blogRef = doc(db, "Blogs", formData.docId || "newBlog");
+        await setDoc(blogRef, updatedData, { merge: true });
+      } else {
+        await AddData(collection(db, "Blogs"), { ...updatedData });
       }
-      toast.success(formData.docId ? "Blog post updated successfully!" : "Blog post created!");
-      // setLastUpdated(updatedData.date);
+
+      toast.success(
+        formData.docId
+          ? "Blog post updated successfully!"
+          : "Blog post created!"
+      );
+
       setFormData({
-    title: "",
-    text: "",
-    image: null,
-    date: new Date().toISOString(), // Default to today’s date
-  });
-setEditData(undefined)
+        title: "",
+        text: "",
+        image: null,
+        date: new Date().toISOString(),
+      });
+      setEditData(undefined);
+      setLastUpdated(null);
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong");
@@ -99,40 +116,92 @@ setEditData(undefined)
   };
 
   return (
-    <MDBCard className="mb-4" style={{ maxWidth: 600 }}>
-      <MDBCardBody>
-        <h4 className="mb-3">{formData.docId ? "Edit Blog Post" : "Create Blog Post"}</h4>
-        {lastUpdated && (
-          <span style={{ fontWeight: "bold", color: "gray" }}>
-            Last Updated: {moment(lastUpdated).format("MMM DD, YYYY - hh:mm A")}
-          </span>
-        )}
-        <br />
-        <br />
-        <form onSubmit={handleSubmit}>
-          <MDBInput label="Title" name="title" value={formData.title} onChange={handleInputChange} required className="mb-3" />
-          <MDBTextArea label="Text"  name="text" value={formData.text} onChange={handleInputChange} required className="mb-3"  />
+    <Card sx={{ maxWidth: 600, mb: 4 }}>
+      <CardContent>
+        <Typography variant="h6" mb={2}>
+          {formData.docId ? "Edit Blog Post" : "Create Blog Post"}
+        </Typography>
 
-          <label htmlFor="file">Upload Image</label>
-          <br />
-          <input id="file" type="file" accept="image/*" onChange={handleFileChange} className="mb-3" />
+        {lastUpdated && (
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            fontWeight="bold"
+            mb={2}
+          >
+            Last Updated:{" "}
+            {moment(lastUpdated).format("MMM DD, YYYY - hh:mm A")}
+          </Typography>
+        )}
+
+        <Box component="form" onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            label="Title"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+            margin="normal"
+          />
+
+          <TextField
+            fullWidth
+            label="Text"
+            name="text"
+            value={formData.text}
+            onChange={handleInputChange}
+            required
+            multiline
+            rows={4}
+            margin="normal"
+          />
+
+          <Box mt={2} mb={2}>
+            <Typography variant="body2" mb={1}>
+              Upload Image
+            </Typography>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </Box>
 
           {formData.image && (
-            <div className="mb-3">
+            <Box mb={2}>
               <img
-                src={typeof formData.image === "string" ? formData.image : URL.createObjectURL(formData.image)}
+                src={
+                  typeof formData.image === "string"
+                    ? formData.image
+                    : URL.createObjectURL(formData.image)
+                }
                 alt="Blog Preview"
-                style={{ width: "100%", maxHeight: 200, objectFit: "cover", borderRadius: 5 }}
+                style={{
+                  width: "100%",
+                  maxHeight: 200,
+                  objectFit: "cover",
+                  borderRadius: 6,
+                }}
               />
-            </div>
+            </Box>
           )}
 
-          <MDBBtn style={{ width: "100%", background: "var(--blue)" }} disabled={loading} rounded type="submit">
-            {loading ? "Saving..." : formData.docId ? "Update Blog" : "Create Blog"}
-          </MDBBtn>
-        </form>
-      </MDBCardBody>
-    </MDBCard>
+          <Button
+            fullWidth
+            variant="contained"
+            disabled={loading}
+            type="submit"
+          >
+            {loading
+              ? "Saving..."
+              : formData.docId
+              ? "Update Blog"
+              : "Create Blog"}
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

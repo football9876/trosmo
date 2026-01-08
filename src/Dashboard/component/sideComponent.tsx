@@ -35,14 +35,14 @@ const SideComponent:React.FC<{close:()=>void}> = ({close}) => {
           dispatch(setCurrentPage("/blogs"))
           close()
         } },
-        { text: "Gallery", icon: <Image size={20} />, click:()=>{
-          dispatch(setCurrentPage("/Gellery"))
-          close()
-        } },
-         { text: "Matches", icon: <Image size={20} />, click:()=>{
-          dispatch(setCurrentPage("/Matches"))
-          close()
-        } },
+        // { text: "Gallery", icon: <Image size={20} />, click:()=>{
+        //   dispatch(setCurrentPage("/Gellery"))
+        //   close()
+        // } },
+        //  { text: "Matches", icon: <Image size={20} />, click:()=>{
+        //   dispatch(setCurrentPage("/Matches"))
+        //   close()
+        // } },
             { text: "Manage Productss", icon: <Image size={20} />, click:()=>{
           dispatch(setCurrentPage("/Products"))
           close()

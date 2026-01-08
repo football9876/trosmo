@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { MDBInput, MDBBtn } from "mdb-react-ui-kit";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  CircularProgress,
+  Stack,
+} from "@mui/material";
 import { docQr } from "../../Logics/docQr";
 import { AddData } from "../../Logics/addData";
 import { collection } from "firebase/firestore";
 import { db } from "../../firebase.config";
 import toast from "react-hot-toast";
 import { deleteData } from "../../Logics/deleteData";
+import { countriesData } from "../countries";
 
-const Settings = () => {
+const Settings: React.FC = () => {
   const [countries, setCountries] = useState<{ docId: string; name: string }[]>([]);
   const [newCountry, setNewCountry] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading,setLoading]=useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Fetch countries
   const fetchCountries = async () => {
@@ -19,11 +30,11 @@ const Settings = () => {
     try {
       const data = await docQr("countries", {});
       setCountries(data);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-    }
-    finally{
-    setLoading(false);
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -32,84 +43,92 @@ const Settings = () => {
   }, []);
 
   const handleAddCountry = async () => {
-    try{
-await AddData(collection(db,"countries"),{
-    name:newCountry
-})
-fetchCountries()
-    setNewCountry("");
-    toast.success("Country added successfully")
-    }
-    catch(error:any){
-        toast.error(error.message);
+    if (!newCountry.trim()) return;
+    try {
+      await AddData(collection(db, "countries"), {
+        name: newCountry.trim(),
+      });
+      toast.success("Country added successfully");
+      setNewCountry("");
+      fetchCountries();
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
   const handleDeleteCountry = async (docId: string) => {
-try{
-await deleteData("countries",docId);
-fetchCountries()
-
-toast.success("deleted succesfully");
-}
-catch(err:any){
-toast.error(err.message);
-}
-finally{
-
-}
+    try {
+      await deleteData("countries", docId);
+      toast.success("Deleted successfully");
+      fetchCountries();
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
-
-  // Filter countries by search term
   const filteredCountries = countries.filter((c) =>
     c.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div style={{ padding: "20px",background:"white",overflow:"auto",maxHeight:"100vh" }}>
-      <h4>Countries Settings</h4>
-
-      <MDBInput
+    <Box sx={{ p: 3, bgcolor: "background.paper", maxHeight: "100vh", overflow: "auto" }}>
+      <Typography  variant="h5" mb={2}>
+        Countries Settings
+      </Typography>
+      <TextField
+        fullWidth
         label="Search countries..."
         value={searchTerm}
-        onChange={handleSearch}
-        className="mb-3"
+        onChange={(e) => setSearchTerm(e.target.value)}
+        variant="outlined"
+        size="small"
+        sx={{ mb: 2 }}
       />
 
+      <Stack direction="row" spacing={1} mb={2} alignItems="center">
+        <TextField
+          label="Add new country"
+          value={newCountry}
+          onChange={(e) => setNewCountry(e.target.value)}
+          variant="outlined"
+          size="small"
+          fullWidth
+        />
+        <Button variant="contained" color="primary" size="small" onClick={handleAddCountry}>
+          Add
+        </Button>
+      </Stack>
 
-
-<div className="flex items-center" style={{gap:10,height:50}}>
-      <MDBInput
-        label="Add new country"
-        value={newCountry}
-        onChange={(e) => setNewCountry(e.target.value)}
-      />
-      <MDBBtn style={{width:100}} size={'sm'} onClick={handleAddCountry} color="dark">
-        Add
-      </MDBBtn>
-</div>
-<div>
-    {loading && <span>loading...</span>}
-</div>
-      <ul className="hoverable">
-        {filteredCountries.length > 0 ? (
-          filteredCountries.map((country) => (
-            <li className="hover" key={country.docId} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-              <span>{country.name}</span>
-              <MDBBtn color="danger" size="sm" onClick={() => handleDeleteCountry(country.docId)}>
-                Delete
-              </MDBBtn>
-            </li>
-          ))
-        ) : (
-          <p>No countries found.</p>
-        )}
-      </ul>
-    </div>
+      {loading ? (
+        <Box display="flex" alignItems="center" justifyContent="center" mt={2}>
+          <CircularProgress size={24} />
+          <Typography ml={1}>Loading...</Typography>
+        </Box>
+      ) : filteredCountries.length > 0 ? (
+        <List>
+          {filteredCountries.map((country) => (
+            <ListItem
+              key={country.docId}
+              divider
+              secondaryAction={
+                <Button
+                  variant="contained"
+                  color="error"
+                  size="small"
+                  onClick={() => handleDeleteCountry(country.docId)}
+                >
+                  Delete
+                </Button>
+              }
+            >
+              <ListItemText primary={country.name} />
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <Typography>No countries found.</Typography>
+      )}
+    </Box>
   );
 };
 
