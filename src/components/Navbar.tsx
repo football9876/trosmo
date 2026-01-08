@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import TILLogo from "./TILLogo";
 
 const topBarLinks = [
-  { label: "Youth Academy", href: "#" },
-  { label: "Sustainability", href: "#" },
-  { label: "Football Schools", href: "#" },
-  { label: "Shop", href: "#" },
-  { label: "Partners", href: "#" },
+  { label: "Youth Academy", href: "/youth-department" },
+  { label: "Sustainability", href: "/sustainability" },
+  { label: "Football Schools", href: "/football-schools" },
+  { label: "Shop", href: "/shop" },
+  { label: "Partners", href: "/partners" },
   { label: "Book Meeting Room", href: "#" },
   { label: "Supporters", href: "#" },
   { label: "English", href: "#" },
@@ -35,13 +35,23 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-end h-10 gap-6">
             {topBarLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs font-heading font-semibold uppercase tracking-wide text-background hover:opacity-80 transition-opacity"
-              >
-                {link.label}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="text-xs font-heading font-semibold uppercase tracking-wide text-background hover:opacity-80 transition-opacity"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs font-heading font-semibold uppercase tracking-wide text-background hover:opacity-80 transition-opacity"
+                >
+                  {link.label}
+                </a>
+              )
             ))}
             <button className="text-background hover:opacity-80 transition-opacity">
               <User className="w-5 h-5" />
@@ -152,14 +162,25 @@ const Navbar = () => {
             </div>
             {/* Secondary Links */}
             {topBarLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="block py-2 text-sm text-primary-foreground/80 hover:text-primary-foreground"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </a>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="block py-2 text-sm text-primary-foreground/80 hover:text-primary-foreground"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="block py-2 text-sm text-primary-foreground/80 hover:text-primary-foreground"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
         </div>

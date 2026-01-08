@@ -2,7 +2,7 @@ import "../../landingpage/componets/Blogs/blog.css";
 // import { blogsList } from '../../landingpage/componets/Blogs/blogsList'
 import BlogCard from '../../landingpage/componets/Blogs/blogCard'
 import CreateBlog from './createBlog';
-import useBlogs from '../../Hooks/useBlogs';
+import useBlogs from '../../hooks/useBlogs';
 import { ClipLoader } from 'react-spinners';
 import { useDispatch } from 'react-redux';
 import { setCurrentPage } from '../../store/Slice';
