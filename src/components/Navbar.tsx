@@ -15,14 +15,14 @@ const topBarLinks = [
 ];
 
 const mainNavLinks = [
-  { label: "News", href: "#" },
-  { label: "Video", href: "#" },
-  { label: "Team", href: "#" },
-  { label: "Schedule", href: "#" },
-  { label: "Results", href: "#" },
+  { label: "News", href: "/news" },
+  { label: "Video", href: "/videos" },
+  { label: "Team", href: "/team" },
+  { label: "Schedule", href: "/schedule" },
+  { label: "Results", href: "/results" },
   { label: "Buy Tickets", href: "/tickets" },
-  { label: "Romssa Arena", href: "#" },
-  { label: "About TIL", href: "#" },
+  { label: "Romssa Arena", href: "/stadium" },
+  { label: "About TIL", href: "/about" },
 ];
 
 const Navbar = () => {

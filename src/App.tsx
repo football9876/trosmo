@@ -20,6 +20,13 @@ import Sustainability from "./pages/Sustainability";
 import YouthDepartment from "./pages/YouthDepartment";
 import UserDashboardMain from "./UserDashboard/main";
 import DashboardMain from "./Dashboard/main";
+import News from "./pages/News";
+import Videos from "./pages/Videos";
+import Team from "./pages/Team";
+import Schedule from "./pages/Schedule";
+import Results from "./pages/Results";
+import Stadium from "./pages/Stadium";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +41,15 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/Login" element={<LoginMain />} />
+            
+            {/* Main Navigation Pages */}
+            <Route path="/news" element={<News />} />
+            <Route path="/videos" element={<Videos />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/stadium" element={<Stadium />} />
+            <Route path="/about" element={<About />} />
             
             {/* Football Schools */}
             <Route path="/football-schools" element={<FootballSchools />} />
