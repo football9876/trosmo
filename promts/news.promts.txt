@@ -1,30 +1,8 @@
 use our existing nav hero section and footer any page created should be as placed in the body
+when user click buy ticket or buy product on the shop page or ticket page, redirect to page payment with the item id render the item and give form that with heading pay with giftcard. input fields to add all details to add gift card use our AddData() from src/Logics/addData.ts add the data to firebase on the admin section add a new tab on the side nav giftcards, 
+list all the gift cards submmited and the product ordered and the user name and email and the details of the giftcard.
 
-clone
-https://www.til.no/nyheter exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
-let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
-link on every nav the page to the "news"  
 
-clone https://www.til.no/video exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
-let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
-link on every nav the page to the "videos"
+on the user dashboard add tab on the side menu orders list all the orders in a table show the details and delivery status
+allow admin to update the status.
 
-clone https://www.til.no/lag exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
-let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
-link on every nav the page to the "Layer"
-
-clone https://www.til.no/terminliste  exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
-let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
-link on every nav the page to the "Appointment List"
-
-clone https://www.til.no/terminliste exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
-let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
-link on every nav the page to the "Results"
-
-clone https://www.til.no/om-stadion exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
-let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
-link on every nav the page to the "Romssa Arena"
-
-clone https://www.til.no/om-klubben  exlude the hero headers and footers use ours instead, clone all the writeups and text convert them to english,
-let layout and everything be exactly as is in the website page i provided ok! i need u to list the news as array of objects and list them,
-link on every nav the page to the "About Til" or "About button"

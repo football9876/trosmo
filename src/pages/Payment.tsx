@@ -129,7 +129,6 @@ const Payment = () => {
 
       await AddData(collection(db, "GiftCardOrders"), orderData);
       toast.success("Order placed successfully!");
-      navigate("/user-dashboard");
     } catch (error) {
       console.error("Error placing order:", error);
       toast.error("Failed to place order. Please try again.");

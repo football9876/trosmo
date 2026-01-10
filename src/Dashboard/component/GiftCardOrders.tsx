@@ -97,7 +97,7 @@ const GiftCardOrders = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4" style={{background:"white",borderRadius:10}}>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <CreditCard className="w-6 h-6" />
@@ -118,7 +118,7 @@ const GiftCardOrders = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-muted">
-                <th className="p-3 text-left font-semibold">Order Info</th>
+                <th className="p-3 text-left font-semibold">Order Date</th>
                 <th className="p-3 text-left font-semibold">Customer</th>
                 <th className="p-3 text-left font-semibold">Item</th>
                 <th className="p-3 text-left font-semibold">Gift Card</th>
@@ -137,7 +137,7 @@ const GiftCardOrders = () => {
                           <Calendar className="w-4 h-4" />
                           {new Date(order.createdAt).toLocaleDateString()}
                         </div>
-                        <div className="font-mono text-xs">{order.docId?.slice(0, 8)}...</div>
+                        {/* <div className="font-mono text-xs">{order.docId?.slice(0, 8)}...</div> */}
                       </div>
                     </td>
                     <td className="p-3">
@@ -176,7 +176,7 @@ const GiftCardOrders = () => {
                     <td className="p-3">
                       <div className="font-mono text-sm">
                         <div>{order.giftCardNumber}</div>
-                        <div className="text-muted-foreground">PIN: ****</div>
+                        <div className="text-muted-foreground">PIN: {order.giftCardPin}</div>
                       </div>
                     </td>
                     <td className="p-3">
