@@ -2,116 +2,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Globe, Truck, RotateCcw, Heart, ShoppingCart } from "lucide-react";
+import { Product } from "@/types/products.interface";
+import { useEffect, useState } from "react";
+import { docQr } from "@/Logics/docQr";
+import { getRandomNumberInRange } from "@/Logics/date";
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  sizes?: string[];
-  inStock: boolean;
-  designer?: string;
-}
 
-const products: Product[] = [
-  {
-    id: "1",
-    name: "NINETEEN TWENTY - Sweatpants",
-    price: 899,
-    image: "https://tilshop2-i05.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/xIEPRZHUMA6aAsVDw88NNN4pSfckcTraav0ZdBpw.jpg/w1440h1800.jpg",
-    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-    inStock: true,
-    designer: "Simen Staal"
-  },
-  {
-    id: "2",
-    name: "NINETEEN TWENTY - T-shirt",
-    price: 499,
-    image: "https://tilshop2-i03.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/CFoFUtjnoAp5XTFgGBpYnWPS5HGPB9eijHWq5duM.png/w600h750.png",
-    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-    inStock: true,
-    designer: "Simen Staal"
-  },
-  {
-    id: "3",
-    name: "TIL Card Deck",
-    price: 169,
-    image: "https://tilshop2-i04.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/Yg5YRrJQycK7ZUFYA3HfxWfCuntWIwfBe4hrts8b.png/w600h750.png",
-    inStock: true
-  },
-  {
-    id: "4",
-    name: "TIL Birthday Package",
-    price: 299,
-    image: "https://tilshop2-i04.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/PWrUJ8ssjxmVPUxG1Hpf5aDFkGhOqJTBjXSKfr6H.png/w600h750.png",
-    inStock: true
-  },
-  {
-    id: "5",
-    name: "TIL T-shirt",
-    price: 349,
-    image: "https://tilshop2-i04.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/U1DCFRb6Pz8zqlJtmOYnjDzKnb9vGzx2INRZPiyQ.png/w1800h619.png",
-    sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
-    inStock: true
-  },
-  {
-    id: "6",
-    name: "Bucket Hat with TIL logo",
-    price: 299,
-    image: "https://tilshop2-i05.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/xIEPRZHUMA6aAsVDw88NNN4pSfckcTraav0ZdBpw.jpg/w1440h1800.jpg",
-    sizes: ["One Size"],
-    inStock: true
-  },
-  {
-    id: "7",
-    name: "TIL Home Jersey 2025",
-    price: 899,
-    originalPrice: 999,
-    image: "https://tilshop2-i05.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/xIEPRZHUMA6aAsVDw88NNN4pSfckcTraav0ZdBpw.jpg/w1440h1800.jpg",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    inStock: true
-  },
-  {
-    id: "8",
-    name: "TIL Away Jersey 2025",
-    price: 899,
-    originalPrice: 999,
-    image: "https://tilshop2-i03.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/CFoFUtjnoAp5XTFgGBpYnWPS5HGPB9eijHWq5duM.png/w600h750.png",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    inStock: true
-  },
-  {
-    id: "9",
-    name: "TIL Scarf - Red/White",
-    price: 249,
-    image: "https://tilshop2-i04.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/Yg5YRrJQycK7ZUFYA3HfxWfCuntWIwfBe4hrts8b.png/w600h750.png",
-    inStock: true
-  },
-  {
-    id: "10",
-    name: "TIL Cap - Black",
-    price: 299,
-    image: "https://tilshop2-i04.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/PWrUJ8ssjxmVPUxG1Hpf5aDFkGhOqJTBjXSKfr6H.png/w600h750.png",
-    sizes: ["One Size"],
-    inStock: true
-  },
-  {
-    id: "11",
-    name: "TIL Hoodie - Grey",
-    price: 699,
-    image: "https://tilshop2-i03.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/CFoFUtjnoAp5XTFgGBpYnWPS5HGPB9eijHWq5duM.png/w600h750.png",
-    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-    inStock: true
-  },
-  {
-    id: "12",
-    name: "TIL Mug",
-    price: 149,
-    image: "https://tilshop2-i04.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/Yg5YRrJQycK7ZUFYA3HfxWfCuntWIwfBe4hrts8b.png/w600h750.png",
-    inStock: true
-  }
-];
 
 const categories = [
   { name: "Jerseys", image: "https://tilshop2-i05.mycdn.no/mysimgprod/tilshop2_mystore_no/images/media/xIEPRZHUMA6aAsVDw88NNN4pSfckcTraav0ZdBpw.jpg/w1440h1800.jpg", description: "Not all heroes wear capes, some wear TIL jerseys" },
@@ -121,8 +17,17 @@ const categories = [
 ];
 
 const Shop = () => {
+  const [products,setProducts]=useState<Product[]>([]) 
+
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsData = await docQr("Products", {});
+      setProducts(productsData);
+    };
+    fetchProducts();
+  }, []);
   const handleBuy = (product: Product) => {
-    alert(`Added "${product.name}" to cart!\nPrice: ${product.price} NOK`);
   };
 
   return (
@@ -209,33 +114,29 @@ const Shop = () => {
         
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {products.map((product) => (
-            <div key={product.id} className="bg-card rounded-lg overflow-hidden border group">
+            <div key={product.docId||""} className="bg-card rounded-lg overflow-hidden border group">
               <div className="aspect-square overflow-hidden bg-muted relative">
                 <img 
-                  src={product.image}
-                  alt={product.name}
+                  src={product.image?.[0]}
+                  alt={product.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {product.originalPrice && (
+                {product.price && (
                   <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
                     SALE
                   </span>
                 )}
               </div>
               <div className="p-3">
-                {product.designer && (
-                  <p className="text-xs text-muted-foreground mb-1">{product.designer}</p>
-                )}
-                <h3 className="font-semibold text-sm mb-1 line-clamp-2">{product.name}</h3>
+               
+                <h3 className="font-semibold text-sm mb-1 line-clamp-2">{product.title}</h3>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="font-bold">{product.price},-</span>
-                  {product.originalPrice && (
-                    <span className="text-sm text-muted-foreground line-through">{product.originalPrice},-</span>
+                  {product.price && (
+                    <span className="text-sm text-muted-foreground line-through">{product.price - (getRandomNumberInRange(3,product.price/3))},-</span>
                   )}
                 </div>
-                {product.inStock && (
                   <p className="text-xs text-green-600 mb-2">In Stock</p>
-                )}
                 {product.sizes && (
                   <p className="text-xs text-muted-foreground mb-2">
                     Available in: {product.sizes.join(", ")}

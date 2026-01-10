@@ -65,67 +65,80 @@ const ProductsGrid: React.FC = () => {
   };
 
   return (
-    <MDBContainer className="mt-4">
+    <div className="mt-4 px-4">
       {loading ? (
-        <div className="text-center py-5">
+        <div className="flex justify-center py-10">
           <MDBSpinner />
         </div>
       ) : (
-        <MDBRow>
+        <div
+          className="
+            grid gap-4
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+          "
+        >
           {products.map((p) => (
-            <MDBCol md="4" sm="6" xs="12" key={p.docId} className="mb-4">
-              <MDBCard className="h-100 shadow-2-strong">
-                {/* IMAGE */}
-                <MDBCardImage
-                  src={p.image?.[0]}
-                  position="top"
-                  alt={p.title}
-                  style={{ height: 200, objectFit: "cover" }}
-                />
+            <div
+              key={p.docId}
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-4 flex flex-col"
+            >
+              {/* IMAGE */}
+              <img
+                src={p.image?.[0]}
+                alt={p.title}
+                className="w-full h-48 object-cover rounded-xl mb-3"
+              />
 
-                <MDBCardBody className="d-flex flex-column">
-                  <MDBCardTitle>{p.title}</MDBCardTitle>
+              {/* CONTENT */}
+              <h3 className="font-semibold text-lg">{p.title}</h3>
 
-                  <MDBCardText className="text-muted small">
-                    {p.description.slice(0, 80)}...
-                  </MDBCardText>
+              <p className="text-sm text-gray-500 mt-1">
+                {p.description.slice(0, 80)}...
+              </p>
 
-                  {/* SIZES */}
-                  <div className="mb-2">
-                    {p.sizes?.map((s) => (
-                      <span
-                        key={s}
-                        className="badge bg-light text-dark me-1"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+              {/* SIZES */}
+              <div className="flex flex-wrap gap-1 mt-2">
+                {p.sizes?.map((s) => (
+                  <span
+                    key={s}
+                    className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
 
-                  {/* ACTIONS */}
-                  <div className="mt-auto d-flex gap-2">
-                    <MDBBtn
-                      size="sm"
-                      color="primary"
-                      onClick={() => handleEdit(p.docId)}
-                    >
-                      Edit
-                    </MDBBtn>
-                    <MDBBtn
-                      size="sm"
-                      color="danger"
-                      onClick={() => handleDelete(p.docId)}
-                    >
-                      Delete
-                    </MDBBtn>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
+              {/* ACTIONS */}
+              <div className="mt-auto pt-4 flex gap-2">
+                <button
+                  onClick={() => handleEdit(p.docId)}
+                  className="
+                    flex-1 text-sm py-2 rounded-lg
+                    bg-blue-600 text-white
+                    hover:bg-blue-700 transition
+                  "
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(p.docId)}
+                  className="
+                    flex-1 text-sm py-2 rounded-lg
+                    bg-red-600 text-white
+                    hover:bg-red-700 transition
+                  "
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           ))}
-        </MDBRow>
+        </div>
       )}
-    </MDBContainer>
+    </div>
+    
   );
 };
 

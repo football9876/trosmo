@@ -660,3 +660,6 @@ export function getPreviousWeekActivities(activities:any,type:string) {
     const result = Object.values(mergedActivities);
     return result;
 }
+export function getRandomNumberInRange(min:number, max:number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

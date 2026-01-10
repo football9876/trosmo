@@ -11,14 +11,9 @@ interface props{
 const ProfileNav:React.FC<props> = ({size}) => {
     const user=useSelector((root:{app:AppState})=>root.app.user);
   return (
-    <div className=" ">
-{/* <img style={{width:size,height:size}} src={user?.profilePic||""}/> */}
-<MDBTooltip title={user?.username||"waiting..."} tag={`div`}>
 <Avatar  style={{width:size,height:size}} src={user?.profilePic||""} />
-</MDBTooltip>
 
 
-    </div>
   )
 }
 

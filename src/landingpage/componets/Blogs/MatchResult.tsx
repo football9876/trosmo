@@ -33,7 +33,7 @@ const MatchSchedule: React.FC<{ list?: "prev" | "next" }> = ({ list='next' }) =>
   };
 
   useEffect(() => {
-    console.log({list});
+    // console.log({list});
     fetchResults();
   }, [list]);
 

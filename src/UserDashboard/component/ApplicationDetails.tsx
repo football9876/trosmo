@@ -65,11 +65,11 @@ const TrialApplicationDetails: React.FC<ApplicationProps> = ({ formData }) => {
   const getValue = (value: any) => value ?? "";
 
   return (
-    <Card sx={{ maxWidth: 700, margin: "auto", mb: 4 }}>
+    <Card sx={{ width:"100%",maxWidth: 1000, margin: "auto", mb: 4 ,textAlign:"start"}}>
       <CardContent>
-        <Typography variant="h5" gutterBottom>
+        {/* <Typography variant="h5" gutterBottom>
           TRIAL APPLICATION
-        </Typography>
+        </Typography> */}
 
         {/* Section 1: Personal Information */}
         <Box mb={3}>

@@ -19,59 +19,11 @@ import {
   Stack,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-interface FormFile {
-  name: string;
-  extension: string;
-  uri: string;
-  type: string;
-}
-
-interface FormDataType {
-  docId: string;
-  fullName: string;
-  nationality: string;
-  dateOfBirth: string;
-  passportNumber: string;
-  countryOfResidence: string;
-  whatsappNumber: string;
-  email: string;
-  invitationCode: string;
-  legacyName: string;
-  primaryPosition: string;
-  secondaryPosition: string;
-  preferredFoot: string;
-  currentClub: string;
-  currentLeague?: string;
-  contractDuration?: string;
-  underAgent: string;
-  agentName?: string;
-  height: string;
-  weight: string;
-  shoeSize: string;
-  jerseySize: string;
-  injuries: string;
-  fullyFit: string;
-  validVisa: string;
-  euPassport: string;
-  dietaryRestrictions: string;
-  dietaryDetails: string;
-  emergencyContactName: string;
-  emergencyContactPhone: string;
-  emergencyContactRelation: string;
-  needAirportPickup: string;
-  declaration: boolean;
-  signature: string;
-  submissionDate: string;
-  passportDataPageUrl?: string;
-  bioDataUrl?: string;
-  sponsorshipFormUrl?: string;
-  ownerUid?: string;
-}
+import { ApplicationProps } from "../collectDetails";
 
 const SubmittedForms = () => {
   const [loading, setLoading] = useState(false);
-  const [forms, setForms] = useState<FormDataType[]>([]);
+  const [forms, setForms] = useState<ApplicationProps[]>([]);
   const width = useInnerWidth();
   const isDesktop = width >= 768;
 
@@ -87,7 +39,7 @@ const SubmittedForms = () => {
     }
   };
 
-  const deleteForm = async (form: FormDataType) => {
+  const deleteForm = async (form: ApplicationProps) => {
     let toastId: any;
     try {
       toastId = toast.loading("Deleting data");
@@ -105,10 +57,10 @@ const SubmittedForms = () => {
     getForms();
   }, []);
 
-  const downloadFile = (file: FormFile | string) => {
+  const downloadFile = (url: string) => {
     const link = document.createElement("a");
-    link.href = typeof file === "string" ? file : file.uri;
-    link.download = typeof file === "string" ? "file" : file.name;
+    link.href = url;
+    link.target = "_blank";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -125,7 +77,7 @@ const SubmittedForms = () => {
       ) : forms.length === 0 ? (
         <Typography>No forms submitted yet.</Typography>
       ) : isDesktop ? (
-        // ================= DESKTOP TABLE =================
+        // ================= DESKTOP =================
         <Box sx={{ overflowX: "auto" }}>
           <Table size="small">
             <TableHead>
@@ -137,31 +89,30 @@ const SubmittedForms = () => {
                 <TableCell>Country</TableCell>
                 <TableCell>WhatsApp</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Invitation Code</TableCell>
+                <TableCell>Invite Code</TableCell>
                 <TableCell>Legacy Name</TableCell>
                 <TableCell>Primary Pos</TableCell>
                 <TableCell>Secondary Pos</TableCell>
                 <TableCell>Preferred Foot</TableCell>
-                <TableCell>Current Club</TableCell>
-                <TableCell>Current League</TableCell>
-                <TableCell>Contract Duration</TableCell>
+                <TableCell>Club</TableCell>
+                <TableCell>League Level</TableCell>
+                <TableCell>Contract</TableCell>
                 <TableCell>Under Agent</TableCell>
-                <TableCell>Agent Name</TableCell>
+                <TableCell>Agent</TableCell>
                 <TableCell>Height</TableCell>
                 <TableCell>Weight</TableCell>
-                <TableCell>Shoe Size</TableCell>
-                <TableCell>Jersey Size</TableCell>
+                <TableCell>Shoe</TableCell>
+                <TableCell>Jersey</TableCell>
                 <TableCell>Injuries</TableCell>
                 <TableCell>Fully Fit</TableCell>
-                <TableCell>Valid Visa</TableCell>
+                <TableCell>Visa</TableCell>
                 <TableCell>EU Passport</TableCell>
-                <TableCell>Dietary Restrictions</TableCell>
-                <TableCell>Dietary Details</TableCell>
-                <TableCell>Emergency Contact</TableCell>
-                <TableCell>Need Pickup</TableCell>
+                <TableCell>Dietary</TableCell>
+                <TableCell>Emergency</TableCell>
+                <TableCell>Pickup</TableCell>
                 <TableCell>Declaration</TableCell>
                 <TableCell>Signature</TableCell>
-                <TableCell>Submission Date</TableCell>
+                <TableCell>Date</TableCell>
                 <TableCell>Files</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
@@ -180,23 +131,26 @@ const SubmittedForms = () => {
                   <TableCell>{form.invitationCode}</TableCell>
                   <TableCell>{form.legacyName}</TableCell>
                   <TableCell>{form.primaryPosition}</TableCell>
-                  <TableCell>{form.secondaryPosition}</TableCell>
+                  <TableCell>{form.secondaryPosition || "-"}</TableCell>
                   <TableCell>{form.preferredFoot}</TableCell>
-                  <TableCell>{form.currentClub}</TableCell>
-                  <TableCell>{form.currentLeague}</TableCell>
-                  <TableCell>{form.contractDuration}</TableCell>
+                  <TableCell>{form.currentClub || "-"}</TableCell>
+                  <TableCell>{form.leagueLevel || "-"}</TableCell>
+                  <TableCell>{form.contractDuration || "-"}</TableCell>
                   <TableCell>{form.underAgent}</TableCell>
-                  <TableCell>{form.agentName}</TableCell>
+                  <TableCell>{form.agentName || "-"}</TableCell>
                   <TableCell>{form.height}</TableCell>
                   <TableCell>{form.weight}</TableCell>
                   <TableCell>{form.shoeSize}</TableCell>
                   <TableCell>{form.jerseySize}</TableCell>
-                  <TableCell>{form.injuries}</TableCell>
+                  <TableCell>{form.injuries || "-"}</TableCell>
                   <TableCell>{form.fullyFit}</TableCell>
                   <TableCell>{form.validVisa}</TableCell>
                   <TableCell>{form.euPassport}</TableCell>
-                  <TableCell>{form.dietaryRestrictions}</TableCell>
-                  <TableCell>{form.dietaryDetails}</TableCell>
+                  <TableCell>
+                    {form.dietaryRestrictions}
+                    {form.dietaryRestrictions === "Yes" &&
+                      ` (${form.dietaryDetails || "-"})`}
+                  </TableCell>
                   <TableCell>
                     {form.emergencyContactName} (
                     {form.emergencyContactRelation},{" "}
@@ -207,6 +161,7 @@ const SubmittedForms = () => {
                   <TableCell>{form.signature}</TableCell>
                   <TableCell>{form.submissionDate}</TableCell>
 
+                  {/* FILES */}
                   <TableCell>
                     <Stack direction="row" spacing={1} flexWrap="wrap">
                       {form.passportDataPageUrl && (
@@ -214,7 +169,7 @@ const SubmittedForms = () => {
                           size="small"
                           variant="contained"
                           onClick={() =>
-                            downloadFile(form.passportDataPageUrl as string)
+                            downloadFile(form.passportDataPageUrl!)
                           }
                         >
                           Passport
@@ -226,7 +181,7 @@ const SubmittedForms = () => {
                           color="info"
                           variant="contained"
                           onClick={() =>
-                            downloadFile(form.bioDataUrl as string)
+                            downloadFile(form.bioDataUrl!)
                           }
                         >
                           Bio
@@ -238,7 +193,7 @@ const SubmittedForms = () => {
                           color="success"
                           variant="contained"
                           onClick={() =>
-                            downloadFile(form.sponsorshipFormUrl as string)
+                            downloadFile(form.sponsorshipFormUrl!)
                           }
                         >
                           Sponsor
@@ -263,9 +218,9 @@ const SubmittedForms = () => {
           </Table>
         </Box>
       ) : (
-        // ================= MOBILE ACCORDION =================
+        // ================= MOBILE =================
         <Box>
-          {forms.map((form, i) => (
+          {forms.map((form) => (
             <Accordion key={form.docId}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography fontWeight="bold">
@@ -287,7 +242,7 @@ const SubmittedForms = () => {
                   "Secondary Position": form.secondaryPosition,
                   "Preferred Foot": form.preferredFoot,
                   "Current Club": form.currentClub,
-                  "Current League": form.currentLeague,
+                  "League Level": form.leagueLevel,
                   "Contract Duration": form.contractDuration,
                   "Under Agent": form.underAgent,
                   "Agent Name": form.agentName,
@@ -318,7 +273,7 @@ const SubmittedForms = () => {
                         size="small"
                         variant="contained"
                         onClick={() =>
-                          downloadFile(form.passportDataPageUrl as string)
+                          downloadFile(form.passportDataPageUrl!)
                         }
                       >
                         Passport
@@ -330,7 +285,7 @@ const SubmittedForms = () => {
                         color="info"
                         variant="contained"
                         onClick={() =>
-                          downloadFile(form.bioDataUrl as string)
+                          downloadFile(form.bioDataUrl!)
                         }
                       >
                         Bio
@@ -342,7 +297,7 @@ const SubmittedForms = () => {
                         color="success"
                         variant="contained"
                         onClick={() =>
-                          downloadFile(form.sponsorshipFormUrl as string)
+                          downloadFile(form.sponsorshipFormUrl!)
                         }
                       >
                         Sponsor

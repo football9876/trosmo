@@ -3,7 +3,7 @@ import { MDBBtn, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import { AppState, setUser } from "../../store/Slice";
 import { useDispatch, useSelector } from "react-redux";
 import { User } from "../../interface";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { updateData } from "../../Logics/updateData";
 import toast from "react-hot-toast";
 import { docQr } from "../../Logics/docQr";
@@ -60,7 +60,7 @@ const res=await docQr("Forms",{
   max:1,
   whereClauses:[
     {
-    field:"ownerUid",
+    field:"userId",
     operator:"==",
     value:user.userid
   }
@@ -84,8 +84,8 @@ if(user)getForm(user)
   },[user])
 
   return (
-    <MDBCard className="text-center" style={{ maxWidth: "400px", margin: "auto", padding: 20 }}>
-      <MDBCardBody>
+    <div>
+
         <div className="profile-pic-container">
             <div className={'flex justify-center'}>
             <Avatar
@@ -110,19 +110,19 @@ if(user)getForm(user)
         <span style={{fontWeight:"bold"}}>{user?.username}</span>
 </div>
 
-        <MDBBtn onClick={()=>{
+        <Button onClick={()=>{
             // (document.querySelector("profilePicUpload") as HTMLInputElement).click()
-        }} disabled={working} rounded style={{width:"100%"}} color="dark" className="mt-3">
+        }} disabled={working} style={{width:"100%"}}  className="mt-3">
 <label htmlFor="profilePicUpload" className="profile-pic-label">
 {working ?"Working...": "Change profile picture"}
 </label>
-        </MDBBtn>
+        </Button>
         <br/><br/><br/>
         {loading && <ClipLoader size={20}/>}
         
        {form && <TrialApplicationDetails {...form}/>}
-      </MDBCardBody>
-    </MDBCard>
+         </div>
+
   );
 };
 

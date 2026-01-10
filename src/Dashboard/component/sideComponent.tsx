@@ -43,7 +43,7 @@ const SideComponent:React.FC<{close:()=>void}> = ({close}) => {
         //   dispatch(setCurrentPage("/Matches"))
         //   close()
         // } },
-            { text: "Manage Productss", icon: <Image size={20} />, click:()=>{
+            { text: "Manage Products", icon: <Image size={20} />, click:()=>{
           dispatch(setCurrentPage("/Products"))
           close()
         } },

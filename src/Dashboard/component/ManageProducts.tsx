@@ -15,6 +15,9 @@ import { db } from "../../firebase.config";
 import { Product } from "@/types/products.interface";
 import { docQr } from "@/Logics/docQr";
 import { updateData } from "@/Logics/updateData";
+import { getRandomNumberInRange } from "@/Logics/date";
+
+
 
 const CreateProduct: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -24,7 +27,7 @@ const CreateProduct: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const [price, setPrice]= useState(0)
+  const [price, setPrice] = useState(0)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   useEffect(() => {
@@ -66,91 +69,92 @@ const CreateProduct: React.FC = () => {
   };
 
   // submit product
- 
 
-const handleSubmit = async () => {
-  if (!title || !description) {
-    return toast.error("Fill all required fields");
-  }
 
-  setLoading(true);
-  const toastId = toast.loading(
-    editingProduct ? "Updating product..." : "Uploading product..."
-  );
+  const handleSubmit = async () => {
+    if (!title || !description) {
+      return toast.error("Fill all required fields");
+    }
 
-  try {
-    let finalImageUrls: string[] = [];
+    setLoading(true);
+    const toastId = toast.loading(
+      editingProduct ? "Updating product..." : "Uploading product..."
+    );
 
-    // =========================
-    // 🟡 EDIT MODE
-    // =========================
-    if (editingProduct) {
-      // 1. start with existing images already saved in DB
-      finalImageUrls = [...editingProduct.image];
+    try {
+      let finalImageUrls: string[] = [];
 
-      // 2. upload only NEW images
-      if (images.length > 0) {
-        for (const file of images) {
-          const url = (await uploadFile(file)) as string;
-          finalImageUrls.push(url);
+      // =========================
+      // 🟡 EDIT MODE
+      // =========================
+      if (editingProduct) {
+        // 1. start with existing images already saved in DB
+        finalImageUrls = [...editingProduct.image];
+
+        // 2. upload only NEW images
+        if (images.length > 0) {
+          for (const file of images) {
+            const url = (await uploadFile(file)) as string;
+            finalImageUrls.push(url);
+          }
         }
+
+        await updateData("Products", editingProduct.docId!, {
+          title,
+          description,
+          image: finalImageUrls,
+          sizes,
+        });
+
+        toast.success("Product updated successfully");
+        localStorage.removeItem("editProductId");
+        setEditingProduct(null);
+        return;
       }
 
-      await updateData("Products", editingProduct.docId!, {
+      // =========================
+      // 🟢 CREATE MODE
+      // =========================
+      if (images.length === 0) {
+        return toast.error("Please upload at least one image");
+      }
+
+      for (const file of images) {
+        const url = (await uploadFile(file)) as string;
+        finalImageUrls.push(url);
+      }
+
+      const newProduct: Product = {
         title,
         description,
+        price,
         image: finalImageUrls,
         sizes,
-      });
+        createdAt: new Date().toISOString(),
+      };
 
-      toast.success("Product updated successfully");
-      localStorage.removeItem("editProductId");
-      setEditingProduct(null);
-      return;
+      await AddData(collection(db, "Products"), newProduct);
+      toast.success("Product saved successfully");
+
+      // reset
+      setTitle("");
+      setDescription("");
+      setSizes([]);
+      setImages([]);
+      setPreviewUrls([]);
+      setPrice(0);
+    } catch (err: any) {
+      console.error(err);
+      toast.error("Failed to save product");
+    } finally {
+      toast.dismiss(toastId);
+      setLoading(false);
     }
-
-    // =========================
-    // 🟢 CREATE MODE
-    // =========================
-    if (images.length === 0) {
-      return toast.error("Please upload at least one image");
-    }
-
-    for (const file of images) {
-      const url = (await uploadFile(file)) as string;
-      finalImageUrls.push(url);
-    }
-
-    const newProduct: Product = {
-      title,
-      description,
-      price,
-      image: finalImageUrls,
-      sizes,
-      createdAt: new Date().toISOString(),
-    };
-
-    await AddData(collection(db, "Products"), newProduct);
-    toast.success("Product saved successfully");
-
-    // reset
-    setTitle("");
-    setDescription("");
-    setSizes([]);
-    setImages([]);
-    setPreviewUrls([]);
-    setPrice(0);
-  } catch (err: any) {
-    console.error(err);
-    toast.error("Failed to save product");
-  } finally {
-    toast.dismiss(toastId);
-    setLoading(false);
   }
-}
+
 
   return (
-    <Box sx={{ maxWidth: 600 }}>
+    <Box sx={{ maxWidth: 600, backgroundColor: "#fff", padding: "20px", borderRadius: "10px" }}>
       {/* TITLE */}
       <TextField
         fullWidth
@@ -171,9 +175,9 @@ const handleSubmit = async () => {
         margin="normal"
       />
 
-  <TextField
+      <TextField
         fullWidth
-      
+
         label="Price"
         value={price}
         onChange={(e) => setPrice(Number(e.target.value))}

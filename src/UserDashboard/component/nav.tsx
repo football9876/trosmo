@@ -10,7 +10,12 @@ const Nav:React.FC = () => {
         const user=useSelector((root:{app:AppState})=>root.app.user);
     
   return (<>
-    <div className={`dashboardNav flex items-center justify-content-end`}>
+    <div className={`dashboardNav `} style={{
+width:"100%",
+display:"flex",
+alignItems:"center",
+justifyContent:"flex-end"
+    }}>
      {width < 700 && !user &&  <div style={{background:"var(--blue)",borderRadius:10}}>
       <img src={`/icon.png`} style={{}} 
           className="app-icon"

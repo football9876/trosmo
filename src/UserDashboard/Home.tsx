@@ -75,16 +75,11 @@ const Home = () => {
 </div>
 
 <br/>
-<div style={{background:"white",padding:10,borderRadius:10
+{/* <div style={{background:"white",padding:10,borderRadius:10
 
 }}>
 
-    {/* <div className="responsive-container flex"> */}
-{/* <PerformanceAnalysis/> */}
-<MatchSchedule/>
-{/* <div></div> */}
-{/* </div> */}
-</div>
+</div> */}
 <br/>
 </div>
 
