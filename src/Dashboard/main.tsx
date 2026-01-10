@@ -52,7 +52,7 @@ useEffect(()=>{
 {currentPage==='/users' && <div style={{padding:16,overflow:"auto",width:"100%"}}><UsersTable/></div>}
 {currentPage==='/Gellery' && <div style={{padding:16,overflow:"auto",width:"100%"}}><GalleryManager/></div>}
 {currentPage=="/ListProducts" && <div style={{padding:16,overflow:"auto",width:"100%"}}><ListProducts/></div>}
-
+{currentPage=="/Videos" && <div style={{padding:16,overflow:"auto",width:"100%"}}><UploadVideos/></div>}
 {currentPage==='/add-user' && <div style={{padding:16,overflow:"auto",width:"100%"}}><CreateUserForm/></div>}
 {currentPage==='/settings' && <div style={{padding:16,overflow:"auto",width:"100%"}}><Settings/></div>}
 {currentPage==="/Products" && <div style={{padding:16,overflow:"auto",width:"100%"}}> 

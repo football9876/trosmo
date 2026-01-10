@@ -4,6 +4,8 @@ import { deleteData } from "../../../Logics/deleteData"
 import { ClipLoader } from "react-spinners";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Button } from "@mui/material";
+import { DeleteIcon, EditIcon } from "lucide-react";
 
 
 const BlogCard:React.FC<{item:BlogItem,onEdit?:(item:BlogItem)=>void,deleteable?:boolean}> = ({item,onEdit,deleteable}) => {
@@ -37,9 +39,8 @@ setDeleting(false);
 <br/>
 <div style={{gap:10,width:"100%",flexFlow:"row wrap"}} className={onEdit ? `flex items-center justify-content-between`:``}>
 <span style={{fontWeight:"bold"}}>{item.date}</span>
-
-{onEdit && <MDBBtn onClick={()=>onEdit(item)} size={'sm'} color={`secondary`}>Edit</MDBBtn>}
-{deleteable && <MDBBtn size={`sm`} onClick={deleteItem} color={`danger`}>{deleting ? <ClipLoader size={15}/>:"delete"}</MDBBtn>}
+{onEdit && <Button variant="outlined" startIcon={<EditIcon />} onClick={() => onEdit(item)}>Edit</Button>}
+{deleteable && <Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteItem}>{deleting ? <ClipLoader size={15}/>:"delete"}</Button>}
 </div>
       </div>
     </div>
