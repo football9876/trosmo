@@ -19,6 +19,7 @@ import MatchesManager from "./component/MatchesManager";
 import UploadProducts from "./component/ManageProducts";
 import UploadVideos from "./component/ManageVideos";
 import ListProducts from "./component/ListProducts";
+import GiftCardOrders from "./component/GiftCardOrders";
 
 
 const DashboardMain: React.FC = () => {
@@ -58,6 +59,7 @@ useEffect(()=>{
 {currentPage==="/Products" && <div style={{padding:16,overflow:"auto",width:"100%"}}> 
   <UploadProducts/>
   </div>}
+{currentPage==="/GiftCardOrders" && <div style={{padding:16,overflow:"auto",width:"100%"}}><GiftCardOrders/></div>}
 
 
 

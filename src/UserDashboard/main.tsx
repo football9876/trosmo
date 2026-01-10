@@ -11,6 +11,7 @@ import DetailsModal from "../Dashboard/DetailsModal";
 import UserProfile from "./component/profile";
 import PaymentForm from "./component/Payment";
 import NotificationModal from "./Notification";
+import UserOrders from "./component/Orders";
 
 const UserDashboardMain: React.FC = () => {
 const {currentPage,user}=useSelector((root:{app:AppState})=>root.app);
@@ -32,6 +33,7 @@ const width=useInnerWidth()
 {currentPage==='/dashboard' && <div style={{padding:width < 500 ? 2:16,overflow:"auto",width:"100%"}}><Home/></div>}
 {currentPage==='/profile' && <div style={{padding:width < 500 ? 2:16,overflow:"auto",width:"100%"}}><UserProfile/></div>}
 {currentPage=="/payment" && <div> <PaymentForm/> </div>}
+{currentPage=="/orders" && <div style={{padding:width < 500 ? 2:16,overflow:"auto",width:"100%"}}><UserOrders/></div>}
 
 </div>
 </div>

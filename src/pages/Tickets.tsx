@@ -1,25 +1,44 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Ticket, CreditCard, Users, MapPin, Clock, Info, ChevronRight } from "lucide-react";
+import { Ticket, CreditCard, Users, MapPin, Clock, Info, ChevronRight, ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const ticketCategories = [
   {
-    title: "Single Match Tickets",
-    description: "Buy tickets for individual home matches at Romssa Arena",
+    id: "single-adult-standing",
+    title: "Single Match - Adult Standing",
+    description: "Standing area tickets for individual matches",
     icon: Ticket,
-    href: "#",
+    price: 250,
   },
   {
-    title: "Season Tickets",
+    id: "single-adult-seated",
+    title: "Single Match - Adult Seated",
+    description: "Seated tickets for individual matches",
+    icon: Ticket,
+    price: 350,
+  },
+  {
+    id: "single-adult-vip",
+    title: "Single Match - Adult VIP",
+    description: "VIP experience with premium seating",
+    icon: CreditCard,
+    price: 650,
+  },
+  {
+    id: "season-adult",
+    title: "Season Ticket - Adult",
     description: "Get access to all home matches with your season ticket",
     icon: CreditCard,
-    href: "#",
+    price: 3500,
   },
   {
+    id: "group-tickets",
     title: "Group Tickets",
     description: "Special rates for groups of 10 or more people",
     icon: Users,
-    href: "#",
+    price: 200,
   },
 ];
 
@@ -68,6 +87,12 @@ const faqs = [
 ];
 
 const Tickets = () => {
+  const navigate = useNavigate();
+
+  const handleBuyTicket = (ticketId: string) => {
+    navigate(`/payment?type=ticket&id=${ticketId}`);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -90,22 +115,26 @@ const Tickets = () => {
           <h2 className="text-2xl lg:text-3xl font-heading font-bold mb-8">
             Buy Tickets
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {ticketCategories.map((category) => (
-              <a
-                key={category.title}
-                href={category.href}
+              <div
+                key={category.id}
                 className="group bg-card border border-border p-6 hover:shadow-lg transition-all duration-300 hover:border-primary"
               >
                 <category.icon className="w-10 h-10 text-primary mb-4" />
                 <h3 className="text-xl font-heading font-bold mb-2 group-hover:text-primary transition-colors">
                   {category.title}
                 </h3>
-                <p className="text-muted-foreground mb-4">{category.description}</p>
-                <span className="inline-flex items-center text-primary font-semibold">
-                  Buy Now <ChevronRight className="w-4 h-4 ml-1" />
-                </span>
-              </a>
+                <p className="text-muted-foreground mb-2">{category.description}</p>
+                <p className="text-2xl font-bold text-primary mb-4">{category.price} NOK</p>
+                <Button 
+                  onClick={() => handleBuyTicket(category.id)}
+                  className="w-full"
+                >
+                  <ShoppingCart className="w-4 h-4 mr-2" />
+                  Buy Now
+                </Button>
+              </div>
             ))}
           </div>
         </div>

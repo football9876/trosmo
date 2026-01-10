@@ -27,6 +27,7 @@ import Schedule from "./pages/Schedule";
 import Results from "./pages/Results";
 import Stadium from "./pages/Stadium";
 import About from "./pages/About";
+import Payment from "./pages/Payment";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,9 @@ const App = () => (
             
             {/* Shop */}
             <Route path="/shop" element={<Shop />} />
+            
+            {/* Payment */}
+            <Route path="/payment" element={<Payment />} />
             
             {/* Sustainability */}
             <Route path="/sustainability" element={<Sustainability />} />

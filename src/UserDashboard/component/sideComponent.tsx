@@ -1,5 +1,5 @@
 
-import { DollarSign, Grid, Power, Settings, User, } from "react-feather"; // Feather Icons
+import { DollarSign, Grid, Power, Settings, User, ShoppingBag } from "react-feather"; // Feather Icons
 import { MDBBtn } from "mdb-react-ui-kit";
 import {useDispatch, useSelector} from 'react-redux'
 import { AppState, setCurrentPage } from '../../store/Slice';
@@ -26,6 +26,10 @@ const SideComponent:React.FC<{close:()=>void}> = ({close}) => {
         }},
         { text: "Payment", icon: <DollarSign size={20} />, click:()=>{
               dispatch(setCurrentPage("/payment"));
+          close()
+        }},
+        { text: "My Orders", icon: <ShoppingBag size={20} />, click:()=>{
+          dispatch(setCurrentPage("/orders"));
           close()
         }},
         { text: "Logout", icon: <Power size={20} />, click:()=>{

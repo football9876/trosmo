@@ -6,6 +6,7 @@ import { Product } from "@/types/products.interface";
 import { useEffect, useState } from "react";
 import { docQr } from "@/Logics/docQr";
 import { getRandomNumberInRange } from "@/Logics/date";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -18,7 +19,7 @@ const categories = [
 
 const Shop = () => {
   const [products,setProducts]=useState<Product[]>([]) 
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,7 +28,9 @@ const Shop = () => {
     };
     fetchProducts();
   }, []);
+  
   const handleBuy = (product: Product) => {
+    navigate(`/payment?type=product&id=${product.docId}`);
   };
 
   return (
