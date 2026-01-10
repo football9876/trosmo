@@ -1,75 +1,87 @@
+import React, { useState, useEffect } from "react";
 import {
-    MDBBtn,
-    MDBModal,
-    MDBModalDialog,
-    MDBModalContent,
-    MDBModalHeader,
-    MDBModalTitle,
-    MDBModalBody,
-    MDBModalFooter,
-  } from 'mdb-react-ui-kit';
-import { useEffect, useState } from 'react';
-import CollectDetails from './collectDetails';
-import SuccessConfirmation from './CollectionSuccessMessage';
-import { AppState, setShowForm } from '../store/Slice';
-import { useDispatch, useSelector } from 'react-redux';
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import CollectDetails from "./collectDetails";
+import SuccessConfirmation from "./CollectionSuccessMessage";
+import { AppState, setShowForm } from "../store/Slice";
+import { useDispatch, useSelector } from "react-redux";
 
-const DetailsModal:React.FC=()=>{
-   const {user,showForm}=useSelector((root:{app:AppState})=>root.app)
-    const [basicModal, setBasicModal] = useState(!user?.registrationCompleted);
+const DetailsModal: React.FC = () => {
+  const { user, showForm } = useSelector(
+    (root: { app: AppState }) => root.app
+  );
 
-    const toggleOpen = () => setBasicModal(!basicModal);
-    const [success,setSuccess]=useState<boolean>(false);
+  const [open, setOpen] = useState(!user?.registrationCompleted);
+  const [success, setSuccess] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
-    useEffect(()=>{
-      if(showForm)setBasicModal(showForm)
-    },[showForm]);
+  // Sync with Redux showForm
+  useEffect(() => {
+    if (showForm) setOpen(showForm);
+  }, [showForm]);
 
-    const dispatch=useDispatch();
+  // Update Redux when modal closes
+  useEffect(() => {
+    if (!open) {
+      dispatch(setShowForm(false));
+      console.log("Modal closed, Redux updated");
+    }
+  }, [open, dispatch]);
 
-    useEffect(()=>{
-if(!basicModal){
-  dispatch(setShowForm(basicModal ? true:false));
-  console.log("should close on useEffect")
-}
-    },[basicModal]);
-return (<>
-      <MDBModal open={basicModal} onClose={() => {
-        setBasicModal(false)
-        dispatch(setShowForm(false));
-        console.log("application form should show")
-      }} tabIndex='-1' >
-        <MDBModalDialog>
-          <MDBModalContent>
-            <MDBModalHeader>
-              <MDBModalTitle>TRIAL APPLICATION </MDBModalTitle>
-              <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
-            </MDBModalHeader>
-            <MDBModalBody>
-               {success? <SuccessConfirmation onMakePayment={()=>setBasicModal(false)}/>:<CollectDetails onSuccess={()=>setSuccess(true)}/>}
-            </MDBModalBody>
+  const handleClose = () => {
+    setOpen(false);
+    dispatch(setShowForm(false));
+  };
 
-            <MDBModalFooter>
-              <MDBBtn color='secondary' onClick={()=>{
-if(success){
-  setBasicModal(false)
-}
-else{
-  setTimeout(()=>{
-setBasicModal(true);
-  },60*60*2);//2mins
-}
-              }}>
-                
+  const handleRemindLater = () => {
+    if (success) {
+      handleClose();
+    } else {
+      setOpen(false);
+      setTimeout(() => {
+        setOpen(true);
+      }, 2 * 60 * 1000); // 2 minutes
+    }
+  };
 
-                {success ? "Finish":"Remind me later"}
-              </MDBBtn>
-              {/* <MDBBtn>Save changes</MDBBtn> */}
-            </MDBModalFooter>
-          </MDBModalContent>
-        </MDBModalDialog>
-      </MDBModal>
-      </>)
-}
+  return (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      fullWidth
+      maxWidth="sm"
+      scroll="paper"
+    >
+      <DialogTitle sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Typography variant="h6">TRIAL APPLICATION</Typography>
+        <IconButton onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+
+      <DialogContent>
+        {success ? (
+          <SuccessConfirmation onMakePayment={handleClose} />
+        ) : (
+          <CollectDetails onSuccess={() => setSuccess(true)} />
+        )}
+      </DialogContent>
+
+      <DialogActions>
+        <Button color="secondary" onClick={handleRemindLater}>
+          {success ? "Finish" : "Remind me later"}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export default DetailsModal;

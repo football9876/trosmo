@@ -1,30 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  MDBInput,
-  MDBCheckbox,
-  MDBBtn,
-  MDBCard,
-  MDBCardBody
-} from "mdb-react-ui-kit";
-import toast from "react-hot-toast";
-import { getCountries } from "./countries";
-import { AddData } from "../Logics/addData";
-import { collection } from "firebase/firestore";
-import { db } from "../firebase.config";
-import { updateData } from "../Logics/updateData";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState, setUser } from "../store/Slice";
-import { uploadFile } from '../Logics/upload';
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+  Link,
+  Box,
+  Button,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { AppState } from "@/store/Slice";
+import { db } from "@/firebase.config";
 
-const CollectDetails:React.FC<{onSuccess:()=>void}> = ({onSuccess}) => {
-  const [countries,setCountries]=useState<string[]>([]);
+export interface ApplicationProps {
+  fullName: string;
+  nationality: string;
+  dateOfBirth: string;
+  passportNumber: string;
+  countryOfResidence: string;
+  whatsappNumber: string;
+  email: string;
+  invitationCode: string;
+  legacyName: string;
+  primaryPosition: string;
+  secondaryPosition?: string;
+  preferredFoot: string;
+  currentClub?: string;
+  leagueLevel?: string;
+  contractDuration?: string;
+  underAgent: "Yes" | "No";
+  agentName?: string;
+  height: string;
+  weight: string;
+  shoeSize: string;
+  jerseySize: string;
+  injuries?: string;
+  fullyFit: "Yes" | "No";
+  validVisa: "Yes" | "No";
+  euPassport: "Yes" | "No";
+  dietaryRestrictions: "Yes" | "No";
+  dietaryDetails?: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  emergencyContactRelation: string;
+  needAirportPickup: "Yes" | "No";
+  declaration: boolean;
+  signature: string;
+  submissionDate: string;
+  passportDataPageUrl?: string;
+  bioDataUrl?: string;
+  sponsorshipFormUrl?: string;
+}
 
-  useEffect(()=>{
-(async ()=>{
-setCountries(await getCountries());
-})();
-  },[]);
-  const [formData, setFormData] = useState({
+const CollectDetails: React.FC<{ onSuccess: (data: ApplicationProps) => void }> = ({
+  onSuccess,
+}) => {
+  const { user } = useSelector((root: { app: AppState }) => root.app);
+
+  const [formData, setFormData] = useState<ApplicationProps>({
     fullName: "",
     nationality: "",
     dateOfBirth: "",
@@ -38,6 +74,8 @@ setCountries(await getCountries());
     secondaryPosition: "",
     preferredFoot: "",
     currentClub: "",
+    leagueLevel: "",
+    contractDuration: "",
     underAgent: "No",
     agentName: "",
     height: "",
@@ -46,8 +84,8 @@ setCountries(await getCountries());
     jerseySize: "",
     injuries: "",
     fullyFit: "Yes",
-    validVisa: "No",
-    euPassport: "No",
+    validVisa: "Yes",
+    euPassport: "Yes",
     dietaryRestrictions: "No",
     dietaryDetails: "",
     emergencyContactName: "",
@@ -56,407 +94,219 @@ setCountries(await getCountries());
     needAirportPickup: "No",
     declaration: false,
     signature: "",
-    submissionDate: "",
-      passportDataPageUrl: "",
-  bioDataUrl: "",
-  sponsorshipFormUrl: "",
+    submissionDate: new Date().toISOString().split("T")[0],
+    passportDataPageUrl: "",
+    bioDataUrl: "",
+    sponsorshipFormUrl: "",
   });
-const {user}=useSelector((root:{app:AppState})=>root.app);
 
-  const handleInputChange = (e:any) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value
-    });
+  const [loading, setLoading] = useState(false);
+ const handleFileChange = (key: keyof ApplicationProps, file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData((prev) => ({
+        ...prev,
+        [key]: reader.result as string, // store preview as base64
+      }));
+    };
+    reader.readAsDataURL(file); // preview as base64
+  };
+  const handleChange = (key: keyof ApplicationProps, value: any) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const dispatch=useDispatch();
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
-   
-    try{
-console.log("submit")
-await AddData(collection(db,"Forms"),{...formData,ownerUid:user?.userid||""});
-await updateData("Users",user?.docId||"",{...user,registrationCompleted:true});
-dispatch(setUser({...user,registrationCompleted:true} as any))
-      onSuccess()
+  const handleSubmit = async () => {
+    if (!user?.userid) return;
+    setLoading(true);
 
-    }
-    catch(err:any){
-      toast.error(err.message);
-    }
-    finally{
+    try {
+      await addDoc(collection(db, "SubmittedForm"), {
+        ...formData,
+        userId: user.userid,
+        submittedAt: serverTimestamp(),
+      });
+
+      onSuccess(formData);
+    } catch (err) {
+      console.error("Error submitting form:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
-
-
-const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-
-  let toastId;
-  try {
-    toastId = toast.loading("Uploading...");
-    const url = (await uploadFile(file)) as string;
-    setFormData((prev) => ({
-      ...prev,
-      [field]: url,
-    }));
-    toast.success("Upload successful!");
-  } catch (err: any) {
-    console.error(err);
-    toast.error("Upload failed");
-  } finally {
-    if (toastId) toast.dismiss(toastId);
-  }
-};
-
+  const getValue = (value: any) => value ?? "";
 
   return (
-    <MDBCard>
-      <MDBCardBody>
-        <form onSubmit={handleSubmit}>
-          {/* Section 1 */}
-          <h5>Personal Information</h5>
-          <MDBInput
-            label="Full Name (as in Passport)"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-     
-            <label className="mb-2">Nationality</label>
-          
-      <select className="form-select mb-3"
-            name="nationality"
-            value={formData.nationality}
-            onChange={handleInputChange}
-          
-          >
-      <option value="">Select Country</option>
-        {countries.map((country,i:number)=>{
-            return <option key={i} value={country} selected={country==formData?.countryOfResidence}>{country}</option>
-          })}
-          </select>
+    <Card sx={{ maxWidth: 700, margin: "auto", mb: 4 }}>
+      <CardContent>
+   
 
-
-          <MDBInput
-            label="Date of Birth"
-            name="dateOfBirth"
-            type="date"
-            value={formData.dateOfBirth}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Passport Number"
-            name="passportNumber"
-            value={formData.passportNumber}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          
-          <label className="mb-2">Country of Residence</label>
-          
-      <select className="form-select mb-3"
-            name="countryOfResidence"
-            value={formData.countryOfResidence}
-            onChange={handleInputChange}
-          
-          >
-      <option value="">Select Country</option>
-        {countries.map((country,i:number)=>{
-            return <option key={i} value={country} selected={country==formData?.countryOfResidence}>{country}</option>
-          })}
-          </select>
-
-          <MDBInput
-            label="WhatsApp Number (with country code)"
-            name="whatsappNumber"
-            value={formData.whatsappNumber}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Invitation Reference Code (FILE NUMBER)"
-            name="invitationCode"
-            value={formData.invitationCode}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-
-          {/* Section 2 */}
-          <h5>Football Details</h5>
-          <MDBInput
-            label="Legacy Name"
-            name="legacyName"
-            value={formData.legacyName}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Primary Position"
-            name="primaryPosition"
-            value={formData.primaryPosition}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Secondary Position"
-            name="secondaryPosition"
-            value={formData.secondaryPosition}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Preferred Foot"
-            name="preferredFoot"
-            value={formData.preferredFoot}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Current Club"
-            name="currentClub"
-            value={formData.currentClub}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-    
-          <label>Are you under agent/representation?</label>
-          <select
-            className="form-select mb-3"
-            name="underAgent"
-            value={formData.underAgent}
-            onChange={handleInputChange}
-          >
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
-          {formData.underAgent === "Yes" && (
-            <MDBInput
-              label="Agent’s Name and Contact"
-              name="agentName"
-              value={formData.agentName}
-              onChange={handleInputChange}
-              className="mb-3"
+        {/* Section 1: Personal Information */}
+        <Box mb={3}>
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+            Personal Information
+          </Typography>
+          {["fullName","nationality","dateOfBirth","passportNumber","countryOfResidence","whatsappNumber","email","invitationCode"].map((key) => (
+            <TextField
+              key={key}
+              label={key.replace(/([A-Z])/g, " $1")}
+              value={getValue(formData[key as keyof ApplicationProps])}
+              fullWidth
+              margin="dense"
+              onChange={(e) => handleChange(key as keyof ApplicationProps, e.target.value)}
             />
-          )}
+          ))}
+        </Box>
 
-          {/* Section 3 */}
-          <h5>Physical Attributes</h5>
-          <MDBInput
-            label="Height (cm)"
-            name="height"
-            type="number"
-            value={formData.height}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Weight (kg)"
-            name="weight"
-            type="number"
-            value={formData.weight}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Shoe Size"
-            name="shoeSize"
-            type="number"
-            value={formData.shoeSize}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Jersey Size"
-            name="jerseySize"
-            value={formData.jerseySize}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Injuries in past 12 months (if any)"
-            name="injuries"
-            value={formData.injuries}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <label>Are you fully fit to play?</label>
-          <select
-            className="form-select mb-3"
-            name="fullyFit"
-            value={formData.fullyFit}
-            onChange={handleInputChange}
-          >
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-
-          {/* Section 4 */}
-          <h5>Trial Logistics</h5>
-          <label>Do you have a valid visa to Denmark?</label>
-          <select
-            className="form-select mb-3"
-            name="validVisa"
-            value={formData.validVisa}
-            onChange={handleInputChange}
-          >
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
-          <label>Do you have an EU passport/residence permit?</label>
-          <select
-            className="form-select mb-3"
-            name="euPassport"
-            value={formData.euPassport}
-            onChange={handleInputChange}
-          >
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
-          <label>Do you have dietary restrictions?</label>
-          <select
-            className="form-select mb-3"
-            name="dietaryRestrictions"
-            value={formData.dietaryRestrictions}
-            onChange={handleInputChange}
-          >
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
-          {formData.dietaryRestrictions === "Yes" && (
-            <MDBInput
-              label="If Yes, please specify"
-              name="dietaryDetails"
-              value={formData.dietaryDetails}
-              onChange={handleInputChange}
-              className="mb-3"
+        {/* Section 2: Football Details */}
+        <Box mb={3}>
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+            Football Details
+          </Typography>
+          {["legacyName","primaryPosition","secondaryPosition","preferredFoot","currentClub","leagueLevel","contractDuration","underAgent","agentName"].map((key) => (
+            <TextField
+              key={key}
+              label={key.replace(/([A-Z])/g, " $1")}
+              value={getValue(formData[key as keyof ApplicationProps])}
+              fullWidth
+              margin="dense"
+              onChange={(e) => handleChange(key as keyof ApplicationProps, e.target.value)}
             />
-          )}
-          <MDBInput
-            label="Emergency Contact Name"
-            name="emergencyContactName"
-            value={formData.emergencyContactName}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Emergency Contact Phone"
-            name="emergencyContactPhone"
-            value={formData.emergencyContactPhone}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Relationship to You"
-            name="emergencyContactRelation"
-            value={formData.emergencyContactRelation}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <label>Do you need airport pickup?</label>
-          <select
-            className="form-select mb-3"
-            name="needAirportPickup"
-            value={formData.needAirportPickup}
-            onChange={handleInputChange}
-          >
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
+          ))}
+        </Box>
 
-          {/* Section 5 */}
-          <h5>Terms & Declarations</h5>
-          <MDBCheckbox
-            name="declaration"
+        {/* Section 3: Physical Attributes */}
+        <Box mb={3}>
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+            Physical Attributes
+          </Typography>
+          {["height","weight","shoeSize","jerseySize","injuries","fullyFit"].map((key) => (
+            <TextField
+              key={key}
+              label={key.replace(/([A-Z])/g, " $1")}
+              value={getValue(formData[key as keyof ApplicationProps])}
+              fullWidth
+              margin="dense"
+              onChange={(e) => handleChange(key as keyof ApplicationProps, e.target.value)}
+            />
+          ))}
+        </Box>
+
+        {/* Section 4: Trial Logistics */}
+        <Box mb={3}>
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+            Trial Logistics
+          </Typography>
+          {["validVisa","euPassport","dietaryRestrictions","dietaryDetails","emergencyContactName","emergencyContactPhone","emergencyContactRelation","needAirportPickup"].map((key) => (
+            <TextField
+              key={key}
+              label={key.replace(/([A-Z])/g, " $1")}
+              value={getValue(formData[key as keyof ApplicationProps])}
+              fullWidth
+              margin="dense"
+              onChange={(e) => handleChange(key as keyof ApplicationProps, e.target.value)}
+            />
+          ))}
+        </Box>
+
+        {/* Section 5: Terms & Declarations */}
+        <Box mb={3}>
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+            Terms & Declarations
+          </Typography>
+          {["signature"].map((key) => (
+            <TextField
+              key={key}
+              label={key.replace(/([A-Z])/g, " $1")}
+              value={getValue(formData[key as keyof ApplicationProps])}
+              fullWidth
+              placeholder="Type Full Name as Signature"
+              margin="dense"
+              onChange={(e) => handleChange(key as keyof ApplicationProps, e.target.value)}
+            />
+          ))}
+        </Box>
+
+        {/* File Upload Links */}
+      <Box mb={3}>
+      {(["passportDataPageUrl", "bioDataUrl", "sponsorshipFormUrl"] as (keyof ApplicationProps)[]).map((key) => (
+        <Box mb={2} key={key}>
+          <Typography variant="subtitle2" gutterBottom>
+            {key.replace(/([A-Z])/g, " $1")}
+          </Typography>
+
+          {/* Upload Button */}
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{ mb: 1 }}
+          >
+            Upload File
+            <input
+              type="file"
+              hidden
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  handleFileChange(key, e.target.files[0]);
+                }
+              }}
+            />
+          </Button>
+
+          {/* Preview */}
+          {formData[key] && (
+            <Box
+              sx={{
+                mt: 1,
+                p: 1,
+                border: "1px dashed gray",
+                borderRadius: 2,
+                textAlign: "center",
+                maxWidth: 300,
+              }}
+            >
+              {typeof formData[key]=="string" && formData[key].startsWith("data:image") ? (
+                <img
+                  src={formData[key]}
+                  alt="preview"
+                  style={{ maxWidth: "100%", maxHeight: 150 }}
+                />
+              ) : (
+                <Typography variant="body2" noWrap>
+                  File selected (preview not available)
+                </Typography>
+              )}
+            </Box>
+          )}
+</Box>
+      ))}
+    </Box>
+
+
+        {/* Checkbox: "I declare that all information provided is true and correct." */}
+        <Box mb={3} display="flex" alignItems="center">
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={formData.declaration}
+                onChange={(e) => handleChange("declaration", e.target.checked)}
+              />
+            }
             label="I declare that all information provided is true and correct."
-            checked={formData.declaration}
-            onChange={handleInputChange}
-            className="mb-3"
           />
-          <MDBInput
-            label="Signature (type full name)"
-            name="signature"
-            value={formData.signature}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-          <MDBInput
-            label="Date of Submission"
-            name="submissionDate"
-            type="date"
-            value={formData.submissionDate}
-            onChange={handleInputChange}
-            className="mb-3"
-          />
-
-
-
-
-<h5>Uploads</h5>
-
-<label>Passport Data Page</label>
-<input
-  type="file"
-  accept="image/*,application/pdf"
-  className="form-control mb-3"
-  onChange={(e) => handleFileUpload(e, "passportDataPageUrl")}
-/>
-{formData.passportDataPageUrl && (
-  <div className="mb-3">
-    <a href={formData.passportDataPageUrl} target="_blank" rel="noopener noreferrer">View Uploaded Passport Page</a>
-  </div>
-)}
-
-<label>Bio Data</label>
-<input
-  type="file"
-  accept="image/*,application/pdf"
-  className="form-control mb-3"
-  onChange={(e) => handleFileUpload(e, "bioDataUrl")}
-/>
-{formData.bioDataUrl && (
-  <div className="mb-3">
-    <a href={formData.bioDataUrl} target="_blank" rel="noopener noreferrer">View Uploaded Bio Data</a>
-  </div>
-)}
-
-<label>Sponsorship Form</label>
-<input
-  type="file"
-  accept="image/*,application/pdf"
-  className="form-control mb-3"
-  onChange={(e) => handleFileUpload(e, "sponsorshipFormUrl")}
-/>
-{formData.sponsorshipFormUrl && (
-  <div className="mb-3">
-    <a href={formData.sponsorshipFormUrl} target="_blank" rel="noopener noreferrer">View Uploaded Sponsorship Form</a>
-  </div>
-)}
-
-
-
-
-
-          <MDBBtn type="submit" color="dark" style={{ width: "100%" }}>
-            Submit
-          </MDBBtn>
-        </form>
-      </MDBCardBody>
-    </MDBCard>
+        </Box>
+        <Box mt={4} display="flex" justifyContent="flex-end">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit"}
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

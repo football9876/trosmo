@@ -25,11 +25,11 @@ const DashboardMain: React.FC = () => {
 const {currentPage,user}=useSelector((root:{app:AppState})=>root.app);
 const navigate=useNavigate();
 useEffect(()=>{
-// (()=>{
-//   if(!user?.isAdmin){
-//   return navigate("/UserDashboard")
-// }
-// })()
+(()=>{
+  if(!user?.isAdmin){
+  return navigate("/UserDashboard")
+}
+})();
 },[])
 
 

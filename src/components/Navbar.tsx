@@ -3,6 +3,7 @@ import { Menu, X, User, Bell, Search } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import TILLogo from "./TILLogo";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalFooter, MDBModalHeader, MDBModalTitle } from "mdb-react-ui-kit";
+import NotificationModal from "./NotificationModal";
 
 const topBarLinks = [
   { label: "Youth Academy", href: "/youth-department" },
@@ -192,7 +193,7 @@ const Navbar = () => {
       )}
     </header>
 
-
+{/* 
     <MDBModal show={showModal} onHide={() => setShowModal(false)}>
       <MDBModalDialog centered>
         <MDBModalContent>
@@ -209,7 +210,8 @@ const Navbar = () => {
           </MDBModalFooter>
         </MDBModalContent>
       </MDBModalDialog>
-    </MDBModal>
+    </MDBModal> */}
+    <NotificationModal showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 };
