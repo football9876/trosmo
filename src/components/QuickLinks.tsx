@@ -15,7 +15,7 @@ const links = [
   { icon: Users, label: "Teams", href: "#" },
   { icon: Calendar, label: "Fixtures", href: "#" },
   { icon: Trophy, label: "Results", href: "#" },
-  { icon: Ticket, label: "Buy Tickets", href: "#" },
+  { icon: Ticket, label: "Buy Tickets", href: "/tickets" },
   { icon: MapPin, label: "Romssa Arena", href: "#" },
   { icon: Info, label: "About TIL", href: "#" },
 ];

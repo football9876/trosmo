@@ -93,7 +93,7 @@ const MatchWidget = () => {
 
               {match.isHome && (
                 <a
-                  href="#"
+                  href="/tickets"
                   className="btn-primary w-full mt-4 text-sm"
                 >
                   Buy Tickets

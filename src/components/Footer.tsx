@@ -9,7 +9,7 @@ const footerLinks = {
     { label: "Privacy Policy", href: "#" },
   ],
   tickets: [
-    { label: "Buy Tickets", href: "#" },
+    { label: "Buy Tickets", href: "/tickets" },
     { label: "Season Tickets", href: "#" },
     { label: "Group Tickets", href: "#" },
     { label: "VIP Packages", href: "#" },
