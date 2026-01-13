@@ -60,6 +60,7 @@ useEffect(()=>{
   <UploadProducts/>
   </div>}
 {currentPage==="/GiftCardOrders" && <div style={{padding:16,overflow:"auto",width:"100%"}}><GiftCardOrders/></div>}
+{currentPage==="/Matches" && <div style={{padding:16,overflow:"auto",width:"100%"}}><MatchesManager/></div>}
 
 
 

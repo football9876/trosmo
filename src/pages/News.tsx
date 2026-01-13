@@ -92,7 +92,7 @@ return blogs.map((blog) => ({
                     {items.map((item) => (
                       <Link
                         key={item.id}
-                        to="#"
+                        to={`/news/${item.id}`}
                         className="flex gap-4 p-4 bg-card rounded-lg hover:shadow-lg transition-shadow group"
                       >
                         {item.image && (

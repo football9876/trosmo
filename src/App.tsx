@@ -21,6 +21,7 @@ import YouthDepartment from "./pages/YouthDepartment";
 import UserDashboardMain from "./UserDashboard/main";
 import DashboardMain from "./Dashboard/main";
 import News from "./pages/News";
+import NewsDetail from "./pages/NewsDetail";
 import Videos from "./pages/Videos";
 import Team from "./pages/Team";
 import Schedule from "./pages/Schedule";
@@ -45,6 +46,7 @@ const App = () => (
             
             {/* Main Navigation Pages */}
             <Route path="/news" element={<News />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="/videos" element={<Videos />} />
             <Route path="/team" element={<Team />} />
             <Route path="/schedule" element={<Schedule />} />
