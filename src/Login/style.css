@@ -2,7 +2,7 @@
     width:100vw;
     min-height: 100vh;
    background-color:rgb(16, 3, 3);
-   background-image:url('/login-bg.jpeg');
+   background-image:url('@/assets/stadium-hero.jpg');
    background-size:cover;
    position: fixed;
    display:flex;
