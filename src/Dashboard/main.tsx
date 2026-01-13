@@ -16,15 +16,15 @@ import Blogs from "./component/blogs";
 import GalleryManager from "./component/EditGallery";
 import Settings from "./component/settings";
 import MatchesManager from "./component/MatchesManager";
+import CreateMatchPage from "./component/CreateMatchPage";
 import UploadProducts from "./component/ManageProducts";
 import UploadVideos from "./component/ManageVideos";
 import ListProducts from "./component/ListProducts";
 import GiftCardOrders from "./component/GiftCardOrders";
 
-
 const DashboardMain: React.FC = () => {
-const {currentPage,user}=useSelector((root:{app:AppState})=>root.app);
-const navigate=useNavigate();
+const { currentPage, user, editingMatch } = useSelector((root: { app: AppState }) => root.app);
+const navigate = useNavigate();
 useEffect(()=>{
 (()=>{
   if(!user?.isAdmin){
@@ -61,6 +61,7 @@ useEffect(()=>{
   </div>}
 {currentPage==="/GiftCardOrders" && <div style={{padding:16,overflow:"auto",width:"100%"}}><GiftCardOrders/></div>}
 {currentPage==="/Matches" && <div style={{padding:16,overflow:"auto",width:"100%"}}><MatchesManager/></div>}
+{currentPage==="/CreateMatch" && <div style={{padding:16,overflow:"auto",width:"100%"}}><CreateMatchPage editData={editingMatch} /></div>}
 
 
 
