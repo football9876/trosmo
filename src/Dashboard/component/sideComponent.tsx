@@ -1,5 +1,5 @@
 
-import {  Settings, Grid, Users, UserPlus, FolderMinus, Book, Image, CreditCard } from "react-feather"; // Feather Icons
+import { Settings, Grid, Users, UserPlus, FolderMinus, Book, Image, CreditCard, Activity } from "react-feather"; // Feather Icons
 import { MDBBtn } from "mdb-react-ui-kit";
 import {useDispatch} from 'react-redux'
 import { setCurrentPage } from '../../store/Slice';
@@ -35,15 +35,10 @@ const SideComponent:React.FC<{close:()=>void}> = ({close}) => {
           dispatch(setCurrentPage("/blogs"))
           close()
         } },
-        // { text: "Gallery", icon: <Image size={20} />, click:()=>{
-        //   dispatch(setCurrentPage("/Gellery"))
-        //   close()
-        // } },
-        
-        //  { text: "Matches", icon: <Image size={20} />, click:()=>{
-        //   dispatch(setCurrentPage("/Matches"))
-        //   close()
-        // } },
+        { text: "Matches", icon: <Activity size={20} />, click:()=>{
+          dispatch(setCurrentPage("/Matches"))
+          close()
+        } },
         {
           text:"Videos",
           icon:<Image size={20}/>,
