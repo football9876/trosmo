@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TILLogo from "./TILLogo";
 import { MDBBtn, MDBModal, MDBModalBody, MDBModalContent, MDBModalDialog, MDBModalFooter, MDBModalHeader, MDBModalTitle } from "mdb-react-ui-kit";
 import NotificationModal from "./NotificationModal";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const topBarLinks = [
   { label: "Youth Academy", href: "/youth-department" },
@@ -212,6 +213,7 @@ const Navbar = () => {
       </MDBModalDialog>
     </MDBModal> */}
     <NotificationModal showModal={showModal} setShowModal={setShowModal} />
+  
     </>
   );
 };

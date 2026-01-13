@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  MDBInput,
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-} from "mdb-react-ui-kit";
 import toast from "react-hot-toast";
 import { uploadFile } from "../../Logics/upload";
 import { v4 as uuidv4 } from "uuid";
@@ -23,9 +17,9 @@ export interface MatchItem {
   docId?: string;
   createdAt: string;
   homeScore?: number;
-  isLastMatch?:boolean,
-  awayScore?: number,
-  matchDate:string,
+  isLastMatch?: boolean;
+  awayScore?: number;
+  matchDate: string;
 }
 
 interface Props {
@@ -46,29 +40,24 @@ const LastMatchForm: React.FC<Props> = ({ editData, onSave }) => {
     backgroundImage: null,
     createdAt: "",
     homeScore: 0,
-    matchDate:"",
+    matchDate: "",
     awayScore: 0,
   });
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (editData) {
-      setFormData(editData);
-    }
+    if (editData) setFormData(editData);
   }, [editData]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    // If score fields, convert to number
-    console.log(value)
+
     if (name === "homeScore" || name === "awayScore") {
-      setFormData({ ...formData, [name]: parseInt(value, 10) });
-    }
-     
-    else {
+      setFormData({ ...formData, [name]: Number(value) });
+    } else {
       setFormData({ ...formData, [name]: value });
     }
   };
@@ -78,29 +67,31 @@ const LastMatchForm: React.FC<Props> = ({ editData, onSave }) => {
     field: "homeLogo" | "awayLogo" | "backgroundImage"
   ) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setFormData({ ...formData, [field]: file });
-    }
+    if (file) setFormData({ ...formData, [field]: file });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    let homeLogoUrl = typeof formData.homeLogo === "string" ? formData.homeLogo : "";
-    let awayLogoUrl = typeof formData.awayLogo === "string" ? formData.awayLogo : "";
-    let bgImageUrl = typeof formData.backgroundImage === "string" ? formData.backgroundImage : "";
+    let homeLogoUrl =
+      typeof formData.homeLogo === "string" ? formData.homeLogo : "";
+    let awayLogoUrl =
+      typeof formData.awayLogo === "string" ? formData.awayLogo : "";
+    let bgImageUrl =
+      typeof formData.backgroundImage === "string"
+        ? formData.backgroundImage
+        : "";
 
     try {
-      if (formData.homeLogo instanceof File) {
-        homeLogoUrl = await uploadFile(formData.homeLogo) as string;
-      }
-      if (formData.awayLogo instanceof File) {
-        awayLogoUrl = await uploadFile(formData.awayLogo) as string;
-      }
-      if (formData.backgroundImage instanceof File) {
-        bgImageUrl = await uploadFile(formData.backgroundImage) as string;
-      }
+      if (formData.homeLogo instanceof File)
+        homeLogoUrl = (await uploadFile(formData.homeLogo)) as string;
+
+      if (formData.awayLogo instanceof File)
+        awayLogoUrl = (await uploadFile(formData.awayLogo)) as string;
+
+      if (formData.backgroundImage instanceof File)
+        bgImageUrl = (await uploadFile(formData.backgroundImage)) as string;
 
       const finalDocId = formData.docId || uuidv4();
 
@@ -115,7 +106,6 @@ const LastMatchForm: React.FC<Props> = ({ editData, onSave }) => {
 
       onSave(updatedData);
 
-      // Reset form
       setFormData({
         day: "",
         weekday: "",
@@ -128,7 +118,7 @@ const LastMatchForm: React.FC<Props> = ({ editData, onSave }) => {
         backgroundImage: null,
         createdAt: "",
         homeScore: 0,
-        matchDate:"",
+        matchDate: "",
         awayScore: 0,
       });
     } catch (err) {
@@ -140,56 +130,109 @@ const LastMatchForm: React.FC<Props> = ({ editData, onSave }) => {
   };
 
   return (
-    <MDBCard className="mb-4" style={{ maxWidth: 600 }}>
-      <MDBCardBody>
-        <form onSubmit={handleSubmit}>
-          {/* <MDBInput label="Day EX (Saturday)" name="day" value={formData.day} onChange={handleInputChange} required className="mb-3" /> */}
-          {/* <MDBInput label="Weekday" name="weekday" value={formData.weekday} onChange={handleInputChange} required className="mb-3" /> */}
-          {/* <MDBInput label="Time" name="time" value={formData.time} onChange={handleInputChange} required className="mb-3" /> */}
-          {/* <MDBInput label="Home Team" name="homeTeam" value={formData.homeTeam} onChange={handleInputChange} required className="mb-3" /> */}
-          {/* <MDBInput label="Away Team" name="awayTeam" value={formData.awayTeam} onChange={handleInputChange} required className="mb-3" /> */}
-          {/* <MDBInput label="Venue" name="venue" value={formData.venue} onChange={handleInputChange} required className="mb-3" /> */}
-          {/* <MDBInput label="Match Date" name="matchDate" value={formData.matchDate} onChange={handleInputChange} required className="mb-3" type="date"/> */}
+    <div className="mb-4 max-w-xl rounded-xl bg-white p-5 shadow">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Scores */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Home Score</label>
+          <input
+            type="number"
+            name="homeScore"
+            value={formData.homeScore}
+            onChange={handleInputChange}
+            className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-           <MDBInput label="Home Score" type="number" name="homeScore" value={formData.homeScore} onChange={handleInputChange} className="mb-3" />
-          <MDBInput label="Away Score" type="number" name="awayScore" value={formData.awayScore} onChange={handleInputChange} className="mb-3" /> 
+        <div>
+          <label className="block text-sm font-medium mb-1">Away Score</label>
+          <input
+            type="number"
+            name="awayScore"
+            value={formData.awayScore}
+            onChange={handleInputChange}
+            className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-          <label>Home Logo</label>
-          <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "homeLogo")} className="mb-3" />
+        {/* Home Logo */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Home Logo</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, "homeLogo")}
+            className="block w-full text-sm"
+          />
           {formData.homeLogo && (
             <img
-              src={typeof formData.homeLogo === "string" ? formData.homeLogo : URL.createObjectURL(formData.homeLogo)}
+              src={
+                typeof formData.homeLogo === "string"
+                  ? formData.homeLogo
+                  : URL.createObjectURL(formData.homeLogo)
+              }
               alt="Home Logo"
-              style={{ width: "100%", maxHeight: 150, objectFit: "contain", marginBottom: 10 }}
+              className="mt-2 h-36 w-full object-contain rounded"
             />
           )}
+        </div>
 
-          <label>Away Logo</label>
-          <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "awayLogo")} className="mb-3" />
+        {/* Away Logo */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Away Logo</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, "awayLogo")}
+            className="block w-full text-sm"
+          />
           {formData.awayLogo && (
             <img
-              src={typeof formData.awayLogo === "string" ? formData.awayLogo : URL.createObjectURL(formData.awayLogo)}
+              src={
+                typeof formData.awayLogo === "string"
+                  ? formData.awayLogo
+                  : URL.createObjectURL(formData.awayLogo)
+              }
               alt="Away Logo"
-              style={{ width: "100%", maxHeight: 150, objectFit: "contain", marginBottom: 10 }}
+              className="mt-2 h-36 w-full object-contain rounded"
             />
           )}
+        </div>
 
-          <label>Background Image</label>
-          <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, "backgroundImage")} className="mb-3" />
+        {/* Background */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Background Image
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, "backgroundImage")}
+            className="block w-full text-sm"
+          />
           {formData.backgroundImage && (
             <img
-              src={typeof formData.backgroundImage === "string" ? formData.backgroundImage : URL.createObjectURL(formData.backgroundImage)}
+              src={
+                typeof formData.backgroundImage === "string"
+                  ? formData.backgroundImage
+                  : URL.createObjectURL(formData.backgroundImage)
+              }
               alt="Background"
-              style={{ width: "100%", maxHeight: 200, objectFit: "cover", marginBottom: 10 }}
+              className="mt-2 h-44 w-full object-cover rounded"
             />
-          )} 
+          )}
+        </div>
 
-          <MDBBtn style={{ width: "100%", background: "var(--blue)" }} disabled={loading} rounded type="submit">
-            {loading ? "Saving..." : "Update"}
-          </MDBBtn>
-        </form>
-      </MDBCardBody>
-    </MDBCard>
+        {/* Submit */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
+        >
+          {loading ? "Saving..." : "Update"}
+        </button>
+      </form>
+    </div>
   );
 };
 

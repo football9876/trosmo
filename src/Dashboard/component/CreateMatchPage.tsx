@@ -128,115 +128,146 @@ const CreateMatchPage: React.FC<Props> = ({ editData }) => {
     dispatch(setCurrentPage("/Matches"));
   };
 
-  return (
-    <div className="p-4">
+  return (<div className="p-4">
+  <button
+    onClick={handleBack}
+    className="mb-6 flex items-center gap-2 font-medium text-primary hover:text-primary/80"
+  >
+    <ArrowLeft className="h-5 w-5" />
+    Back to Matches
+  </button>
+
+  <h2 className="mb-6 text-2xl font-bold">
+    {editData?.docId ? "Edit Match" : "Create New Match"}
+  </h2>
+
+  {/* Card */}
+  <div className="mb-4 max-w-xl rounded-xl bg-white p-5 shadow">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Time */}
+      <div>
+        <label className="mb-1 block text-sm font-medium" style={{textAlign:"start"}}>Time</label>
+        <input
+          type="text"
+          name="time"
+          value={formData.time}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Home Team */}
+      <div>
+        <label style={{textAlign:"start"}} className="mb-1 block text-sm font-medium">Home Team</label>
+        <input
+          type="text"
+          name="homeTeam"
+          value={formData.homeTeam}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Away Team */}
+      <div>
+        <label style={{textAlign:"start"}} className="mb-1 block text-sm font-medium">Away Team</label>
+        <input
+          type="text"
+          name="awayTeam"
+          value={formData.awayTeam}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Venue */}
+      <div>
+        <label style={{textAlign:"start"}} className="mb-1 block text-sm font-medium">Venue</label>
+        <input
+          type="text"
+          name="venue"
+          value={formData.venue}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Match Date */}
+      <div>
+        <label style={{textAlign:"start"}} className="mb-1 block text-sm font-medium">Match Date</label>
+        <input
+          type="date"
+          name="matchDate"
+          value={formData.matchDate}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Home Logo */}
+      <div>
+        <label style={{textAlign:"start"}} className="mb-1 block text-sm font-medium">Home Logo</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e, "homeLogo")}
+          className="block w-full text-sm"
+        />
+        {formData.homeLogo && (
+          <img
+            src={
+              typeof formData.homeLogo === "string"
+                ? formData.homeLogo
+                : URL.createObjectURL(formData.homeLogo)
+            }
+            alt="Home Logo"
+            className="mt-2 h-36 w-full rounded object-contain"
+          />
+        )}
+      </div>
+
+      {/* Away Logo */}
+      <div>
+        <label style={{textAlign:"start"}} className="mb-1 block text-sm font-medium">Away Logo</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e, "awayLogo")}
+          className="block w-full text-sm"
+        />
+        {formData.awayLogo && (
+          <img
+            src={
+              typeof formData.awayLogo === "string"
+                ? formData.awayLogo
+                : URL.createObjectURL(formData.awayLogo)
+            }
+            alt="Away Logo"
+            className="mt-2 h-36 w-full rounded object-contain"
+          />
+        )}
+      </div>
+
+      {/* Submit */}
       <button
-        onClick={handleBack}
-        className="flex items-center gap-2 text-primary hover:text-primary/80 mb-6 font-medium"
+        type="submit"
+        disabled={loading}
+        className="w-full rounded bg-blue-600 py-2 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
       >
-        <ArrowLeft className="w-5 h-5" />
-        Back to Matches
+        {loading
+          ? "Saving..."
+          : formData.docId
+          ? "Update Match"
+          : "Create Match"}
       </button>
-
-      <h2 className="text-2xl font-bold mb-6">
-        {editData?.docId ? "Edit Match" : "Create New Match"}
-      </h2>
-
-      <MDBCard className="mb-4" style={{ maxWidth: 600 }}>
-        <MDBCardBody>
-          <form onSubmit={handleSubmit}>
-            <MDBInput
-              label="Time"
-              name="time"
-              value={formData.time}
-              onChange={handleInputChange}
-              required
-              className="mb-3"
-            />
-            <MDBInput
-              label="Home Team"
-              name="homeTeam"
-              value={formData.homeTeam}
-              onChange={handleInputChange}
-              required
-              className="mb-3"
-            />
-            <MDBInput
-              label="Away Team"
-              name="awayTeam"
-              value={formData.awayTeam}
-              onChange={handleInputChange}
-              required
-              className="mb-3"
-            />
-            <MDBInput
-              label="Venue"
-              name="venue"
-              value={formData.venue}
-              onChange={handleInputChange}
-              required
-              className="mb-3"
-            />
-            <MDBInput
-              label="Match Date"
-              name="matchDate"
-              value={formData.matchDate}
-              onChange={handleInputChange}
-              required
-              className="mb-3"
-              type="date"
-            />
-
-            <label className="block mb-1 font-medium">Home Logo</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, "homeLogo")}
-              className="mb-3 block w-full"
-            />
-            {formData.homeLogo && (
-              <img
-                src={
-                  typeof formData.homeLogo === "string"
-                    ? formData.homeLogo
-                    : URL.createObjectURL(formData.homeLogo)
-                }
-                alt="Home Logo"
-                style={{ width: "100%", maxHeight: 150, objectFit: "contain", marginBottom: 10 }}
-              />
-            )}
-
-            <label className="block mb-1 font-medium">Away Logo</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, "awayLogo")}
-              className="mb-3 block w-full"
-            />
-            {formData.awayLogo && (
-              <img
-                src={
-                  typeof formData.awayLogo === "string"
-                    ? formData.awayLogo
-                    : URL.createObjectURL(formData.awayLogo)
-                }
-                alt="Away Logo"
-                style={{ width: "100%", maxHeight: 150, objectFit: "contain", marginBottom: 10 }}
-              />
-            )}
-
-            <MDBBtn
-              style={{ width: "100%", background: "var(--blue)" }}
-              disabled={loading}
-              rounded
-              type="submit"
-            >
-              {loading ? "Saving..." : formData.docId ? "Update Match" : "Create Match"}
-            </MDBBtn>
-          </form>
-        </MDBCardBody>
-      </MDBCard>
-    </div>
+    </form>
+  </div>
+</div>
   );
 };
 

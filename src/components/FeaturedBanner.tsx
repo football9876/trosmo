@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import stadiumHeroImg from "@/assets/stadium-hero.jpg";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface FeaturedBannerProps {
   image?: string;
@@ -14,14 +15,19 @@ const FeaturedBanner = ({
   subtitle,
   href = "#",
 }: FeaturedBannerProps) => {
+  const isMobile=useIsMobile();
   return (
     <a
       href={href}
+      style={{
+          height:isMobile ? 300:400
+        }}
       className="group relative block w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden"
     >
       <img
         src={image || stadiumHeroImg}
         alt={title}
+        
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />

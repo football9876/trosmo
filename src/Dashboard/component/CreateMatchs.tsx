@@ -150,136 +150,137 @@ const CreateMatch: React.FC<Props> = ({ editData, onSave }) => {
   };
 
   return (
-    <div style={{maxHeight:"80vh",width:"100%",overflow:"auto"}}>
+<div className="max-h-[80vh] w-full overflow-auto">
+  <div className="mb-4 max-w-xl rounded-xl bg-white p-5 shadow">
+    <h2 className="mb-4 text-lg font-semibold">
+      {formData.docId ? "Edit Match" : "Create Match"}
+    </h2>
 
-    <Card sx={{ maxWidth: 600, mb: 4 }}>
-      <CardContent>
-        <Typography variant="h6" mb={2}>
-          {formData.docId ? "Edit Match" : "Create Match"}
-        </Typography>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Time */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Time</label>
+        <input
+          type="text"
+          name="time"
+          value={formData.time}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-        <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            label="Time"
-            name="time"
-            value={formData.time}
-            onChange={handleInputChange}
-            fullWidth
-            required
-            margin="normal"
+      {/* Home Team */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Home Team</label>
+        <input
+          type="text"
+          name="homeTeam"
+          value={formData.homeTeam}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Away Team */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Away Team</label>
+        <input
+          type="text"
+          name="awayTeam"
+          value={formData.awayTeam}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Venue */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Venue</label>
+        <input
+          type="text"
+          name="venue"
+          value={formData.venue}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Match Date */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Match Date</label>
+        <input
+          type="date"
+          name="matchDate"
+          value={formData.matchDate}
+          onChange={handleInputChange}
+          required
+          className="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* HOME LOGO */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Home Logo</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e, "homeLogo")}
+          className="block w-full text-sm"
+        />
+        {formData.homeLogo && (
+          <img
+            src={
+              typeof formData.homeLogo === "string"
+                ? formData.homeLogo
+                : URL.createObjectURL(formData.homeLogo)
+            }
+            alt="Home Logo"
+            className="mt-2 h-36 w-full object-contain rounded"
           />
+        )}
+      </div>
 
-          <TextField
-            label="Home Team"
-            name="homeTeam"
-            value={formData.homeTeam}
-            onChange={handleInputChange}
-            fullWidth
-            required
-            margin="normal"
+      {/* AWAY LOGO */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Away Logo</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e, "awayLogo")}
+          className="block w-full text-sm"
+        />
+        {formData.awayLogo && (
+          <img
+            src={
+              typeof formData.awayLogo === "string"
+                ? formData.awayLogo
+                : URL.createObjectURL(formData.awayLogo)
+            }
+            alt="Away Logo"
+            className="mt-2 h-36 w-full object-contain rounded"
           />
+        )}
+      </div>
 
-          <TextField
-            label="Away Team"
-            name="awayTeam"
-            value={formData.awayTeam}
-            onChange={handleInputChange}
-            fullWidth
-            required
-            margin="normal"
-          />
-
-          <TextField
-            label="Venue"
-            name="venue"
-            value={formData.venue}
-            onChange={handleInputChange}
-            fullWidth
-            required
-            margin="normal"
-          />
-
-          <TextField
-            label="Match Date"
-            name="matchDate"
-            type="date"
-            value={formData.matchDate}
-            onChange={handleInputChange}
-            fullWidth
-            required
-            margin="normal"
-            InputLabelProps={{ shrink: true }}
-          />
-
-          {/* HOME LOGO */}
-          <Box mt={2}>
-            <Typography variant="body2">Home Logo</Typography>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, "homeLogo")}
-            />
-            {formData.homeLogo && (
-              <img
-                src={
-                  typeof formData.homeLogo === "string"
-                    ? formData.homeLogo
-                    : URL.createObjectURL(formData.homeLogo)
-                }
-                alt="Home Logo"
-                style={{
-                  width: "100%",
-                  maxHeight: 150,
-                  objectFit: "contain",
-                  marginTop: 8,
-                }}
-              />
-            )}
-          </Box>
-
-          {/* AWAY LOGO */}
-          <Box mt={2}>
-            <Typography variant="body2">Away Logo</Typography>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, "awayLogo")}
-            />
-            {formData.awayLogo && (
-              <img
-                src={
-                  typeof formData.awayLogo === "string"
-                    ? formData.awayLogo
-                    : URL.createObjectURL(formData.awayLogo)
-                }
-                alt="Away Logo"
-                style={{
-                  width: "100%",
-                  maxHeight: 150,
-                  objectFit: "contain",
-                  marginTop: 8,
-                }}
-              />
-            )}
-          </Box>
-
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{ mt: 3, bgcolor: "primary.main" }}
-            disabled={loading}
-          >
-            {loading
-              ? "Saving..."
-              : formData.docId
-              ? "Update Match"
-              : "Create Match"}
-          </Button>
-        </Box>
-      </CardContent>
-    </Card>
-    </div>
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={loading}
+        className="mt-3 w-full rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
+      >
+        {loading
+          ? "Saving..."
+          : formData.docId
+          ? "Update Match"
+          : "Create Match"}
+      </button>
+    </form>
+  </div>
+</div>
 
   );
 };

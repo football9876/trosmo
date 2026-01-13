@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import {
-  MDBCard,
-  MDBCardBody,
-  MDBBtn,
-  MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
-} from "mdb-react-ui-kit";
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  IconButton,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
 import toast from "react-hot-toast";
 import { MatchItem } from "./CreateMatchPage";
 import { docQr } from "../../Logics/docQr";
@@ -239,24 +237,40 @@ const MatchesManager = () => {
       )}
 
       {/* Last Match Modal */}
-      <MDBModal open={showEditLastMatchModal} onClose={() => setShowEditLastMatchModal(false)} tabIndex={-1}>
-        <MDBModalDialog>
-          <MDBModalContent>
-            <MDBModalHeader>
-              <MDBModalTitle>Last Match Details</MDBModalTitle>
-              <MDBBtn className="btn-close" color="none" onClick={() => setShowEditLastMatchModal(false)}></MDBBtn>
-            </MDBModalHeader>
-            <MDBModalBody>
-              <LastMatchForm onSave={handleSaveLastMatch} editData={lastMatch} />
-            </MDBModalBody>
-            <MDBModalFooter>
-              <MDBBtn color="secondary" onClick={() => setShowEditLastMatchModal(false)}>
-                Close
-              </MDBBtn>
-            </MDBModalFooter>
-          </MDBModalContent>
-        </MDBModalDialog>
-      </MDBModal>
+    <Dialog
+  open={showEditLastMatchModal}
+  onClose={() => setShowEditLastMatchModal(false)}
+  fullWidth
+  maxWidth="sm"
+>
+  {/* Header */}
+  <DialogTitle
+    sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
+  >
+    Last Match Details
+    <IconButton onClick={() => setShowEditLastMatchModal(false)}>
+      <CloseIcon />
+    </IconButton>
+  </DialogTitle>
+
+  {/* Body */}
+  <DialogContent dividers>
+    <LastMatchForm
+      onSave={handleSaveLastMatch}
+      editData={lastMatch}
+    />
+  </DialogContent>
+
+  {/* Footer */}
+  <DialogActions>
+    <Button
+      variant="outlined"
+      onClick={() => setShowEditLastMatchModal(false)}
+    >
+      Close
+    </Button>
+  </DialogActions>
+</Dialog>
     </div>
   );
 };
