@@ -1,8 +1,6 @@
 use our existing nav hero section and footer any page created should be as placed in the body
-when user click buy ticket or buy product on the shop page or ticket page, redirect to page payment with the item id render the item and give form that with heading pay with giftcard. input fields to add all details to add gift card use our AddData() from src/Logics/addData.ts add the data to firebase on the admin section add a new tab on the side nav giftcards, 
-list all the gift cards submmited and the product ordered and the user name and email and the details of the giftcard.
+when user clicks news take him to page where he can read the full post page.
 
 
-on the user dashboard add tab on the side menu orders list all the orders in a table show the details and delivery status
-allow admin to update the status.
-
+upcomming matches section throught the whole app. look how we allow upload blog, 
+on the admin dashboard make way to create match, delete match and edit match, and these match using docQr should be use to fetch all section of the app that shows upcomming match. 

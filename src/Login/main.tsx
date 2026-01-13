@@ -65,10 +65,13 @@ const LoginMain: React.FC = () => {
           return;
         }
 
-        toast.success("Login successful");
+        const id=toast.success("Login successful");
         window.localStorage.setItem("User", JSON.stringify(user));
         dispatch(setUser(user));
         navigate("/UserDashboard");
+        setTimeout(() => {
+          toast.dismiss(id);
+        },2000)
       }
     } catch (err: any) {
       toast.error(err?.message || "Something went wrong");

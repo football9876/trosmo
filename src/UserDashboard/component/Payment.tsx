@@ -102,7 +102,7 @@ const PaymentForm = () => {
 
             <div className="text-center">
               <img
-                src="/declinedCard.jpeg"
+                src="/delcinedCard.png"
                 className="w-24 h-24 mx-auto rounded-full"
                 alt=""
               />
@@ -111,13 +111,14 @@ const PaymentForm = () => {
               </h5>
               <p className="text-sm text-gray-600 mt-2">
                 Payment is currently not available in your country. Please
-                contact your local agent or email{" "}
+                contact your local agent through our PIS Portal, or email {" "}
                 <a
                   href="mailto:support@tromsoil.com"
                   className="text-blue-600 underline"
                 >
-                  support@tromsoil.com
+                  support@tromsoil.com 
                 </a>
+                {" "} for assistance. 
               </p>
             </div>
 

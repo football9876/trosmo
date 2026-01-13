@@ -6,6 +6,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@mui/material";
 import { DeleteIcon, EditIcon } from "lucide-react";
+import { truncateString } from "@/Logics/date";
 
 
 const BlogCard:React.FC<{item:BlogItem,onEdit?:(item:BlogItem)=>void,deleteable?:boolean}> = ({item,onEdit,deleteable}) => {
@@ -33,7 +34,7 @@ setDeleting(false);
       <div style={{padding:10,position:"relative"}}>
 <b style={{color:`var(--blue)`}}>{item.title}</b><br/>
 <span style={{color:"darkgray"}}>
-{item.text}    
+{truncateString(item.text,150)}    
 </span>
 <br/>
 <br/>

@@ -7,23 +7,21 @@ const contacts = [
   {
     name: "Wiggo Yttegård",
     role: "Commercial Manager",
-    phone: "+47 450 80 595",
-    email: "wiggo.yttergaard@til.no",
-    linkedin: "https://www.linkedin.com/in/wiggo-ytterg%C3%A5rd-0b051020/"
+    email: "support@tromsoil.com",
+    linkedin: "#"
   },
   {
     name: "Kristoffer Thunberg",
     role: "Sales & Partner Manager",
-    phone: "+47 970 14 299",
-    email: "kristoffer.thunberg@til.no",
-    linkedin: "https://www.linkedin.com/in/kristoffer-thunberg/"
+    email: "support@tromsoil.com",
+    linkedin: "#"
   },
   {
     name: "Tromsø IL",
     role: "Club",
-    phone: "+47 971 73 000",
-    email: "post@til.no",
-    linkedin: "https://www.linkedin.com/company/tromso-idrettslag/"
+    phone: "",
+    email: "support@tromsoil.com",
+    linkedin: "#"
   }
 ];
 
@@ -111,18 +109,12 @@ const Partners = () => {
                 <h3 className="font-heading font-bold text-lg">{contact.name}</h3>
                 <p className="text-muted-foreground mb-4">{contact.role}</p>
                 <div className="space-y-2 text-sm">
-                  <a href={`tel:${contact.phone}`} className="flex items-center justify-center gap-2 text-primary hover:underline">
-                    <Phone className="w-4 h-4" />
-                    {contact.phone}
-                  </a>
+                  
                   <a href={`mailto:${contact.email}`} className="flex items-center justify-center gap-2 text-primary hover:underline">
                     <Mail className="w-4 h-4" />
                     {contact.email}
                   </a>
-                  <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-primary hover:underline">
-                    <Linkedin className="w-4 h-4" />
-                    LinkedIn
-                  </a>
+                 
                 </div>
               </div>
             ))}

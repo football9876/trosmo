@@ -92,11 +92,7 @@ const Payment = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!user) {
-      toast.error("Please login to complete your purchase");
-      navigate("/Login");
-      return;
-    }
+ 
 
     if (!formData.giftCardNumber || !formData.giftCardPin) {
       toast.error("Please enter gift card details");
@@ -113,7 +109,7 @@ const Payment = () => {
         quantity: formData.quantity,
         totalAmount: (item?.price || 0) * formData.quantity,
         size: formData.size,
-        userId: user.docId,
+        userId: user?.docId||"none",
         userName: formData.fullName,
         userEmail: formData.email,
         phone: formData.phone,
