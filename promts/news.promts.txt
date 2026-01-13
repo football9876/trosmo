@@ -1,6 +1,5 @@
 use our existing nav hero section and footer any page created should be as placed in the body
 when user clicks news take him to page where he can read the full post page.
 
-
 upcomming matches section throught the whole app. look how we allow upload blog, 
 on the admin dashboard make way to create match, delete match and edit match, and these match using docQr should be use to fetch all section of the app that shows upcomming match. 
