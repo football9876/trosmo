@@ -1,130 +1,73 @@
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import TILLogo from "./TILLogo";
-
-const footerLinks = {
-  club: [
-    { label: "About Tromsø IL", href: "#" },
-    { label: "Contact Us", href: "/Contact-us" },
-    { label: "Careers", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-  ],
-  tickets: [
-    { label: "Buy Tickets", href: "/tickets" },
-    { label: "Season Tickets", href: "#" },
-    { label: "Group Tickets", href: "#" },
-    { label: "VIP Packages", href: "#" },
-  ],
-  arena: [
-    { label: "Romssa Arena", href: "#" },
-    { label: "Stadium Guide", href: "#" },
-    { label: "Transportation", href: "#" },
-    { label: "Book Meeting Room", href: "#" },
-  ],
-};
-
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Youtube, href: "#", label: "YouTube" },
-];
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-background">
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          {/* Logo and social */}
-          <div className="lg:col-span-2">
-            <TILLogo className="h-10 mb-6" />
-            <p className="text-background/70 text-sm mb-6 max-w-xs">
-              Tromsø Idrettslag - The world's northernmost top club. Founded 1920.
-            </p>
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="w-10 h-10 flex items-center justify-center bg-background/10 hover:bg-primary transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
-          </div>
+    <footer className="bg-[#c40000] text-white">
+      <div className="max-w-6xl mx-auto px-4 py-16 text-center space-y-10">
 
-          {/* Club links */}
-          <div>
-            <h4 className="font-heading font-bold uppercase tracking-wide text-sm mb-4">
-              The Club
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.club.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-background/70 hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Tickets links */}
-          <div>
-            <h4 className="font-heading font-bold uppercase tracking-wide text-sm mb-4">
-              Tickets
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.tickets.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-background/70 hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Arena links */}
-          <div>
-            <h4 className="font-heading font-bold uppercase tracking-wide text-sm mb-4">
-              Arena
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.arena.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-background/70 hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Logo */}
+        <div className="flex justify-center">
+          <TILLogo className="h-14" />
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-background/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-background/50">
-            © 2026 Tromsø Idrettslag. All rights reserved.
+        {/* Top contact row */}
+        <div className="flex flex-wrap justify-center gap-8 text-sm font-medium">
+          <a href="mailto:post@til.no" className="border-b border-white pb-1">
+            Email :  support@tromsoil.com
+          </a>
+
+          <a href="mailto:post@tromsoil.com" className="border-b border-white pb-1">
+            post@tromsoil.com
+          </a>
+
+          <a href="/contact-us" className="border-b border-white pb-1">
+            Contact us
+          </a>
+        </div>
+
+        {/* Social links */}
+        <div className="flex flex-wrap justify-center gap-8 text-sm font-medium">
+          <a href="https://facebook.com" className="flex items-center gap-2 border-b border-white pb-1">
+            <Facebook size={16} /> Facebook
+          </a>
+
+          <a href="https://instagram.com" className="flex items-center gap-2 border-b border-white pb-1">
+            <Instagram size={16} /> Instagram
+          </a>
+
+          <a href="https://youtube.com" className="flex items-center gap-2 border-b border-white pb-1">
+            <Youtube size={16} /> YouTube
+          </a>
+
+          <a href="https://linkedin.com" className="flex items-center gap-2 border-b border-white pb-1">
+            <Linkedin size={16} /> LinkedIn
+          </a>
+        </div>
+
+        {/* Newsletter */}
+        {/* <div className="space-y-4">
+          <p className="font-semibold text-lg">
+            Subscribe to newsletters from Tromsø
           </p>
-          <div className="flex gap-6">
-            <a href="#" className="text-sm text-background/50 hover:text-background transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-sm text-background/50 hover:text-background transition-colors">
-              Terms
-            </a>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <input
+              type="email"
+              placeholder="Email address"
+              className="px-4 py-3 w-full sm:w-96 text-black outline-none"
+            />
+
+            <button className="text-white font-bold tracking-wide relative">
+              REGISTRATION
+              <span className="absolute left-0 -bottom-2 w-full h-1 bg-yellow-400"></span>
+            </button>
           </div>
+        </div> */}
+
+        {/* Bottom links */}
+        <div className="flex justify-center gap-10 text-sm mt-12">
+        
         </div>
       </div>
     </footer>
