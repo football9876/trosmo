@@ -80,7 +80,7 @@ const SummerSchool = () => {
 
           <div className="bg-card p-6 rounded-lg border my-8">
             <h3 className="font-heading font-bold text-lg mb-2">Questions?</h3>
-            <p>Contact administrative manager: Kathrine Fuhr Larsen at <a href="#" className="text-primary">kathrine.larsen@til.no</a></p>
+            <p>Contact administrative manager: Kathrine Fuhr Larsen at <a href="mailto:support@tromsoil.com" className="text-primary">support@tromsoil.com</a></p>
           </div>
         </div>
       </div>

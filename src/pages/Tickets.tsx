@@ -225,12 +225,10 @@ const Tickets = () => {
                 Our ticket office is ready to assist you with any questions about purchasing tickets or attending matches.
               </p>
               <div className="flex flex-wrap gap-4">
-                <a href="mailto:billett@til.no" className="btn-outline border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <a href="mailto:support@tromsoil.com" className="btn-outline border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
                   Email Us
                 </a>
-                <a href="tel:+4777600100" className="btn-outline border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                  Call: +47 77 60 01 00
-                </a>
+                
               </div>
             </div>
           </div>

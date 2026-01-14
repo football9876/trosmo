@@ -163,21 +163,13 @@ const Stadium = () => {
               </h2>
               <div className="bg-card rounded-lg p-6">
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-primary" />
-                    <div>
-                      <p className="font-medium">Phone</p>
-                      <a href="tel:+4777661000" className="text-muted-foreground hover:text-primary transition-colors">
-                        +47 77 66 10 00
-                      </a>
-                    </div>
-                  </div>
+                
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-primary" />
                     <div>
                       <p className="font-medium">Email</p>
                       <a href="mailto:post@til.no" className="text-muted-foreground hover:text-primary transition-colors">
-                        post@til.no
+                       support@tromsoil.com
                       </a>
                     </div>
                   </div>

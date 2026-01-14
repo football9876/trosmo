@@ -59,7 +59,7 @@ const TineSchool = () => {
 
           <div className="bg-card p-6 rounded-lg border my-8">
             <h3 className="font-heading font-bold text-lg mb-2">Questions?</h3>
-            <p>Contact Jonas Johansen (<a href="#" className="text-primary">Jonas.Johansen@til.no</a> / mobile <a href="#" className="text-primary">+47 951 91 510</a>)</p>
+            <p>Contact Jonas Johansen (<a href="mailto: support@tromsoil.com" className="text-primary"> support@tromsoil.com</a>)</p>
           </div>
 
           <p className="text-lg font-semibold text-center">

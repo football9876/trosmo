@@ -1,3 +1,4 @@
+import { FaRegAddressBook } from "react-icons/fa";
 import { MdEmail, MdLocationOn, MdSportsSoccer } from "react-icons/md";
 
 const ContactDetails = () => {
@@ -34,9 +35,9 @@ const ContactDetails = () => {
       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
         {/* Support Email */}
         <div style={rowStyle}>
-          <MdEmail size={18} color="#c62828" />
+          <FaRegAddressBook size={18} color="#c62828" />
           <a href="mailto:support@tromsoil.com" style={linkStyle}>
-            support@tromsoil.com
+             Romssa Arena Stadionvegen 3, 9007 Tromsø, Norway. 
           </a>
         </div>
 

@@ -1,50 +1,27 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
-
-const newsItems = [
-  {
-    id: "nyhammer-ready",
-    title: "Nyhammer Ready for TIL",
-    date: "2025",
-    image: "https://www.til.no/yngres/_/image/7e283e1f-277f-4817-b849-eb3ec4925c51:8850d9399324eac8517d846057de8f434085451e/-1-1/4H4A9970.JPG",
-    link: "/sustainability/nyhammer-ready"
-  },
-  {
-    id: "elite-series",
-    title: "Ready for the Elite Series",
-    date: "2025",
-    image: "https://www.til.no/yngres/_/image/7e283e1f-277f-4817-b849-eb3ec4925c51:8850d9399324eac8517d846057de8f434085451e/-1-1/4H4A9970.JPG",
-    link: "/sustainability/elite-series"
-  },
-  {
-    id: "new-agreement",
-    title: "Signing a New Agreement",
-    date: "2025",
-    image: "https://www.til.no/yngres/_/image/7e283e1f-277f-4817-b849-eb3ec4925c51:8850d9399324eac8517d846057de8f434085451e/-1-1/4H4A9970.JPG",
-    link: "/sustainability/new-agreement"
-  },
-  {
-    id: "ready-2026",
-    title: "Ready for 2026",
-    date: "2025",
-    image: "https://www.til.no/yngres/_/image/7e283e1f-277f-4817-b849-eb3ec4925c51:8850d9399324eac8517d846057de8f434085451e/-1-1/4H4A9970.JPG",
-    link: "/sustainability/ready-2026"
-  },
-  {
-    id: "til-school-manager",
-    title: "TIL School is Looking for a Co-responsible Manager in a Part-time Position",
-    date: "2025",
-    image: "https://www.til.no/yngres/_/image/7e283e1f-277f-4817-b849-eb3ec4925c51:8850d9399324eac8517d846057de8f434085451e/-1-1/4H4A9970.JPG",
-    link: "/sustainability/til-school-manager"
-  }
-];
+import useBlogs from "@/hooks/useBlogs";
+import { useMemo } from "react";
+import moment from "moment";
 
 const Sustainability = () => {
+  const {blogs,loading}=useBlogs();
+  const newsItems=useMemo(() => {
+    return blogs.map((e)=>{
+      return {
+        id: e.docId,
+        title: e.title,
+        date: moment(e.date).format("MMM DD, YYYY"),
+        image: e.image as string,
+        link: `/news/${e.docId}`
+      }
+    })
+  },[blogs]);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+     
       {/* Hero Section */}
       <div className="relative h-64 md:h-80 bg-primary">
         <img 
@@ -68,7 +45,9 @@ const Sustainability = () => {
       {/* News Grid */}
       <div className="container mx-auto px-4 py-12">
         <h2 className="text-2xl font-heading font-bold mb-8">Latest News</h2>
-        
+         {loading && <div style={{padding:10}}>
+        <span>Loading...</span>
+        </div>}
         {/* Featured News */}
         {newsItems.length > 0 && (
           <Link 

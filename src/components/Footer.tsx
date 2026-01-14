@@ -13,9 +13,7 @@ const Footer = () => {
 
         {/* Top contact row */}
         <div className="flex flex-wrap justify-center gap-8 text-sm font-medium">
-          <a href="mailto:post@til.no" className="border-b border-white pb-1">
-            Email :  support@tromsoil.com
-          </a>
+        
 
           <a href="mailto:post@tromsoil.com" className="border-b border-white pb-1">
             post@tromsoil.com
