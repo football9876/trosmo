@@ -1,6 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
+import useBlogs from "@/hooks/useBlogs";
+import { useMemo } from "react";
+import moment from "moment";
+import { truncateString } from "@/Logics/date";
 
 const schools = [
   {
@@ -34,6 +38,20 @@ const schools = [
 ];
 
 const FootballSchools = () => {
+    const {blogs,loading}=useBlogs();
+    const schools=useMemo(() => {
+      return blogs.slice(0,6).map((e)=>{
+        return {
+          id: e.docId,
+          title: e.title,
+          date: moment(e.date).format("MMM DD, YYYY"),
+          description: e.text,
+          image: e.image as string,
+          link: `/news/${e.docId}`
+        }
+      })
+    },[blogs]);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -74,7 +92,7 @@ const FootballSchools = () => {
                   {school.title}
                 </h2>
                 <p className="text-muted-foreground">
-                  {school.description}
+                  {truncateString(school.description, 200) ||school.description}
                 </p>
                 <div className="mt-4 flex items-center text-primary font-semibold">
                   Read more
