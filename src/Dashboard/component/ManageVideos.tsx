@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MDBBtn } from "mdb-react-ui-kit";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { docQr } from "../../Logics/docQr";
 import { deleteData } from "../../Logics/deleteData";
 import { AddData} from "../../Logics/addData"; // ensure you have updateData
@@ -11,11 +10,13 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { updateData } from "../../Logics/updateData";
 import { uploadFileToCpanelServer } from "../../Logics/uploadToCpanel";
 import { getCurrentTimestamp } from "../../Logics/DateFunc";
+import { Button } from "@mui/material";
 
-interface VideoType {
+export interface VideoType {
   url: string;
   title: string;
-  docId?: string;
+  createdAt?: string;
+  docId?:string
 }
 
 const UploadVideos: React.FC = () => {
@@ -92,21 +93,23 @@ const UploadVideos: React.FC = () => {
     getVideos();
   }, []);
 
-  return (
+  return (<>
+  <Toaster/>
     <div>
       <h4 style={{ marginBottom: "10px" }}>Upload Training or Showcase Videos</h4>
 
-      <MDBBtn style={{ marginBottom: "10px" }}>
-        <label style={{ cursor: "pointer" }}>
+      <Button style={{ marginBottom: "10px",background:"red" }}>
+        <label htmlFor="file" style={{ cursor: "pointer",color:"white" }}>
           Upload Video
           <input
+            id="file"
             type="file"
             accept="video/*"
             style={{ display: "none" }}
             onChange={handleUpload}
           />
         </label>
-      </MDBBtn>
+      </Button>
 
       {loading && <div style={{ textAlign: "center", marginBottom: 20 }}>Please wait...</div>}
 
@@ -164,19 +167,17 @@ const UploadVideos: React.FC = () => {
                   />
 
                   {hasChanged && (
-                    <MDBBtn
-                      size="sm"
+                    <Button
                       color="primary"
-                      style={{ width: "100%", marginTop: 5, fontSize: 12, padding: "4px 0" }}
+                      style={{ width: "100%",backgroundColor:"#e52525ff",color:"white", marginTop: 5, fontSize: 12, padding: "4px 0" }}
                       onClick={() => handleSaveTitle(i)}
                     >
                       Save Title
-                    </MDBBtn>
+                    </Button>
                   )}
 
-                  <MDBBtn
-                    size="sm"
-                    color="danger"
+                  <Button
+                    color="error"
                     style={{
                       position: "absolute",
                       top: 5,
@@ -187,12 +188,14 @@ const UploadVideos: React.FC = () => {
                     onClick={() => handleDelete(i)}
                   >
                     ✕
-                  </MDBBtn>
+                  </Button>
                 </div>
               );
             })}
       </div>
     </div>
+  </>
+
   );
 };
 

@@ -1,116 +1,165 @@
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Play, Download, Share2, ExternalLink } from "lucide-react";
+import { useVideos } from "@/hooks/useVideos";
 
-interface VideoItem {
-  id: number;
+// Helper function to generate thumbnail from video URL
+const generateThumbnail = (videoUrl: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const video = document.createElement('video');
+    video.crossOrigin = 'anonymous';
+    video.preload = 'metadata';
+    
+    video.onloadeddata = () => {
+      // Seek to 1 second to get a better thumbnail
+      video.currentTime = 1;
+    };
+    
+    video.onseeked = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const thumbnail = canvas.toDataURL('image/jpeg', 0.8);
+        resolve(thumbnail);
+      } else {
+        reject(new Error('Could not get canvas context'));
+      }
+    };
+    
+    video.onerror = () => {
+      // Return placeholder if video fails to load
+      resolve("/logo.jpeg");
+    };
+    
+    video.src = videoUrl;
+  });
+};
+
+interface VideoWithThumbnail {
+  id: string;
   title: string;
+  url: string;
   thumbnail: string;
-  duration?: string;
-  date?: string;
-  category?: string;
+  createdAt?: string;
 }
 
-const videos: VideoItem[] = [
-  {
-    id: 1,
-    title: "Kristiansund - Tromsø 1-3",
-    thumbnail: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80",
-    duration: "5:30",
-    date: "December 2025",
-    category: "Match Highlights"
-  },
-  {
-    id: 2,
-    title: "Tromsø - Viking 2-1",
-    thumbnail: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&q=80",
-    duration: "6:15",
-    date: "November 2025",
-    category: "Match Highlights"
-  },
-  {
-    id: 3,
-    title: "The Boys Are Back - First Training Session",
-    thumbnail: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&q=80",
-    duration: "3:45",
-    date: "January 2026",
-    category: "Behind the Scenes"
-  },
-  {
-    id: 4,
-    title: "Tromsø - Molde 1-0",
-    thumbnail: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&q=80",
-    duration: "4:20",
-    date: "October 2025",
-    category: "Match Highlights"
-  },
-  {
-    id: 5,
-    title: "Troy Nyhammer - Welcome to TIL",
-    thumbnail: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&q=80",
-    duration: "2:30",
-    date: "December 2025",
-    category: "Player Signing"
-  },
-  {
-    id: 6,
-    title: "Tromsø - Rosenborg 2-2",
-    thumbnail: "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800&q=80",
-    duration: "5:00",
-    date: "September 2025",
-    category: "Match Highlights"
-  },
-  {
-    id: 7,
-    title: "Bodø/Glimt - Tromsø 1-1",
-    thumbnail: "https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=800&q=80",
-    duration: "4:45",
-    date: "August 2025",
-    category: "Match Highlights"
-  },
-  {
-    id: 8,
-    title: "Season Review 2025",
-    thumbnail: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=800&q=80",
-    duration: "12:00",
-    date: "December 2025",
-    category: "Season Review"
-  },
-  {
-    id: 9,
-    title: "Jesper Grundt Signs for TIL",
-    thumbnail: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=800&q=80",
-    duration: "2:15",
-    date: "December 2025",
-    category: "Player Signing"
-  },
-  {
-    id: 10,
-    title: "Tromsø - Brann 3-0",
-    thumbnail: "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=800&q=80",
-    duration: "5:45",
-    date: "July 2025",
-    category: "Match Highlights"
-  },
-  {
-    id: 11,
-    title: "Women's Team Training Camp",
-    thumbnail: "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=800&q=80",
-    duration: "4:00",
-    date: "February 2025",
-    category: "Behind the Scenes"
-  },
-  {
-    id: 12,
-    title: "Academy Showcase 2025",
-    thumbnail: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=800&q=80",
-    duration: "8:30",
-    date: "November 2025",
-    category: "Academy"
-  }
-];
-
 const Videos = () => {
+  const { videos, loading } = useVideos();
+  const [videosWithThumbnails, setVideosWithThumbnails] = useState<VideoWithThumbnail[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<VideoWithThumbnail | null>(null);
+  const [thumbnailsLoading, setThumbnailsLoading] = useState(false);
+
+  useEffect(() => {
+    if (videos.length > 0) {
+      setThumbnailsLoading(true);
+      
+      // Generate thumbnails for all videos
+      const generateAllThumbnails = async () => {
+        const videosWithThumb = await Promise.all(
+          videos.map(async (video) => {
+            try {
+              const thumbnail = await generateThumbnail(video.url);
+              return {
+                id: video.docId || '',
+                title: video.title,
+                url: video.url,
+                thumbnail,
+                createdAt: video.createdAt
+              };
+            } catch (error) {
+              console.error('Error generating thumbnail for:', video.title, error);
+              return {
+                id: video.docId || '',
+                title: video.title,
+                url: video.url,
+                thumbnail: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80',
+                createdAt: video.createdAt
+              };
+            }
+          })
+        );
+        
+        setVideosWithThumbnails(videosWithThumb);
+        if (videosWithThumb.length > 0) {
+          setSelectedVideo(videosWithThumb[0]);
+        }
+        setThumbnailsLoading(false);
+      };
+      
+      generateAllThumbnails();
+    }
+  }, [videos]);
+
+  const handleDownload = () => {
+    if (selectedVideo) {
+      const link = document.createElement('a');
+      link.href = selectedVideo.url;
+      link.download = selectedVideo.title;
+      link.click();
+    }
+  };
+
+  const handleShare = async () => {
+    if (selectedVideo) {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: selectedVideo.title,
+            url: selectedVideo.url
+          });
+        } catch (error) {
+          console.log('Error sharing:', error);
+        }
+      } else {
+        // Fallback: copy to clipboard
+        navigator.clipboard.writeText(selectedVideo.url);
+        alert('Video link copied to clipboard!');
+      }
+    }
+  };
+
+  const handleOpenNew = () => {
+    if (selectedVideo) {
+      window.open(selectedVideo.url, '_blank');
+    }
+  };
+
+  if (loading || thumbnailsLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading videos...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (videosWithThumbnails.length === 0) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <Play className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+            <h2 className="text-2xl font-heading font-bold text-foreground mb-2">No Videos Yet</h2>
+            <p className="text-muted-foreground">Check back later for exciting content!</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -129,54 +178,65 @@ const Videos = () => {
       </div>
 
       {/* Featured Video */}
-      <div className="bg-foreground">
-        <div className="container mx-auto px-4 py-8">
-          <div className="relative aspect-video max-w-4xl mx-auto rounded-lg overflow-hidden bg-black group cursor-pointer">
-            <img
-              src={videos[0].thumbnail}
-              alt={videos[0].title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-colors">
-              <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Play className="w-10 h-10 text-primary-foreground ml-1" fill="currentColor" />
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80">
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-white">
-                {videos[0].title}
-              </h2>
-              <div className="flex items-center gap-4 mt-3">
-                <button className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
-                  <Download className="w-5 h-5" />
-                  <span className="text-sm">Download video</span>
-                </button>
-                <button className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
-                  <Share2 className="w-5 h-5" />
-                  <span className="text-sm">Share video</span>
-                </button>
-                <button className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
-                  <ExternalLink className="w-5 h-5" />
-                  <span className="text-sm">Open in new window</span>
-                </button>
+      {selectedVideo && (
+        <div className="bg-foreground">
+          <div className="container mx-auto px-4 py-8">
+            <div className="relative aspect-video max-w-4xl mx-auto rounded-lg overflow-hidden bg-black">
+              <video
+                controls
+                className="w-full h-full"
+                poster={selectedVideo.thumbnail}
+                src={selectedVideo.url}
+              >
+                Your browser does not support the video tag.
+              </video>
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 pointer-events-none">
+                <h2 className="text-2xl md:text-3xl font-heading font-bold text-white">
+                  {selectedVideo.title}
+                </h2>
+                <div className="flex items-center gap-4 mt-3 pointer-events-auto">
+                  <button 
+                    onClick={handleDownload}
+                    className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                  >
+                    <Download className="w-5 h-5" />
+                    <span className="text-sm">Download video</span>
+                  </button>
+                  <button 
+                    onClick={handleShare}
+                    className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                  >
+                    <Share2 className="w-5 h-5" />
+                    <span className="text-sm">Share video</span>
+                  </button>
+                  <button 
+                    onClick={handleOpenNew}
+                    className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    <span className="text-sm">Open in new window</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Video Grid */}
       <div className="flex-1 bg-background py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {videos.slice(1).map((video) => (
+            {videosWithThumbnails.map((video) => (
               <div
                 key={video.id}
+                onClick={() => setSelectedVideo(video)}
                 className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow cursor-pointer group"
               >
                 <div className="relative aspect-video">
                   <img
                     src={video.thumbnail}
+                    style={{backgroundColor:"black"}}
                     alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
@@ -185,34 +245,19 @@ const Videos = () => {
                       <Play className="w-7 h-7 text-primary-foreground ml-0.5" fill="currentColor" />
                     </div>
                   </div>
-                  {video.duration && (
-                    <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
-                      {video.duration}
-                    </div>
-                  )}
-                  {video.category && (
-                    <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
-                      {video.category}
-                    </div>
-                  )}
                 </div>
                 <div className="p-4">
                   <h3 className="font-heading font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                     {video.title}
                   </h3>
-                  {video.date && (
-                    <p className="text-sm text-muted-foreground mt-1">{video.date}</p>
+                  {video.createdAt && (
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {new Date(video.createdAt).toLocaleDateString()}
+                    </p>
                   )}
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Load More Button */}
-          <div className="text-center mt-12">
-            <button className="px-8 py-3 bg-primary text-primary-foreground font-heading font-bold rounded hover:bg-primary/90 transition-colors">
-              Load More Videos
-            </button>
           </div>
         </div>
       </div>
