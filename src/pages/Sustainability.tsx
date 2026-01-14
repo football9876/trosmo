@@ -116,7 +116,7 @@ const Sustainability = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Link to="#" className="text-primary font-semibold hover:underline">
+          <Link to="/news" className="text-primary font-semibold hover:underline">
             See more news →
           </Link>
         </div>

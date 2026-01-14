@@ -99,7 +99,7 @@ const NewsSection = () => {
         {/* See More Link */}
         <div className="flex justify-center mt-10">
           <a
-            href="#"
+            href="/news"
             className="btn-outline flex items-center gap-2"
           >
             <span>See more news</span>
