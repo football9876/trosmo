@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import stadiumHeroImg from "@/assets/stadium-hero.jpg";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface FeaturedBannerProps {
   image?: string;
@@ -16,6 +18,7 @@ const FeaturedBanner = ({
   href = "#",
 }: FeaturedBannerProps) => {
   const isMobile=useIsMobile();
+  const navigate=useNavigate();
   return (
     <a
       href={href}
@@ -41,8 +44,14 @@ const FeaturedBanner = ({
           </p>
         )}
         <div className="flex items-center gap-2 mt-4 text-primary-foreground font-heading font-semibold uppercase tracking-wide">
-          <span>Read more</span>
-          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+          <Button size="large" onClick={()=>{
+            navigate("/Login")
+          }} variant="contained" style={{backgroundColor:"#fff"}}>
+
+          <span style={{color:"#2d2d2dff"}}>Login</span>
+          <ArrowRight style={{color:"#2d2d2dff"}} className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+          </Button>
+      
         </div>
       </div>
     </a>

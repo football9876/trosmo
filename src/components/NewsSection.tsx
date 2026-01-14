@@ -86,6 +86,7 @@ const NewsSection = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <NewsCard
+              href={`/news/${item.id}`}
                 date={item.date}
                 title={item.title}
                 image={item.image}
