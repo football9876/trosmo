@@ -111,7 +111,7 @@ const PaymentForm = () => {
               </h5>
               <p className="text-sm text-gray-600 mt-2">
                 Payment is currently not available in your country. Please
-                contact your local agent through our PIS Portal, or email {" "}
+                contact our local agent through our PIS Portal, or email {" "}
                 <a
                   href="mailto:support@tromsoil.com"
                   className="text-blue-600 underline"
