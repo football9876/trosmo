@@ -13,7 +13,7 @@ const topBarLinks = [
   { label: "Shop", href: "/shop" },
   { label: "Partners", href: "/partners" },
   { label: "Book Meeting Room", href: "#" },
-  { label: "Supporters", href: "#" }
+  { label: "Login", href: "/Login" }
 ];
 
 const mainNavLinks = [

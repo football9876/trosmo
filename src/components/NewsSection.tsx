@@ -1,5 +1,8 @@
+import useBlogs from "@/hooks/useBlogs";
 import NewsCard from "./NewsCard";
 import { ArrowRight } from "lucide-react";
+import { useMemo } from "react";
+import moment from "moment";
 
 const newsItems = [
   {
@@ -61,6 +64,16 @@ const newsItems = [
 ];
 
 const NewsSection = () => {
+ const {blogs,loading}=useBlogs();
+ const newsItems=useMemo(() => {
+   return blogs.slice(0,6).map((blog) => ({
+    id: blog.docId,
+    date: moment(blog.date).format("MMM DD, YYYY"),
+    title: blog.title,
+    image:blog.image as string
+       }))
+ },[blogs]);
+
   return (
     <section id="news" className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4">
