@@ -10,61 +10,73 @@ interface PartnerProps {
 const partnerData: PartnerProps[] = [
   {
     name: "SpareBank 1 Nord-Norge",
-    logo: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=100&q=80&fit=crop",
+    logo: "/logos/sparebank.jpg",
     description:
-      "Our main partner SpareBank 1 Nord-Norge has grown alongside the development of local communities and the region, with a clear social responsibility.",
-    label: "Main Partner",
+      "Our main partner SpareBank 1 Nord-Norge has grown in step with the development of local communities and the region, and has a clear social responsibility. The world’s northernmost fully-fledged financial institution has been our main partner since 1991.",
+    label: "MAIN PARTNER",
   },
   {
     name: "Troms Kraft",
-    logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=200&h=100&q=80&fit=crop",
+    logo: "/logos/troms.png",
     description:
-      "Tromsø IL and Troms Kraft have a long-standing partnership. Together we give TIL's home ground the name Romssa Arena.",
-    label: "Arena Partner",
+      "Tromsø IL and Troms Kraft have had a long-standing collaboration and for several years we have worked on our own behalf to elevate the Sami language and culture. Now we are joining forces and naming TIL’s home stadium Romssa Arena. The goal is to give Sami culture greater visibility through top-flight football.",
+    label: "ARENA",
   },
 ];
 
 const PartnerSection = () => {
   return (
-    <section className="py-12 md:py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-          {partnerData.map((partner) => (
-            <div key={partner.name} className="group">
-              <span className="block text-sm text-muted-foreground font-heading uppercase tracking-wide mb-4">
+    <section className="bg-[#f5f5f5] py-16">
+      <div className="max-w-3xl mx-auto px-4 space-y-20">
+        {partnerData.map((partner) => (
+          <div key={partner.name} className="text-center">
+            {/* Label */}
+            <div className="flex justify-center mb-6">
+              <span className="bg-black text-white text-xs font-bold px-6 py-2 tracking-widest">
                 {partner.label}
               </span>
-              <a href="#" className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="w-32 h-20 flex-shrink-0 bg-secondary flex items-center justify-center p-4">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-xl font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {partner.name}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {partner.description}
-                  </p>
-                </div>
-              </a>
             </div>
-          ))}
+
+            {/* Logo Card */}
+            <div className="bg-white shadow-md flex justify-center items-center py-6">
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                className="h-12 object-contain"
+              />
+            </div>
+
+            {/* Description */}
+            <div className="bg-red-600 text-white px-8 py-8 text-sm leading-relaxed">
+              {partner.description}
+            </div>
+          </div>
+        ))}
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <a
+            href="#"
+            className="bg-red-600 text-white font-bold px-8 py-3 uppercase tracking-wide hover:bg-red-700 transition"
+          >
+            Become a Partner
+          </a>
+
+          <a
+            href="/partners"
+            className="text-red-600 font-semibold flex items-center gap-2 hover:underline"
+          >
+            See all our partners
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
 
-        {/* Partner CTAs */}
-        <div className="flex flex-wrap gap-4 justify-center mt-12">
-          <a href="#" className="btn-primary flex items-center gap-2">
-            <span>Become a Partner</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
-          <a href="#" className="btn-outline flex items-center gap-2">
-            <span>See all our partners</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
+        {/* Bottom partners strip */}
+        <div className="bg-white py-8 px-6 shadow-sm" style={{borderRadius:"20px"}}>
+          <div className="flex flex-wrap items-center justify-center gap-10">
+            <img src="/logos/img.png" style={{width:"100%",height:100}} />
+           
+          </div>
         </div>
       </div>
     </section>
