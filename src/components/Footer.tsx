@@ -4,7 +4,7 @@ import TILLogo from "./TILLogo";
 const footerLinks = {
   club: [
     { label: "About Tromsø IL", href: "#" },
-    { label: "Contact Us", href: "#" },
+    { label: "Contact Us", href: "/Contact-us" },
     { label: "Careers", href: "#" },
     { label: "Privacy Policy", href: "#" },
   ],

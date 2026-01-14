@@ -4,58 +4,69 @@ const ContactDetails = () => {
   return (
     <div
       style={{
-        maxWidth: "450px",
-        margin: "20px auto",
-        padding: "15px",
-        borderRadius: "10px",
-        boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-        background: "#f9f9f9",
-        // textAlign: "center",
-        fontFamily: "Arial, sans-serif",
+        maxWidth: "480px",
+        width:"100%",
+        margin: "30px auto",
+        padding: "20px",
+        borderRadius: "12px",
+        boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
+        background: "#ffffff",
+        fontFamily: "Inter, Arial, sans-serif",
       }}
     >
-      <h3 style={{ color: "#e63333", marginBottom: "10px" }}>📞 Contact Us</h3>
-      <img 
-          src="/contact.jpg" 
-          alt=" Nørresundbyfb Idrettspark - Nordic Stadiums" 
-          className="club-image"
-          style={{maxWidth:"100%",borderRadius:5}}
-        />
-      {/* Main Contact Email */}
-    
-
-      {/* Support Email */}
-      <p>
-        <MdEmail color="#e63333" size={20} />{" "}
-        <a
-          href="mailto:support@tromsoil.com "
-          style={{ color: "#e63333", textDecoration: "none", fontWeight: "bold" }}
-        >
-          support@tromsoil.com 
-        </a>
-      </p>
-
-      {/* Address */}
-      <p>
-        <MdLocationOn color="#e63333" size={20} />{" "}
-        <span style={{ fontWeight: "bold", color: "#333" }}>
-       Voerbjergvej 42, 9400 Nørresundby, Denmark
+      {/* Header */}
+      <h3
+        style={{
+          color: "#c62828",
+          marginBottom: "16px",
+          fontSize: "20px",
+          fontWeight: 700,
+          borderBottom: "2px solid #f0f0f0",
+          paddingBottom: "8px",
+        }}
+      >
+        Contact Us
+      </h3>
 
 
-        </span>
-      </p>
 
-      {/* Ground */}
-      <p>
-        <MdSportsSoccer color="#e63333" size={20} />{" "}
-        <span style={{ fontWeight: "bold", color: "#333" }}>
-          Home Ground : Nordjyske Bank Arena
-Nørresundby, Aalborg, Denmark
+      {/* Contact Items */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        {/* Support Email */}
+        <div style={rowStyle}>
+          <MdEmail size={18} color="#c62828" />
+          <a href="mailto:support@tromsoil.com" style={linkStyle}>
+            support@tromsoil.com
+          </a>
+        </div>
 
-        </span>
-      </p>
+        {/* General Email */}
+        <div style={rowStyle}>
+          <MdEmail size={18} color="#c62828" />
+          <a href="mailto:post@tromsoil.com" style={linkStyle}>
+            post@tromsoil.com
+          </a>
+        </div>
+      </div>
     </div>
   );
+};
+
+const rowStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  padding: "10px 12px",
+  background: "#fafafa",
+  borderRadius: "8px",
+  border: "1px solid #eee",
+};
+
+const linkStyle: React.CSSProperties = {
+  color: "#c62828",
+  textDecoration: "none",
+  fontWeight: 600,
+  fontSize: "14px",
 };
 
 export default ContactDetails;

@@ -29,6 +29,7 @@ import Results from "./pages/Results";
 import Stadium from "./pages/Stadium";
 import About from "./pages/About";
 import Payment from "./pages/Payment";
+import ContactUs from "./landingpage/componets/ContactUs";
 
 const queryClient = new QueryClient();
 
@@ -53,7 +54,7 @@ const App = () => (
             <Route path="/results" element={<Results />} />
             <Route path="/stadium" element={<Stadium />} />
             <Route path="/about" element={<About />} />
-            
+            <Route path="/Contact-us" element={<ContactUs />} />
             {/* Football Schools */}
             <Route path="/football-schools" element={<FootballSchools />} />
             <Route path="/football-schools/coach-development" element={<CoachDevelopment />} />
