@@ -276,7 +276,7 @@ const dispatch=useDispatch();
           {["validVisa", "euPassport", "dietaryRestrictions", "dietaryDetails", "emergencyContactName", "emergencyContactPhone", "emergencyContactRelation", "needAirportPickup"].map((key) => (
             <TextField
               key={key}
-              label={key.replace(/([A-Z])/g, " $1")}
+              label={key==="validVisa"  ?"Valid Visa to Norway": key.replace(/([A-Z])/g, " $1")}
               value={getValue(formData[key as keyof ApplicationProps])}
               fullWidth
               margin="dense"
@@ -307,9 +307,12 @@ const dispatch=useDispatch();
         <Box mb={3}>
           {(["passportDataPageUrl", "bioDataUrl", "sponsorshipFormUrl"] as (keyof ApplicationProps)[]).map((key) => (
             <Box mb={2} key={key}>
-              <Typography variant="subtitle2" gutterBottom>
-                {key.replace(/([A-Z])/g, " $1")}
-              </Typography>
+    <Typography variant="subtitle2" gutterBottom>
+      {key
+        .replace(/Url$/, "") // remove "Url"
+        .replace(/([A-Z])/g, " $1") // add space before capitals
+        .trim()}
+    </Typography>
 
               {/* Upload Button */}
               <Button

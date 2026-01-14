@@ -110,15 +110,15 @@ const PaymentForm = () => {
                 PAYMENT UNAVAILABLE
               </h5>
               <p className="text-sm text-gray-600 mt-2">
-                Payment is currently not available in your country. Please
-                contact our local agent through our PIS Portal, or email {" "}
-                <a
+               Payment is currently unavailable in your country at this time.
+Please contact your local agent to make the payment through our PIS Portal, or email    <a
                   href="mailto:support@tromsoil.com"
                   className="text-blue-600 underline"
                 >
                   support@tromsoil.com 
-                </a>
-                {" "} for assistance. 
+                </a> for assistance.
+
+             
               </p>
             </div>
 
