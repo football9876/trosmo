@@ -56,7 +56,7 @@ const PartnerSection = () => {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a
-            href="#"
+            href="mailto:support@tromsoil.com"
             className="bg-red-600 text-white font-bold px-8 py-3 uppercase tracking-wide hover:bg-red-700 transition"
           >
             Become a Partner

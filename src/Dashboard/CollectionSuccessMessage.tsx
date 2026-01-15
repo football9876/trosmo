@@ -2,6 +2,7 @@
 import {MDBBtn} from "mdb-react-ui-kit";
 import { useDispatch } from "react-redux";
 import { setCurrentPage } from "../store/Slice";
+import { Button } from "@mui/material";
 
 interface props{
   onMakePayment:()=>void
@@ -25,14 +26,14 @@ const SuccessConfirmation: React.FC<props> = ({onMakePayment}) => {
         </div>
         <hr />
 
-        <p><strong>Note:</strong> If you are picked to play with our squad in a competition during the course of your trial with <strong> Nørresundbyfb</strong>, you are <strong>not entitled</strong> to full player benefits and allowance.</p>
+        <p><strong>Note:</strong> If you are picked to play with our squad in a competition during the course of your trial with <strong> TROMSO IL</strong>, you are <strong>not entitled</strong> to full player benefits and allowance.</p>
 
-        <MDBBtn rounded color="primary" style={{ width: "100%", marginTop: "10px",background:"var(--blue)" }} onClick={() => {
+        <Button color="primary" style={{ width: "100%", marginTop: "10px",background:"var(--blue)" }} onClick={() => {
         dispatch(setCurrentPage("/payment"))
         onMakePayment()
         }}>
           CLICK HERE TO MAKE PAYMENT
-        </MDBBtn>
+        </Button>
       </div>
   );
 };

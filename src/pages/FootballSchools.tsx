@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useBlogs from "@/hooks/useBlogs";
 import { useMemo } from "react";
 import moment from "moment";
@@ -39,6 +39,7 @@ const schools = [
 
 const FootballSchools = () => {
     const {blogs,loading}=useBlogs();
+      const navigate=useNavigate();
     const schools=useMemo(() => {
       return blogs.slice(0,6).map((e)=>{
         return {
@@ -94,7 +95,11 @@ const FootballSchools = () => {
                 <p className="text-muted-foreground">
                   {truncateString(school.description, 200) ||school.description}
                 </p>
-                <div className="mt-4 flex items-center text-primary font-semibold">
+                <div 
+                onClick={()=>{
+            navigate("/tickets")
+          }} 
+                 className="mt-4 flex items-center text-primary font-semibold">
                   Read more
                   <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

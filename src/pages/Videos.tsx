@@ -123,6 +123,7 @@ const Videos = () => {
     }
   };
 
+  const [userSelected, setUserSelected]=useState<boolean>(false);
   const handleOpenNew = () => {
     if (selectedVideo) {
       window.open(selectedVideo.url, '_blank');
@@ -184,8 +185,9 @@ const Videos = () => {
             <div className="relative aspect-video max-w-4xl mx-auto rounded-lg overflow-hidden bg-black">
               <video
                 controls
+                autoPlay={userSelected}
                 className="w-full h-full"
-                poster={selectedVideo.thumbnail}
+                // poster={selectedVideo.thumbnail}
                 src={selectedVideo.url}
               >
                 Your browser does not support the video tag.
@@ -230,14 +232,24 @@ const Videos = () => {
             {videosWithThumbnails.map((video) => (
               <div
                 key={video.id}
-                onClick={() => setSelectedVideo(video)}
+                onClick={() => {
+                  if(window.innerWidth < 768){
+                  window.open(video.url, '_blank');
+
+                  }
+                  else{
+                  setSelectedVideo(video);
+                  window.scrollTo(0, 400);
+                  setUserSelected(true);
+                  }
+                }}
                 className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow cursor-pointer group"
               >
                 <div className="relative aspect-video">
-                  <img
-                    src={video.thumbnail}
+                  <video
+                    src={video.url}
                     style={{backgroundColor:"black"}}
-                    alt={video.title}
+                    // alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                   <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

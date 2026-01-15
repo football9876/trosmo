@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import seasonTicketImg from "@/assets/season-ticket.jpg";
 import volunteersImg from "@/assets/volunteers.jpg";
+import { useNavigate } from "react-router-dom";
 
 interface CTACardProps {
   image: string;
@@ -10,6 +11,7 @@ interface CTACardProps {
 }
 
 const CTACard = ({ image, title, description, href = "#" }: CTACardProps) => {
+  const navigate=useNavigate();
   return (
     <a
       href={href}
@@ -29,7 +31,10 @@ const CTACard = ({ image, title, description, href = "#" }: CTACardProps) => {
           <p className="text-primary-foreground/80 mb-4 line-clamp-2">
             {description}
           </p>
-          <div className="flex items-center gap-2 text-primary-foreground font-heading font-semibold uppercase tracking-wide">
+          <div onClick={()=>{
+           
+            // navigate("/tickets")
+          }} className="flex items-center gap-2 text-primary-foreground font-heading font-semibold uppercase tracking-wide">
             <span>Read more</span>
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
           </div>
@@ -46,11 +51,13 @@ const CTASection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           <CTACard
             image={seasonTicketImg}
+            href='/tickets'
             title="Buy Season Ticket - Your Regular Seat"
             description="In 2026 you can choose between season tickets, combo passes, or TIL+ season ticket subscriptions. Early bird - better price!"
           />
           <CTACard
             image={volunteersImg}
+            href="mailto:support@tromsoil.com"
             title="Become a Volunteer!"
             description="Tromsø IL is built on volunteering and we are continuously looking for new family members."
           />

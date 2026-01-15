@@ -1,9 +1,13 @@
 
+import { setCurrentPage } from "@/store/Slice";
+import { Button } from "@mui/material";
 import {MDBBtn} from "mdb-react-ui-kit";
+import { useDispatch } from "react-redux";
 
 
 
 const SuccessConfirmation: React.FC = () => {
+  const dispatch=useDispatch();
   return (
    <div style={{width:"100%",padding:16}}>
     <div className="flex items-center justify-center">
@@ -19,11 +23,13 @@ const SuccessConfirmation: React.FC = () => {
         </div>
         <hr />
 
-        <p><strong>Note:</strong> If you are picked to play with our squad in a competition during the course of your trial with <strong> Nørresundbyfb </strong>, you are <strong>not entitled</strong> to full player benefits and allowance.</p>
+        <p><strong>Note:</strong> If you are picked to play with our squad in a competition during the course of your trial with <strong>TROMSO IL </strong>, you are <strong>not entitled</strong> to full player benefits and allowance.</p>
 
-        <MDBBtn rounded color="primary" style={{ width: "100%", marginTop: "10px",background:"var(--blue)" }} onClick={() => window.open("https://payment-link.com", "_blank")}>
+        <Button color="primary" style={{ width: "100%", marginTop: "10px",background:"var(--blue)" }} onClick={() => {
+          dispatch(setCurrentPage("/payment"))
+        }}>
           CLICK HERE TO MAKE PAYMENT
-        </MDBBtn>
+        </Button>
       </div>
   );
 };
