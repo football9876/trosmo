@@ -111,7 +111,7 @@ const Team = () => {
       {/* Hero Section */}
       <div className="relative h-[300px] md:h-[400px] bg-primary">
         <img
-          src="https://www.til.no/lag/_/image/7e283e1f-277f-4817-b849-eb3ec4925c51:8850d9399324eac8517d846057de8f434085451e/-1-1/4H4A9970.JPG"
+          src="/hero2.jpeg"
           alt="Team"
           className="w-full h-full object-cover"
         />
