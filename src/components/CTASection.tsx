@@ -35,7 +35,7 @@ const CTACard = ({ image, title, description, href = "#" }: CTACardProps) => {
            
             // navigate("/tickets")
           }} className="flex items-center gap-2 text-primary-foreground font-heading font-semibold uppercase tracking-wide">
-            <span>Read more</span>
+            <span>{href=='/tickets' ? "Buy tickets": href=="mailto:support@tromsoil.com"? "Join":"Read more"}</span>
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
           </div>
         </div>
