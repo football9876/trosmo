@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Play, Download, Share2, ExternalLink } from "lucide-react";
 import { useVideos } from "@/hooks/useVideos";
+import { Box, IconButton, Modal } from "@mui/material";
+import { MdClose } from "react-icons/md";
 
 // Helper function to generate thumbnail from video URL
 const generateThumbnail = (videoUrl: string): Promise<string> => {
@@ -103,6 +105,7 @@ const Videos = () => {
       link.click();
     }
   };
+const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleShare = async () => {
     if (selectedVideo) {
@@ -234,8 +237,9 @@ const Videos = () => {
                 key={video.id}
                 onClick={() => {
                   if(window.innerWidth < 768){
-                  window.open(video.url, '_blank');
-
+  setSelectedVideo(video);
+  setMobileOpen(true);
+  setUserSelected(true);
                   }
                   else{
                   setSelectedVideo(video);
@@ -273,6 +277,55 @@ const Videos = () => {
           </div>
         </div>
       </div>
+
+
+
+
+<Modal open={mobileOpen} onClose={() => setMobileOpen(false)}>
+  <Box
+    sx={{
+      width: "100vw",
+      height: "100vh",
+      bgcolor: "black",
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+    }}
+  >
+    {/* Close button */}
+    <IconButton
+      onClick={() => setMobileOpen(false)}
+      sx={{
+        position: "absolute",
+        top: 10,
+        right: 10,
+        zIndex: 10,
+        color: "white",
+      }}
+    >
+      <MdClose />
+    </IconButton>
+
+    {/* Video */}
+    {selectedVideo && (
+      <video
+        src={selectedVideo.url}
+        controls
+        autoPlay
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          backgroundColor: "black",
+        }}
+      />
+    )}
+  </Box>
+</Modal>
+
+
+
+
 
       <Footer />
     </div>
