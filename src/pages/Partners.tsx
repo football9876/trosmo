@@ -70,7 +70,7 @@ const Partners = () => {
           <p className="text-xl text-muted-foreground mb-6">
             Tromsø IL offers a wide range of commercial opportunities for your business.
           </p>
-          <Button size="lg" onClick={() => window.open('#', '_blank')}>
+          <Button size="lg" onClick={() => window.open('mailto: support@tromsoil.com', '_blank')}>
             Click Here to Be Contacted
           </Button>
         </div>
